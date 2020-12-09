@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1034094350625",
+    "project_id": "yescredit-project",
+    "storage_bucket": "yescredit-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034094350625:android:f691ef9d335c6edafc2e60",
+        "android_client_info": {
+          "package_name": "cs.collaboration.yescredit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034094350625-ij6urp74klnbgnhjp8e23qvk7bsq0gv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtDtsk6pZBqRKXzjJc3-hDYsVnBiyy4cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034094350625-ij6urp74klnbgnhjp8e23qvk7bsq0gv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
