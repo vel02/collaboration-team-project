@@ -2,7 +2,10 @@ package cs.collaboration.yescredit.di;
 
 import cs.collaboration.yescredit.di.ui.login.LoginModule;
 import cs.collaboration.yescredit.di.ui.login.LoginViewModelModule;
+import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
+import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
 import cs.collaboration.yescredit.ui.login.LoginActivity;
+import cs.collaboration.yescredit.ui.signup.SignUpActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -16,4 +19,12 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract LoginActivity contributeLoginActivity();
+
+    @ContributesAndroidInjector(
+            modules = {
+                    SignUpViewModelModule.class,
+                    SignUpModule.class
+            }
+    )
+    abstract SignUpActivity contributeSignUpActivity();
 }

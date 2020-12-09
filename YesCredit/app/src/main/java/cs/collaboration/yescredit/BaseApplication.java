@@ -9,6 +9,7 @@ public class BaseApplication extends DaggerApplication {
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         return DaggerAppComponent.builder().application(this)
                 .loginActivity(R.layout.activity_login)
+                .signUpActivity(R.layout.activity_sign_up)
                 .build();
     }
 }
