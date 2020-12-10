@@ -1,9 +1,11 @@
 package cs.collaboration.yescredit.ui.faq;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,6 +17,8 @@ import cs.collaboration.yescredit.databinding.ActivityFaqBinding;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class FaqActivity extends BaseActivity {
+
+    private static final String TAG = "FaqActivity";
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -59,5 +63,14 @@ public class FaqActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         checkAuthenticationState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

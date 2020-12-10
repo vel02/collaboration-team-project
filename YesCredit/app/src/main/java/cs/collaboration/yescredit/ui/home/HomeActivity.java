@@ -65,7 +65,6 @@ public class HomeActivity extends BaseActivity {
         binding.contentHome.homeContentCardFaqs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "FAQs", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, FaqActivity.class);
                 startActivity(intent);
             }
