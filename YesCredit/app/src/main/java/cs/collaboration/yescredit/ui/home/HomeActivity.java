@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class HomeActivity extends DaggerAppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -24,6 +24,12 @@ public class HomeActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this, providerFactory).get(HomeViewModel.class);
+        
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAuthenticationState();
     }
 }

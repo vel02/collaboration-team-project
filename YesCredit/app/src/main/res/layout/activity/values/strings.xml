@@ -11,4 +11,12 @@
     <string name="signup_content_email_registration_label">Email Registration</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="register_label">Register</string>
+    <string name="desc_existing_loan_status">Existing Loan Status</string>
+    <string name="existing_loan_status_label">Existing Loan Status</string>
+    <string name="desc_allowable_loan">Allowable Loan</string>
+    <string name="allowable_loan_label">Allowable Loan</string>
+    <string name="desc_apply_loan">Apply Loan</string>
+    <string name="apply_loan_label">Apply Loan</string>
+    <string name="desc_referral">Referral</string>
+    <string name="faqs_label">FAQs</string>
 </resources>
