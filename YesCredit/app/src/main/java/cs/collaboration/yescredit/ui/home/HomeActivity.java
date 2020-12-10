@@ -2,14 +2,20 @@ package cs.collaboration.yescredit.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -76,5 +82,21 @@ public class HomeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         checkAuthenticationState();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_sign_out) {
+            FirebaseAuth.getInstance().signOut();
+            checkAuthenticationState();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
