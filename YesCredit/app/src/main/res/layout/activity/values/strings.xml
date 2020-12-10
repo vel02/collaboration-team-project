@@ -8,4 +8,7 @@
     <string name="login_content_new_user_label">New User?</string>
     <string name="login_content_sign_up_label">Sign Up</string>
     <string name="desc_login_background_logo">Login Background Logo</string>
+    <string name="signup_content_email_registration_label">Email Registration</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="register_label">Register</string>
 </resources>
