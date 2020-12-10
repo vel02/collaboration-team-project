@@ -31,8 +31,9 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
-                    'src/main/res/layout/activity',
-                    'src/main/res/layout/design',
+                    'src/main/res/layout/activities',
+                    'src/main/res/layout/designs',
+                    'src/main/res/layout/dialog',
                     'src/main/res/layout/item',
                     'src/main/res/layout',
                     'src/main/res'
