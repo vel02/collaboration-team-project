@@ -20,4 +20,9 @@
     <string name="desc_referral">Referral</string>
     <string name="faqs_label">FAQs</string>
     <string name="referral_label">Referral</string>
+    <string name="faq_label">FAQs</string>
+    <string name="how_can_we_help_you_label">How can we help you?</string>
+    <string name="question_1_label">Question 1:</string>
+    <string name="question_2_label">Question 2:</string>
+    <string name="question_3_label">Question 3:</string>
 </resources>

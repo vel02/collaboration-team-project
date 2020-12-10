@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
+import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class HomeActivity extends BaseActivity {
@@ -64,6 +66,8 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "FAQs", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, FaqActivity.class);
+                startActivity(intent);
             }
         });
 
