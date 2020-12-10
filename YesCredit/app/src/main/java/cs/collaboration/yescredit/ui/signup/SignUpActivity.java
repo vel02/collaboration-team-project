@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
@@ -18,6 +17,7 @@ import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerAppCompatActivity;
 
 import static android.text.TextUtils.isEmpty;
+import static cs.collaboration.yescredit.util.Utility.hideSoftKeyboard;
 
 public class SignUpActivity extends DaggerAppCompatActivity {
 
@@ -74,7 +74,7 @@ public class SignUpActivity extends DaggerAppCompatActivity {
             }
         });
 
-        hideSoftKeyboard();
+        hideSoftKeyboard(this);
     }
 
 
@@ -131,8 +131,5 @@ public class SignUpActivity extends DaggerAppCompatActivity {
             binding.contentSignup.progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void hideSoftKeyboard() {
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
 
 }
