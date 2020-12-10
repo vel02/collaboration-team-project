@@ -22,4 +22,7 @@
     <style name="Theme.YesCredit.AppBarOverlay" parent="Theme.MaterialComponents.DayNight.DarkActionBar" />
 
     <style name="Theme.YesCredit.PopupOverlay" parent="Theme.AppCompat.Light" />
+
+    <style name="RoundedCornersDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog" />
+
 </resources>

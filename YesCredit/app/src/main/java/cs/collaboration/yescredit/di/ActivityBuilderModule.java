@@ -4,6 +4,7 @@ import cs.collaboration.yescredit.di.ui.faq.FaqModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqViewModelModule;
 import cs.collaboration.yescredit.di.ui.home.HomeModule;
 import cs.collaboration.yescredit.di.ui.home.HomeViewModelModule;
+import cs.collaboration.yescredit.di.ui.login.LoginDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.login.LoginModule;
 import cs.collaboration.yescredit.di.ui.login.LoginViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
@@ -20,6 +21,7 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(
             modules = {
+                    LoginDialogBuilderModule.class,
                     LoginViewModelModule.class,
                     LoginModule.class
             }

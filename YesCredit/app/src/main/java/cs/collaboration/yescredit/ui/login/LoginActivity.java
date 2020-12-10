@@ -13,12 +13,14 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.databinding.ActivityLoginBinding;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
+import cs.collaboration.yescredit.ui.login.dialog.PasswordResetDialog;
 import cs.collaboration.yescredit.ui.signup.SignUpActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerAppCompatActivity;
 
 import static android.text.TextUtils.isEmpty;
 import static cs.collaboration.yescredit.ui.login.LoginViewModel.Screen;
+import static cs.collaboration.yescredit.ui.login.LoginViewModel.Screen.FORGOT_PASSWORD;
 import static cs.collaboration.yescredit.ui.login.LoginViewModel.Screen.SIGN_UP;
 import static cs.collaboration.yescredit.ui.login.LoginViewModel.State;
 import static cs.collaboration.yescredit.util.Utility.hideSoftKeyboard;
@@ -74,6 +76,10 @@ public class LoginActivity extends DaggerAppCompatActivity {
                 viewModel.setScreenState(SIGN_UP);
             }
         });
+
+        binding.contentLogin.loginContentForgotPassword.setOnClickListener(v -> {
+            viewModel.setScreenState(FORGOT_PASSWORD);
+        });
     }
 
     private void subscribeObservers() {
@@ -95,6 +101,8 @@ public class LoginActivity extends DaggerAppCompatActivity {
                             startActivity(intent);
                             break;
                         case FORGOT_PASSWORD:
+                            PasswordResetDialog dialog = new PasswordResetDialog();
+                            dialog.show(getSupportFragmentManager(), "password_reset_dialog");
                             break;
                     }
                 }
