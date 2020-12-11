@@ -12,170 +12,179 @@
         android:background="@drawable/photo_home_background"
         android:padding="24dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/white"
-            android:padding="16dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            android:fitsSystemWindows="true"
+            app:cardCornerRadius="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/content_faq_logo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="24dp"
-                android:src="@drawable/ic_faq"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/content_faq_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/how_can_we_help_you_label"
-                android:textColor="@color/basic_color"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/content_faq_logo"
-                app:layout_constraintStart_toEndOf="@id/content_faq_logo"
-                app:layout_constraintTop_toTopOf="@+id/content_faq_logo" />
-
-            <TextView
-                android:id="@+id/content_faq_divider"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/solid"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_faq_logo" />
-
-            <TextView
-                android:id="@+id/content_faq_question_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/question_1_label"
-                android:textColor="@color/solid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_faq_divider" />
-
-            <Button
-                android:id="@+id/content_faq_question_one_dropdown"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/content_faq_question_one" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/content_faq_question_one_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_faq_question_one">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Ako ang sagot sa tanong, palag?"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <ImageView
+                    android:id="@+id/content_faq_logo"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="24dp"
+                    android:contentDescription="@string/desc_faqs_logo"
+                    android:src="@drawable/ic_faq"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/content_faq_question_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/question_2_label"
-                android:textColor="@color/solid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_faq_question_one_content" />
-
-            <Button
-                android:id="@+id/content_faq_question_two_dropdown"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_two"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/content_faq_question_two" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/content_faq_question_two_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_faq_question_two">
+                <TextView
+                    android:id="@+id/content_faq_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/how_can_we_help_you_label"
+                    android:textColor="@color/solid"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/content_faq_logo"
+                    app:layout_constraintStart_toEndOf="@id/content_faq_logo"
+                    app:layout_constraintTop_toTopOf="@+id/content_faq_logo" />
 
                 <TextView
+                    android:id="@+id/content_faq_divider"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Ako ang sagot sa tanong, palag?"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/solid"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/content_faq_question_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_3_label"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/solid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_faq_question_two_content" />
-
-            <Button
-                android:id="@+id/content_faq_question_three_dropdown"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_three"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/content_faq_question_three" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/content_faq_question_three_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_faq_question_three">
+                    app:layout_constraintTop_toBottomOf="@id/content_faq_logo" />
 
                 <TextView
+                    android:id="@+id/content_faq_question_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/question_1_label"
+                    android:textColor="@color/solid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/content_faq_divider" />
+
+                <Button
+                    android:id="@+id/content_faq_question_one_dropdown"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_one"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/content_faq_question_one" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_faq_question_one_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Ako ang sagot sa tanong, palag?"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/content_faq_question_one">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ako ang sagot sa tanong, palag?"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/content_faq_question_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/question_2_label"
+                    android:textColor="@color/solid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content_faq_question_one_content" />
+
+                <Button
+                    android:id="@+id/content_faq_question_two_dropdown"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_two"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/content_faq_question_two" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_faq_question_two_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content_faq_question_two">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ako ang sagot sa tanong, palag?"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/content_faq_question_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/question_3_label"
+                    android:textColor="@color/solid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content_faq_question_two_content" />
+
+                <Button
+                    android:id="@+id/content_faq_question_three_dropdown"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/content_faq_question_three"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/content_faq_question_three" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_faq_question_three_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content_faq_question_three">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ako ang sagot sa tanong, palag?"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
