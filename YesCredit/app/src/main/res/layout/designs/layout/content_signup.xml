@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:padding="16dp">
 
         <TextView
@@ -19,7 +20,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/signup_content_email_registration_label"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/basic_color"
+            android:textColor="@color/solid"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +74,10 @@
 
         <Button
             android:id="@+id/signup_content_register_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@color/basic_color"
+            android:background="@drawable/button_round_corner"
             android:text="@string/register_label"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,14 +87,14 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/signup_content_register_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/signup_content_email_registration_label" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
