@@ -30,4 +30,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reset_password_label">Reset Password</string>
     <string name="confirm_label">Confirm</string>
+    <string name="invite">Invite your friends and earn discounts for the first successful loan they pay back!</string>
+    <string name="link">(Link)</string>
+    <string name="generate_link">Generate Link</string>
+    <string name="desc_referral_photo">Referral Photo</string>
+
 </resources>

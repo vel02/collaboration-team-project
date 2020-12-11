@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="basic_color">#4cd0d0</color>
+    <color name="card_referral">#eae0e0</color>
 </resources>
