@@ -2,8 +2,12 @@ package cs.collaboration.yescredit.ui.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
@@ -11,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivitySignUpBinding;
 import cs.collaboration.yescredit.ui.login.LoginActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -77,6 +82,25 @@ public class SignUpActivity extends DaggerAppCompatActivity {
         hideSoftKeyboard(this);
     }
 
+    public void showHidePass(View view) {
+        if (view.getId() == binding.contentSignup.signupContentShowHidePass.getId()) {
+            showHide(view, binding.contentSignup.signupContentPassword);
+        } else if (view.getId() == binding.contentSignup.signupContentShowHideConfirmPass.getId()) {
+            showHide(view, binding.contentSignup.signupContentConfirmPassword);
+        }
+    }
+
+    private void showHide(View view, EditText editText) {
+        if (editText.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+            ((ImageView) (view)).setImageResource(R.drawable.ic_show_password);
+            //Show Password
+            editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            ((ImageView) (view)).setImageResource(R.drawable.ic_hide_password);
+            //Hide Password
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+    }
 
     private void subscribeObservers() {
         viewModel.observeProgressBarState().observe(this, new Observer<SignUpViewModel.State>() {

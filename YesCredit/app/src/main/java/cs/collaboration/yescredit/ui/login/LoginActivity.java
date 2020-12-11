@@ -130,14 +130,14 @@ public class LoginActivity extends DaggerAppCompatActivity {
         });
     }
 
-    public void ShowHidePass(View view) {
+    public void showHidePass(View view) {
         if (view.getId() == binding.contentLogin.contentLoginShowHidePass.getId()) {
             if (binding.contentLogin.loginContentPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
-                ((ImageView) (view)).setImageResource(R.drawable.ic_hide_password);
+                ((ImageView) (view)).setImageResource(R.drawable.ic_show_password);
                 //Show Password
                 binding.contentLogin.loginContentPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             } else {
-                ((ImageView) (view)).setImageResource(R.drawable.ic_show_password);
+                ((ImageView) (view)).setImageResource(R.drawable.ic_hide_password);
                 //Hide Password
                 binding.contentLogin.loginContentPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
