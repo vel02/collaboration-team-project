@@ -69,6 +69,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_content_email" />
 
+
+        <ImageView
+            android:id="@+id/content_login_show_hide_pass"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:alpha=".5"
+            android:contentDescription="@string/desc_show_and_hide_password"
+            android:onClick="ShowHidePass"
+            android:src="@drawable/ic_hide_password"
+            app:layout_constraintBottom_toBottomOf="@+id/login_content_password"
+            app:layout_constraintEnd_toEndOf="@+id/login_content_password"
+            app:layout_constraintTop_toTopOf="@+id/login_content_password" />
+
+
         <TextView
             android:id="@+id/login_content_forgot_password"
             android:layout_width="wrap_content"

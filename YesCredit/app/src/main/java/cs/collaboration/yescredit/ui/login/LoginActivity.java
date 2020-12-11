@@ -2,8 +2,11 @@ package cs.collaboration.yescredit.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
@@ -11,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityLoginBinding;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
 import cs.collaboration.yescredit.ui.login.dialog.PasswordResetDialog;
@@ -124,6 +128,20 @@ public class LoginActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+    }
+
+    public void ShowHidePass(View view) {
+        if (view.getId() == binding.contentLogin.contentLoginShowHidePass.getId()) {
+            if (binding.contentLogin.loginContentPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                ((ImageView) (view)).setImageResource(R.drawable.ic_hide_password);
+                //Show Password
+                binding.contentLogin.loginContentPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                ((ImageView) (view)).setImageResource(R.drawable.ic_show_password);
+                //Hide Password
+                binding.contentLogin.loginContentPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
     }
 
     private void showDialog() {

@@ -34,5 +34,6 @@
     <string name="link">(Link)</string>
     <string name="generate_link">Generate Link</string>
     <string name="desc_referral_photo">Referral Photo</string>
+    <string name="desc_show_and_hide_password">Show and Hide Password</string>
 
 </resources>
