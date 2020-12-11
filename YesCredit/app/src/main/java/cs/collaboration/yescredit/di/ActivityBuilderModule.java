@@ -7,11 +7,14 @@ import cs.collaboration.yescredit.di.ui.home.HomeViewModelModule;
 import cs.collaboration.yescredit.di.ui.login.LoginDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.login.LoginModule;
 import cs.collaboration.yescredit.di.ui.login.LoginViewModelModule;
+import cs.collaboration.yescredit.di.ui.referral.ReferralModule;
+import cs.collaboration.yescredit.di.ui.referral.ReferralViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
 import cs.collaboration.yescredit.ui.login.LoginActivity;
+import cs.collaboration.yescredit.ui.referral.ReferralActivity;
 import cs.collaboration.yescredit.ui.signup.SignUpActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -51,4 +54,12 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract FaqActivity contributeFaqActivity();
+
+    @ContributesAndroidInjector(
+            modules = {
+                    ReferralViewModelModule.class,
+                    ReferralModule.class
+            }
+    )
+    abstract ReferralActivity contributeReferralActivity();
 }

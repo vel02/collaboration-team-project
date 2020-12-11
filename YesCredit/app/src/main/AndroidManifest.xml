@@ -11,6 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YesCredit">
         <activity
+            android:name=".ui.referral.ReferralActivity"
+            android:label="@string/referral_label"
+            android:parentActivityName=".ui.referral.ReferralActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.referral.ReferralActivity" />
+        </activity>
+        <activity
             android:name=".ui.faq.FaqActivity"
             android:label="@string/faq_label"
             android:parentActivityName=".ui.home.HomeActivity">

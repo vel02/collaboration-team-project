@@ -18,6 +18,7 @@ import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
+import cs.collaboration.yescredit.ui.referral.ReferralActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class HomeActivity extends BaseActivity {
@@ -64,7 +65,8 @@ public class HomeActivity extends BaseActivity {
         binding.contentHome.homeContentCardReferral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Referral", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, ReferralActivity.class);
+                startActivity(intent);
             }
         });
 
