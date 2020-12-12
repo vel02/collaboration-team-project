@@ -59,6 +59,7 @@ dependencies {
     def firebase_version = "26.1.1"
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
     //reference: https://firebase.google.com/docs/auth/android/start?authuser=1
 
