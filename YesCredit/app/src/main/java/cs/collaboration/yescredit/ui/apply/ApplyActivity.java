@@ -1,7 +1,9 @@
 package cs.collaboration.yescredit.ui.apply;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
@@ -24,5 +26,20 @@ public class ApplyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this, providerFactory).get(ApplyViewModel.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAuthenticationState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

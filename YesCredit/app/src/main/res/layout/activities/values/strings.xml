@@ -37,5 +37,6 @@
     <string name="desc_show_and_hide_password">Show and Hide Password</string>
     <string name="desc_faqs_logo">FAQs Logo</string>
     <string name="database_node_user">user</string>
+    <string name="loan_application_label">Loan Application</string>
 
 </resources>
