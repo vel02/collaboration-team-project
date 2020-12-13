@@ -1,14 +1,16 @@
 package cs.collaboration.yescredit.ui.apply.model;
 
-public class UserInfo {
+import androidx.annotation.NonNull;
+
+public class ApplicationForm {
     private String last_name;
     private String first_name;
     private String middle_name;
     private String gender;
     private String date_of_birth;
 
-    public UserInfo(String last_name, String first_name, String middle_name, String gender,
-                    String date_of_birth) {
+    public ApplicationForm(String last_name, String first_name, String middle_name, String gender,
+                           String date_of_birth) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
@@ -16,12 +18,13 @@ public class UserInfo {
         this.date_of_birth = date_of_birth;
     }
 
-    public UserInfo() {
+    public ApplicationForm() {
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return "UserInfo{" +
+        return "ApplicationForm{" +
                 "last_name='" + last_name + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", middle_name='" + middle_name + '\'' +

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -17,17 +19,21 @@ import java.util.Objects;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
-import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.Inflatable;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
+import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import dagger.android.support.DaggerFragment;
 
 public class StepOneFragment extends DaggerFragment {
 
     private static final String TAG = "StepOneFragment";
 
-    FragmentStepOneBinding binding;
+    private FragmentStepOneBinding binding;
 
-    private Hostable hostable;
+    private Inflatable inflatable;
+
+    private String gender;
+    private String dateOfBirth;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -59,9 +65,41 @@ public class StepOneFragment extends DaggerFragment {
             }
         });
 
-        binding.fragmentOneNext.setOnClickListener(view -> {
-            hostable.onInflate("tag_host");
+        binding.fragmentOneGenderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selected = group.getCheckedRadioButtonId();
+
+                RadioButton button = binding.getRoot().findViewById(selected);
+                gender = button.getTag().toString();
+                Log.d(TAG, "onCheckedChanged: gender: " + gender);
+            }
         });
+
+        binding.fragmentOneNext.setOnClickListener(view -> {
+
+            //fill up user form ....
+            inflatable.onListen(fillUp());
+
+            //call other form ....
+            inflatable.onInflate("tag_host");
+        });
+    }
+
+    private ApplicationForm fillUp() {
+
+        ApplicationForm info = new ApplicationForm();
+        String last_name = binding.fragmentOneLastName.getText().toString();
+        String first_name = binding.fragmentOneFirstName.getText().toString();
+        String middle_name = binding.fragmentOneMiddleName.getText().toString();
+
+        info.setLast_name(last_name);
+        info.setFirst_name(first_name);
+        info.setMiddle_name(middle_name);
+        info.setGender(gender);
+        info.setDate_of_birth(dateOfBirth);
+
+        return info;
     }
 
     public void processDatePickerResult(int year, int month, int day) {
@@ -70,23 +108,24 @@ public class StepOneFragment extends DaggerFragment {
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
         binding.fragmentOneBirthDate.setText(dateMessage);
+        dateOfBirth = dateMessage;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Activity activity = getActivity();
-        if (!(activity instanceof Hostable)) {
+        if (!(activity instanceof Inflatable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
                     + " must implement Hostable interface.");
         }
-        hostable = (Hostable) activity;
+        inflatable = (Inflatable) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        hostable = null;
+        inflatable = null;
     }
 }
