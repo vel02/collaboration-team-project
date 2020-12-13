@@ -38,5 +38,19 @@
     <string name="desc_faqs_logo">FAQs Logo</string>
     <string name="database_node_user">user</string>
     <string name="loan_application_label">Loan Application</string>
+    <string name="last_name_label">Last Name:</string>
+    <string name="first_name_label">First Name:</string>
+    <string name="middle_name_label">Middle Name:</string>
+    <string name="gender_label">Gender:</string>
+    <string name="male_label">Male</string>
+    <string name="female_label">Female</string>
+    <string name="male_tag">Male</string>
+    <string name="female_tag">Female</string>
+    <string name="date_of_birth_label">Date of Birth:</string>
+    <string name="date_format_label">MM/DD/YYYY</string>
+    <string name="next_label">Next</string>
+    <string name="step_1_10_label">Step 1/10</string>
+    <string name="tag_fragment_step_one">tag_fragment_step_one</string>
+    <string name="tag_dialog_fragment_date_picker">tag_dialog_fragment_date_picker</string>
 
 </resources>

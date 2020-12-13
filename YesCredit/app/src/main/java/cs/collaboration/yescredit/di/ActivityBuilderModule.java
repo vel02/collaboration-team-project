@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.di;
 
+import cs.collaboration.yescredit.di.ui.apply.ApplyFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyViewModelModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqModule;
@@ -68,6 +69,7 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(
             modules = {
+                    ApplyFragmentBuilderModule.class,
                     ApplyViewModelModule.class,
                     ApplyModule.class
             }
