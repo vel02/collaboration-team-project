@@ -56,7 +56,7 @@ public class SignUpViewModel extends ViewModel {
                             Log.d(TAG, "onComplete: uid: " + auth.getCurrentUser().getUid());
 
                             sendVerificationEmail();
-                            createNewUserStorage(email);
+                            createNewUserStorage();
 
                         } else {
                             Log.d(TAG, "onComplete: Unable to Register");
@@ -66,14 +66,24 @@ public class SignUpViewModel extends ViewModel {
                 });
     }
 
-    public void createNewUserStorage(String email) {
+    public void createNewUserStorage() {
         FirebaseUser current = auth.getCurrentUser();
         if (current == null) return;
         User user = new User();
-        user.setName(email.substring(0, email.indexOf("@")));
-        user.setPhone("1");
-        user.setProfile_image("");
         user.setUser_id(current.getUid());
+        user.setLast_name("");
+        user.setFirst_name("");
+        user.setMiddle_name("");
+        user.setGender("");
+        user.setDate_of_birth("");
+        user.setStreet_address("");
+        user.setBarangay_address("");
+        user.setCity_address("");
+        user.setProfile_image("");
+        user.setProvince_address("");
+        user.setPostal_address("");
+        user.setGovernment_image("");
+        user.setProfile_image("");
 
         database.getReference()
                 .child(Keys.DATABASE_NODE_USER)
