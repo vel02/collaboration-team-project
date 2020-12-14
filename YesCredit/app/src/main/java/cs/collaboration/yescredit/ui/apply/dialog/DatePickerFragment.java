@@ -11,21 +11,24 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
-import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.ui.apply.ApplyActivity;
-import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragment;
-
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    private static final String TAG = "DatePickerFragment";
+
+
+    private OnDatePickerListener listener;
+
+    public interface OnDatePickerListener {
+        void onProcessDatePickerResult(int year, int month, int day);
+    }
+
+    public void setOnDatePickerListener(OnDatePickerListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        ApplyActivity activity = (ApplyActivity) getActivity();
-        assert activity != null;
-
-        StepOneFragment fragment = (StepOneFragment) activity.getSupportFragmentManager().findFragmentByTag(getString(R.string.tag_fragment_step_one));
-        if (fragment != null) {
-            fragment.processDatePickerResult(year, month, dayOfMonth);
-        }
+        listener.onProcessDatePickerResult(year, month, dayOfMonth);
     }
 
     @NonNull

@@ -2,26 +2,19 @@ package cs.collaboration.yescredit.ui.apply;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.databinding.ActivityApplyBinding;
-import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
-
-import static cs.collaboration.yescredit.ui.apply.ApplyViewModel.Screen.STEP_ONE;
-import static cs.collaboration.yescredit.ui.apply.ApplyViewModel.Screen.STEP_TWO;
 
 public class ApplyActivity extends BaseActivity implements Hostable {
 
@@ -39,11 +32,12 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     }
 
     @Override
-    public void onInflate(String screen) {
+    public void onInflate(View view, String screen) {
         switch (screen) {
             case "tag_fragment_step_two":
                 //government id
-                viewModel.setScreenState(STEP_TWO);
+                NavDirections action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
+                Navigation.findNavController(view).navigate(action);
                 break;
             default:
                 Log.d(TAG, "onInflate: step_one ako nag triggered!");
@@ -55,44 +49,17 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     ViewModelProviderFactory providerFactory;
 
     @Inject
-    ActivityApplyBinding binding;
-
-    @Inject
     SessionManager sessionManager;
 
     private ApplyViewModel viewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_apply);
         viewModel = new ViewModelProvider(this, providerFactory).get(ApplyViewModel.class);
-        viewModel.setScreenState(STEP_ONE);
-        subscribeObservers();
-    }
 
-    private void subscribeObservers() {
-        viewModel.observedScreenState().observe(this, screen -> {
-            Fragment fragment;
-            FragmentTransaction transaction;
-            if (screen != null) {
-                switch (screen) {
-                    case STEP_ONE:
-                        fragment = new StepOneFragment();
-                        transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(binding.contentApply.contentApplyContainer.getId(), fragment, getString(R.string.tag_fragment_step_one));
-                        transaction.addToBackStack(getString(R.string.tag_fragment_step_one));
-                        transaction.commit();
-                        break;
-                    case STEP_TWO:
-                        fragment = new StepTwoFragment();
-                        transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(binding.contentApply.contentApplyContainer.getId(), fragment, getString(R.string.tag_fragment_step_two));
-                        transaction.addToBackStack(getString(R.string.tag_fragment_step_two));
-                        transaction.commit();
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -100,34 +67,4 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         super.onResume();
         checkAuthenticationState();
     }
-
-    private String tag_fragment;
-
-    @Override
-    public void onAttachFragment(@NonNull Fragment fragment) {
-        super.onAttachFragment(fragment);
-        tag_fragment = fragment.getTag();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            FragmentManager manager = getSupportFragmentManager();
-
-            if (manager.getBackStackEntryCount() > 1) {
-                Log.d(TAG, "onOptionsItemSelected: selected on back");
-                manager.popBackStackImmediate();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 }

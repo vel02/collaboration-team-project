@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -120,7 +122,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                 if (storagePermissions) {
                     GovernmentPhotoFragment dialog = new GovernmentPhotoFragment();
                     dialog.setOnPhotoReceived(StepTwoFragment.this);
-                    dialog.show(activity.getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_government_photo));
+                    dialog.show(getActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_government_photo));
                 } else {
                     verifyStoragePermissions();
                 }
@@ -133,7 +135,9 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
 
 
                 //call other form ....
-                Toast.makeText(activity, "NEXT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "NEXT", Toast.LENGTH_SHORT).show();
+                NavDirections action = StepTwoFragmentDirections.actionStepTwoFragmentToStepOneFragment();
+                Navigation.findNavController(v).navigate(action);
 //                hostable.onInflate(getString(R.string.tag_fragment_step_two));
             }
         });
@@ -141,21 +145,21 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
 
     public void verifyStoragePermissions() {
         Log.d(TAG, "verifyPermissions: asking user for permissions.");
-        if (activity == null) return;
+        if (getActivity() == null) return;
 
         String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA};
-        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 permissions[0]) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(activity.getApplicationContext(),
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 permissions[1]) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(activity.getApplicationContext(),
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 permissions[2]) == PackageManager.PERMISSION_GRANTED) {
             storagePermissions = true;
         } else {
             ActivityCompat.requestPermissions(
-                    activity,
+                    getActivity(),
                     permissions,
                     REQUEST_CODE
             );
@@ -209,7 +213,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(activity, "compressing image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "compressing image", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -218,7 +222,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
 
             if (bitmap == null) {
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uris[0]);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uris[0]);
                     Log.d(TAG, "doInBackground: bitmap size: megabytes: " + bitmap.getByteCount() / MB + " MB");
                 } catch (IOException e) {
                     Log.e(TAG, "doInBackground: IOException: ", e.getCause());
@@ -228,7 +232,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
             byte[] bytes = null;
             for (int i = 1; i < 11; i++) {
                 if (i == 10) {
-                    Toast.makeText(activity, "That image is too large.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "That image is too large.", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 bytes = getBytesFromBitmap(bitmap, 100 / i);
@@ -275,7 +279,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                         @Override
                         public void onSuccess(Uri uri) {
                             if (uri != null) {
-                                Toast.makeText(activity, "Upload Success", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
 
                                 //send to session manager.
@@ -287,19 +291,19 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(activity, "could not upload photo", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(activity, "could not upload photo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show();
 
                 }
             });
         } else {
-            Toast.makeText(activity, "Image is too Large", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Image is too Large", Toast.LENGTH_SHORT).show();
         }
     }
 

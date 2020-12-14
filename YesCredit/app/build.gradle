@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -79,4 +80,13 @@ dependencies {
     def image_loader_version = "1.9.5"
     implementation "com.nostra13.universalimageloader:universal-image-loader:$image_loader_version"
     //reference: https://github.com/nostra13/Android-Universal-Image-Loader
+
+    def nav_version = "2.3.2"
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    //reference: https://developer.android.com/guide/navigation/navigation-getting-started
+
+    implementation "androidx.fragment:fragment:1.2.5"
 }

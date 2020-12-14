@@ -13,10 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
-
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -28,7 +25,7 @@ import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import dagger.android.support.DaggerFragment;
 
-public class StepOneFragment extends DaggerFragment {
+public class StepOneFragment extends DaggerFragment implements DatePickerFragment.OnDatePickerListener {
 
     private static final String TAG = "StepOneFragment";
 
@@ -65,8 +62,9 @@ public class StepOneFragment extends DaggerFragment {
                     if (event.getRawX() >= (binding.fragmentOneBirthDate.getRight() - binding.fragmentOneBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         Log.d(TAG, "onTouch: na touch ako sobra!");
-                        DialogFragment dialog = new DatePickerFragment();
-                        dialog.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
+                        DatePickerFragment dialog = new DatePickerFragment();
+                        dialog.setOnDatePickerListener(StepOneFragment.this);
+                        dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
                         return true;
                     }
                 }
@@ -91,13 +89,15 @@ public class StepOneFragment extends DaggerFragment {
             hostable.onFillUp(userInfo());
 
             //call other form ....
-            hostable.onInflate(getString(R.string.tag_fragment_step_two));
+            hostable.onInflate(view, getString(R.string.tag_fragment_step_two));
+
+
         });
     }
 
     private void getUserInfo() {
         Log.d(TAG, "getUserInfo: started");
-//        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
         sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
             @Override
             public void onChanged(ApplicationForm form) {
@@ -144,11 +144,13 @@ public class StepOneFragment extends DaggerFragment {
         return info;
     }
 
-    public void processDatePickerResult(int year, int month, int day) {
+    @Override
+    public void onProcessDatePickerResult(int year, int month, int day) {
         String month_string = Integer.toString(month + 1);
         String day_string = Integer.toString(day);
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
+        Log.d(TAG, "processDatePickerResult: " + dateMessage);
         binding.fragmentOneBirthDate.setText(dateMessage);
         dateOfBirth = dateMessage;
     }
@@ -181,4 +183,6 @@ public class StepOneFragment extends DaggerFragment {
         super.onDestroy();
         Log.d(TAG, "onDestroy: called");
     }
+
+
 }
