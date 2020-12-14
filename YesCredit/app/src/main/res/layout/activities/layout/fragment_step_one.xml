@@ -157,7 +157,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:text="@string/next_label" />
+                android:text="@string/next_label"
+                tools:ignore="RelativeOverlap" />
 
 
         </RelativeLayout>

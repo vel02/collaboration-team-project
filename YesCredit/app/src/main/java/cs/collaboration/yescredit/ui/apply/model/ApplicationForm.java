@@ -8,14 +8,16 @@ public class ApplicationForm {
     private String middle_name;
     private String gender;
     private String date_of_birth;
+    private String government_id;
 
     public ApplicationForm(String last_name, String first_name, String middle_name, String gender,
-                           String date_of_birth) {
+                           String date_of_birth, String government_id) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
         this.gender = gender;
         this.date_of_birth = date_of_birth;
+        this.government_id = government_id;
     }
 
     public ApplicationForm() {
@@ -73,4 +75,11 @@ public class ApplicationForm {
         this.date_of_birth = date_of_birth;
     }
 
+    public String getGovernment_id() {
+        return government_id;
+    }
+
+    public void setGovernment_id(String government_id) {
+        this.government_id = government_id;
+    }
 }

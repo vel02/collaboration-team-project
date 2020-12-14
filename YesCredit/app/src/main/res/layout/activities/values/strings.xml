@@ -52,5 +52,10 @@
     <string name="step_1_10_label">Step 1/10</string>
     <string name="tag_fragment_step_one">tag_fragment_step_one</string>
     <string name="tag_dialog_fragment_date_picker">tag_dialog_fragment_date_picker</string>
+    <string name="tag_fragment_step_two">tag_fragment_step_two</string>
+    <string name="provide_a_government_id_label">Provide a Government ID</string>
+    <string name="provided_government_id_label">Provided Government ID</string>
+    <string name="upload_image_label"><u>Upload Image</u></string>
+    <string name="step_2_10_label">Step 2/10</string>
 
 </resources>

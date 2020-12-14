@@ -2,9 +2,9 @@ package cs.collaboration.yescredit.ui.apply;
 
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 
-public interface Inflatable {
+public interface Hostable {
 
-    void onListen(ApplicationForm applicationForm);
+    void onFillUp(ApplicationForm applicationForm);
 
     void onInflate(String screen);
 }

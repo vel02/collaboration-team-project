@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
-import cs.collaboration.yescredit.ui.apply.Inflatable;
+import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import dagger.android.support.DaggerFragment;
@@ -30,7 +30,7 @@ public class StepOneFragment extends DaggerFragment {
 
     private FragmentStepOneBinding binding;
 
-    private Inflatable inflatable;
+    private Hostable hostable;
 
     private String gender;
     private String dateOfBirth;
@@ -79,14 +79,14 @@ public class StepOneFragment extends DaggerFragment {
         binding.fragmentOneNext.setOnClickListener(view -> {
 
             //fill up user form ....
-            inflatable.onListen(fillUp());
+            hostable.onFillUp(userInfo());
 
             //call other form ....
-            inflatable.onInflate("tag_host");
+            hostable.onInflate(getString(R.string.tag_fragment_step_two));
         });
     }
 
-    private ApplicationForm fillUp() {
+    private ApplicationForm userInfo() {
 
         ApplicationForm info = new ApplicationForm();
         String last_name = binding.fragmentOneLastName.getText().toString();
@@ -115,17 +115,17 @@ public class StepOneFragment extends DaggerFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Activity activity = getActivity();
-        if (!(activity instanceof Inflatable)) {
+        if (!(activity instanceof Hostable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
                     + " must implement Hostable interface.");
         }
-        inflatable = (Inflatable) activity;
+        hostable = (Hostable) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        inflatable = null;
+        hostable = null;
     }
 }
