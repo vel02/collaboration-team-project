@@ -91,7 +91,6 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
             //call other form ....
             hostable.onInflate(view, getString(R.string.tag_fragment_step_two));
 
-
         });
     }
 
@@ -137,7 +136,6 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         info.setFirst_name(first_name);
         info.setMiddle_name(middle_name);
         info.setGender(gender);
-        //NOTE: date of birth can become null.
         info.setDate_of_birth(dateOfBirth);
         info.setGovernment_id(governmentId);
 
@@ -172,17 +170,5 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         super.onDetach();
         hostable = null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: called");
-    }
-
 
 }

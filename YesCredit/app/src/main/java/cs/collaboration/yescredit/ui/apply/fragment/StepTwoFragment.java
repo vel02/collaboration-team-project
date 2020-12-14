@@ -1,13 +1,12 @@
 package cs.collaboration.yescredit.ui.apply.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,18 +27,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepTwoBinding;
-import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.GovernmentPhotoFragment;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
+import cs.collaboration.yescredit.util.BackgroundImageResize;
 import dagger.android.support.DaggerFragment;
 
 public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFragment.OnPhotoReceivedListener {
@@ -77,7 +73,6 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     private FragmentStepTwoBinding binding;
 
     private Hostable hostable;
-    private ApplyActivity activity;
 
     private boolean storagePermissions;
     private Uri selectedImageUri;
@@ -120,7 +115,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                 if (storagePermissions) {
                     GovernmentPhotoFragment dialog = new GovernmentPhotoFragment();
                     dialog.setOnPhotoReceived(StepTwoFragment.this);
-                    dialog.show(getActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_government_photo));
+                    dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_government_photo));
                 } else {
                     verifyStoragePermissions();
                 }
@@ -130,7 +125,6 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         binding.fragmentTwoNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 //call other form ....
                 Toast.makeText(getActivity(), "NEXT", Toast.LENGTH_SHORT).show();
@@ -166,96 +160,30 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         Log.d(TAG, "onRequestPermissionsResult: requestCode: " + requestCode);
-        switch (requestCode) {
-            case REQUEST_CODE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "onRequestPermissionsResult: User has allowed permission to access: " + permissions[0]);
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "onRequestPermissionsResult: User has allowed permission to access: " + permissions[0]);
 
-                }
-                break;
+            }
         }
     }
 
     private void uploadNewPhoto(Uri imageUri) {
-        Log.d(TAG, "uploadNewPhoto: uploading new profile photo to firebase storage.");
-
-        //Only accept image sizes that are compressed to under 5MB. If thats not possible
-        //then do not allow image to be uploaded
-        BackgroundImageResize resize = new BackgroundImageResize(null);
+        BackgroundImageResize resize = new BackgroundImageResize(this, null);
         resize.execute(imageUri);
     }
 
     private void uploadNewPhoto(Bitmap imageBitmap) {
-        Log.d(TAG, "uploadNewPhoto: uploading new profile photo to firebase storage.");
-
-        //Only accept image sizes that are compressed to under 5MB. If thats not possible
-        //then do not allow image to be uploaded
-        BackgroundImageResize resize = new BackgroundImageResize(imageBitmap);
+        BackgroundImageResize resize = new BackgroundImageResize(this, imageBitmap);
         Uri uri = null;
         resize.execute(uri);
     }
 
-    //STEP (REAL-TIME DATABASE AND CLOUD STORAGE) #3.3
-    public class BackgroundImageResize extends AsyncTask<Uri, Integer, byte[]> {
-
-        Bitmap bitmap;
-
-        public BackgroundImageResize(Bitmap bitmap) {
-            if (bitmap != null) {
-                this.bitmap = bitmap;
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(getActivity(), "compressing image", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected byte[] doInBackground(Uri... uris) {
-            Log.d(TAG, "doInBackground: started.");
-
-            if (bitmap == null) {
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uris[0]);
-                    Log.d(TAG, "doInBackground: bitmap size: megabytes: " + bitmap.getByteCount() / MB + " MB");
-                } catch (IOException e) {
-                    Log.e(TAG, "doInBackground: IOException: ", e.getCause());
-                }
-            }
-
-            byte[] bytes = null;
-            for (int i = 1; i < 11; i++) {
-                if (i == 10) {
-                    Toast.makeText(getActivity(), "That image is too large.", Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                bytes = getBytesFromBitmap(bitmap, 100 / i);
-                Log.d(TAG, "doInBackground: megabytes: (" + (11 - i) + "0%) " + bytes.length / MB + " MB");
-                if (bytes.length / MB < MB_THRESHOLD) {
-                    return bytes;
-                }
-            }
-            return bytes;
-        }
-
-        @Override
-        protected void onPostExecute(byte[] bytes) {
-            super.onPostExecute(bytes);
-            StepTwoFragment.this.bytes = bytes;
-            executeUploadTask();
-        }
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
 
-    // convert from bitmap to byte array
-    private static byte[] getBytesFromBitmap(Bitmap bitmap, int quality) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream);
-        return stream.toByteArray();
-    }
-
-    private void executeUploadTask() {
+    public void executeUploadTask() {
         String FIREBASE_IMAGE_STORAGE = "images/users";
 
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
@@ -328,13 +256,13 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (ApplyActivity) getActivity();
+        Activity activity = getActivity();
         if (!(activity instanceof Hostable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
                     + " must implement Hostable interface.");
         }
-        hostable = activity;
+        hostable = (Hostable) activity;
     }
 
     @Override
@@ -342,18 +270,5 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         super.onDetach();
         hostable = null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: called");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: called");
-    }
-
 
 }
