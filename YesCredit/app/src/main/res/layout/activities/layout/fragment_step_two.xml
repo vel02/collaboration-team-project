@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/fragment_two_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
             android:contentDescription="@string/provided_government_id_label"

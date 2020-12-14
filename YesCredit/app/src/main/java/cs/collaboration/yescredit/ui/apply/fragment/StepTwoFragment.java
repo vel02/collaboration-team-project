@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,11 +31,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepTwoBinding;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.GovernmentPhotoFragment;
+import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import dagger.android.support.DaggerFragment;
 
 public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFragment.OnPhotoReceivedListener {
@@ -66,6 +71,8 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     private static final double MB_THRESHOLD = 5.0;
     private static final double MB = 1000000.0;
 
+    @Inject
+    SessionManager sessionManager;
 
     private FragmentStepTwoBinding binding;
 
@@ -76,7 +83,6 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     private Uri selectedImageUri;
     private Bitmap selectedImageBitmap;
     private byte[] bytes;
-    private double progress;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -247,7 +253,8 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                                 Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
 
                                 //send to session manager.
-
+                                ApplicationForm form = userInfo(uri.toString());
+                                Log.d(TAG, "onSuccess: form: " + form);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -267,6 +274,27 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         } else {
             Toast.makeText(activity, "Image is too Large", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private ApplicationForm userInfo(String governmentID) {
+
+        ApplicationForm info = new ApplicationForm();
+        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+            @Override
+            public void onChanged(ApplicationForm form) {
+                if (form != null) {
+                    info.setLast_name(form.getLast_name());
+                    info.setFirst_name(form.getFirst_name());
+                    info.setMiddle_name(form.getMiddle_name());
+                    info.setGender(form.getGender());
+                    info.setDate_of_birth(form.getDate_of_birth());
+                    info.setGovernment_id(governmentID);
+                }
+            }
+        });
+
+        return info;
     }
 
 

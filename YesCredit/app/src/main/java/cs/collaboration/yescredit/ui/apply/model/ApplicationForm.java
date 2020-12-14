@@ -32,8 +32,10 @@ public class ApplicationForm {
                 ", middle_name='" + middle_name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", date_of_birth='" + date_of_birth + '\'' +
+                ", government_id='" + government_id + '\'' +
                 '}';
     }
+
 
     public String getLast_name() {
         return last_name;
