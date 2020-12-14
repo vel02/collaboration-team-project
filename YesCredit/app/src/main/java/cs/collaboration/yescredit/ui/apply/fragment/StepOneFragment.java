@@ -41,6 +41,7 @@ public class StepOneFragment extends DaggerFragment {
 
     private String gender;
     private String dateOfBirth;
+    private String governmentId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -119,6 +120,7 @@ public class StepOneFragment extends DaggerFragment {
                     }
                     dateOfBirth = form.getDate_of_birth();
                     binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
+                    governmentId = form.getGovernment_id();
                 } else Log.d(TAG, "onChanged: is null");
             }
         });
@@ -137,6 +139,7 @@ public class StepOneFragment extends DaggerFragment {
         info.setGender(gender);
         //NOTE: date of birth can become null.
         info.setDate_of_birth(dateOfBirth);
+        info.setGovernment_id(governmentId);
 
         return info;
     }
@@ -171,5 +174,11 @@ public class StepOneFragment extends DaggerFragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
     }
 }

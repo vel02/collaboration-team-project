@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -79,12 +80,14 @@ public class ApplyActivity extends BaseActivity implements Hostable {
                         fragment = new StepOneFragment();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(binding.contentApply.contentApplyContainer.getId(), fragment, getString(R.string.tag_fragment_step_one));
+                        transaction.addToBackStack(getString(R.string.tag_fragment_step_one));
                         transaction.commit();
                         break;
                     case STEP_TWO:
                         fragment = new StepTwoFragment();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(binding.contentApply.contentApplyContainer.getId(), fragment, getString(R.string.tag_fragment_step_two));
+                        transaction.addToBackStack(getString(R.string.tag_fragment_step_two));
                         transaction.commit();
                         break;
                 }
@@ -107,29 +110,24 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag_fragment);
-            FragmentTransaction transaction;
+            FragmentManager manager = getSupportFragmentManager();
 
-            if (fragment != null) {
-
-                assert fragment.getTag() != null;
-                if (fragment.getTag().equals(getString(R.string.tag_fragment_step_one))) {
-                    super.onBackPressed();
-                    return true;
-
-                } else if (fragment.getTag().equals(getString(R.string.tag_fragment_step_two))) {
-
-                    fragment = new StepOneFragment();
-                    transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(binding.contentApply.contentApplyContainer.getId(), fragment, getString(R.string.tag_fragment_step_one));
-                    transaction.commit();
-                    return true;
-                }
+            if (manager.getBackStackEntryCount() > 1) {
+                Log.d(TAG, "onOptionsItemSelected: selected on back");
+                manager.popBackStackImmediate();
+                return true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

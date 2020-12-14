@@ -94,8 +94,23 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
             verifyStoragePermissions();
         }
 
+        getUserInfo();
         navigation();
         return binding.getRoot();
+    }
+
+    private void getUserInfo() {
+        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+            @Override
+            public void onChanged(ApplicationForm form) {
+                if (form != null) {
+                    if (form.getGovernment_id() != null)
+                        ImageLoader.getInstance().displayImage(form.getGovernment_id(), binding.fragmentTwoImage);
+
+                }
+            }
+        });
     }
 
     private void navigation() {
@@ -109,6 +124,17 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                 } else {
                     verifyStoragePermissions();
                 }
+            }
+        });
+
+        binding.fragmentTwoNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                //call other form ....
+                Toast.makeText(activity, "NEXT", Toast.LENGTH_SHORT).show();
+//                hostable.onInflate(getString(R.string.tag_fragment_step_two));
             }
         });
     }
@@ -255,6 +281,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                                 //send to session manager.
                                 ApplicationForm form = userInfo(uri.toString());
                                 Log.d(TAG, "onSuccess: form: " + form);
+                                hostable.onFillUp(userInfo(form.getGovernment_id()));
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -315,5 +342,18 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         super.onDetach();
         hostable = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
+    }
+
 
 }
