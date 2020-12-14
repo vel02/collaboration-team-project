@@ -131,7 +131,7 @@
             android:importantForAutofill="no"
             android:inputType="date|textNoSuggestions"
             android:padding="6dp"
-            android:text="@string/date_format_label"
+            android:hint="@string/date_format_label"
             android:textAppearance="?attr/textAppearanceBody1"
             app:drawableEndCompat="@drawable/ic_date"
             tools:ignore="LabelFor" />

@@ -106,16 +106,19 @@ public class StepOneFragment extends DaggerFragment {
                     binding.fragmentOneLastName.setText(form.getLast_name());
                     binding.fragmentOneFirstName.setText(form.getFirst_name());
                     binding.fragmentOneMiddleName.setText(form.getMiddle_name());
-                    switch (form.getGender().toLowerCase()) {
-                        case "male":
-                            binding.fragmentOneGenderMale.setChecked(true);
-                            break;
-                        case "female":
-                            binding.fragmentOneGenderFemale.setChecked(true);
-                            break;
-                        default:
+                    if (form.getGender() != null) {
+                        switch (form.getGender().toLowerCase()) {
+                            case "male":
+                                binding.fragmentOneGenderMale.setChecked(true);
+                                break;
+                            case "female":
+                                binding.fragmentOneGenderFemale.setChecked(true);
+                                break;
+                            default:
+                        }
                     }
-                    binding.fragmentOneBirthDate.setText(form.getDate_of_birth() != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
+                    dateOfBirth = form.getDate_of_birth();
+                    binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
                 } else Log.d(TAG, "onChanged: is null");
             }
         });
@@ -132,6 +135,7 @@ public class StepOneFragment extends DaggerFragment {
         info.setFirst_name(first_name);
         info.setMiddle_name(middle_name);
         info.setGender(gender);
+        //NOTE: date of birth can become null.
         info.setDate_of_birth(dateOfBirth);
 
         return info;
