@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,7 @@ import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.referral.ReferralActivity;
+import cs.collaboration.yescredit.util.UniversalImageLoader;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class HomeActivity extends BaseActivity {
@@ -37,9 +39,17 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this, providerFactory).get(HomeViewModel.class);
 
+        initImageLoader();
+
         init();
 
     }
+
+    private void initImageLoader() {
+        UniversalImageLoader imageLoader = new UniversalImageLoader(this);
+        ImageLoader.getInstance().init(imageLoader.getConfig());
+    }
+
 
     private void init() {
         binding.contentHome.homeContentCardLoanStatus.setOnClickListener(new View.OnClickListener() {
