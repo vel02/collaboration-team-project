@@ -14,12 +14,16 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 
 import java.util.Objects;
+
+import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import dagger.android.support.DaggerFragment;
@@ -29,6 +33,9 @@ public class StepOneFragment extends DaggerFragment {
     private static final String TAG = "StepOneFragment";
 
     private FragmentStepOneBinding binding;
+
+    @Inject
+    SessionManager sessionManager;
 
     private Hostable hostable;
 
@@ -41,6 +48,7 @@ public class StepOneFragment extends DaggerFragment {
         binding = FragmentStepOneBinding.inflate(inflater);
         Log.d(TAG, "onCreateView: started.");
         navigation();
+        getUserInfo();
         return binding.getRoot();
     }
 
@@ -86,6 +94,33 @@ public class StepOneFragment extends DaggerFragment {
         });
     }
 
+    private void getUserInfo() {
+        Log.d(TAG, "getUserInfo: started");
+//        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+            @Override
+            public void onChanged(ApplicationForm form) {
+                Log.d(TAG, "onChanged: started with form: ");
+                if (form != null) {
+                    Log.d(TAG, "onChanged: started");
+                    binding.fragmentOneLastName.setText(form.getLast_name());
+                    binding.fragmentOneFirstName.setText(form.getFirst_name());
+                    binding.fragmentOneMiddleName.setText(form.getMiddle_name());
+                    switch (form.getGender().toLowerCase()) {
+                        case "male":
+                            binding.fragmentOneGenderMale.setChecked(true);
+                            break;
+                        case "female":
+                            binding.fragmentOneGenderFemale.setChecked(true);
+                            break;
+                        default:
+                    }
+                    binding.fragmentOneBirthDate.setText(form.getDate_of_birth() != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
+                } else Log.d(TAG, "onChanged: is null");
+            }
+        });
+    }
+
     private ApplicationForm userInfo() {
 
         ApplicationForm info = new ApplicationForm();
@@ -127,5 +162,10 @@ public class StepOneFragment extends DaggerFragment {
     public void onDetach() {
         super.onDetach();
         hostable = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

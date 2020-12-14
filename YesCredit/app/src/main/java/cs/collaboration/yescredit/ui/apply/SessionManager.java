@@ -7,9 +7,11 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 
+@Singleton
 public class SessionManager {
 
     private static final String TAG = "SessionManager";
