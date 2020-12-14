@@ -82,11 +82,8 @@ dependencies {
     //reference: https://github.com/nostra13/Android-Universal-Image-Loader
 
     def nav_version = "2.3.2"
-
-    // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     //reference: https://developer.android.com/guide/navigation/navigation-getting-started
 
-    implementation "androidx.fragment:fragment:1.2.5"
 }
