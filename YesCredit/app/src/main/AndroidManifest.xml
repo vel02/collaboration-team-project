@@ -21,11 +21,7 @@
         <activity
             android:name=".ui.apply.ApplyActivity"
             android:label="@string/loan_application_label"
-            android:parentActivityName=".ui.home.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.HomeActivity" />
-        </activity>
+            android:theme="@style/Theme.YesCredit.NoActionBar"/>
         <activity
             android:name=".ui.referral.ReferralActivity"
             android:label="@string/referral_label"

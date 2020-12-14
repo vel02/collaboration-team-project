@@ -18,8 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -136,8 +134,6 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
 
                 //call other form ....
                 Toast.makeText(getActivity(), "NEXT", Toast.LENGTH_SHORT).show();
-                NavDirections action = StepTwoFragmentDirections.actionStepTwoFragmentToStepOneFragment();
-                Navigation.findNavController(v).navigate(action);
 //                hostable.onInflate(getString(R.string.tag_fragment_step_two));
             }
         });

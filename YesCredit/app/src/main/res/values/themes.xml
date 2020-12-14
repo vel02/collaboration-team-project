@@ -19,7 +19,7 @@
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="Theme.YesCredit.AppBarOverlay" parent="Theme.MaterialComponents.DayNight.DarkActionBar" />
+    <style name="Theme.YesCredit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.YesCredit.PopupOverlay" parent="Theme.AppCompat.Light" />
 

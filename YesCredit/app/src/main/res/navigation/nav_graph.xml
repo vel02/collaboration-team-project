@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/stepOneFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.StepOneFragment"
-        android:label="StepOneFragment"
-        tools:layout="@layout/fragment_step_one" >
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_step_one">
         <action
             android:id="@+id/action_stepOneFragment_to_stepTwoFragment"
             app:destination="@id/stepTwoFragment" />
@@ -17,12 +17,6 @@
     <fragment
         android:id="@+id/stepTwoFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragment"
-        android:label="StepTwoFragment"
-        tools:layout="@layout/fragment_step_two" >
-        <action
-            android:id="@+id/action_stepTwoFragment_to_stepOneFragment"
-            app:destination="@id/stepOneFragment"
-            app:popUpTo="@id/stepOneFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_step_two"/>
 </navigation>
