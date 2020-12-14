@@ -6,7 +6,9 @@ import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 
 public interface Hostable {
 
-    void onFillUp(ApplicationForm applicationForm);
+    void onEnlist(ApplicationForm applicationForm);
+
+    void onSave();
 
     void onInflate(View view, String screen);
 }

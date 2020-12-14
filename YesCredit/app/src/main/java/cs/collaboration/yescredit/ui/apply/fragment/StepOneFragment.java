@@ -39,6 +39,11 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
     private String gender;
     private String dateOfBirth;
     private String governmentId;
+    private String street;
+    private String barangay;
+    private String city;
+    private String province;
+    private String postal;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -86,7 +91,7 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         binding.fragmentOneNext.setOnClickListener(view -> {
 
             //fill up user form ....
-            hostable.onFillUp(userInfo());
+            hostable.onEnlist(userInfo());
 
             //call other form ....
             hostable.onInflate(view, getString(R.string.tag_fragment_step_two));
@@ -120,6 +125,11 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
                     dateOfBirth = form.getDate_of_birth();
                     binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
                     governmentId = form.getGovernment_id();
+                    street = form.getStreet_address();
+                    barangay = form.getBarangay_address();
+                    city = form.getCity_address();
+                    province = form.getProvince_address();
+                    postal = form.getPostal_address();
                 } else Log.d(TAG, "onChanged: is null");
             }
         });
@@ -138,6 +148,11 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         info.setGender(gender);
         info.setDate_of_birth(dateOfBirth);
         info.setGovernment_id(governmentId);
+        info.setStreet_address(street);
+        info.setBarangay_address(barangay);
+        info.setCity_address(city);
+        info.setProvince_address(province);
+        info.setPostal_address(postal);
 
         return info;
     }

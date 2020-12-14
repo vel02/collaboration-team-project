@@ -36,7 +36,7 @@
     <string name="desc_referral_photo">Referral Photo</string>
     <string name="desc_show_and_hide_password">Show and Hide Password</string>
     <string name="desc_faqs_logo">FAQs Logo</string>
-    <string name="database_node_user">user</string>
+    <string name="database_node_users">users</string>
     <string name="loan_application_label">Loan Application</string>
     <string name="last_name_label">Last Name:</string>
     <string name="first_name_label">First Name:</string>
@@ -60,5 +60,23 @@
     <string name="choose_photo_from_memory_label">Choose photo from memory</string>
     <string name="take_a_photo_label">Take a Photo</string>
     <string name="tag_dialog_fragment_government_photo">tag_dialog_fragment_government_photo</string>
+    <string name="tag_fragment_step_three">tag_fragment_step_three</string>
+    <string name="street_address_label">Street Address:</string>
+    <string name="barangay_label">Barangay:</string>
+    <string name="city_label">City:</string>
+    <string name="province_label">Province:</string>
+    <string name="postal_code_label">Postal Code:</string>
+    <string name="step_3_10_label">Step 3/10</string>
+    <string name="database_field_last_name">last_name</string>
+    <string name="database_field_first_name">first_name</string>
+    <string name="database_field_middle_name">middle_name</string>
+    <string name="database_field_gender">gender</string>
+    <string name="database_field_date_of_birth">date_of_birth</string>
+    <string name="database_field_government_image">government_image</string>
+    <string name="database_field_street_address">street_address</string>
+    <string name="database_field_barangay_address">barangay_address</string>
+    <string name="database_field_city_address">city_address</string>
+    <string name="database_field_province_address">province_address</string>
+    <string name="database_field_postal_address">postal_address</string>
 
 </resources>

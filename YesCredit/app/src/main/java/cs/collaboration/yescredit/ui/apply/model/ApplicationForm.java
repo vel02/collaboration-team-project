@@ -9,15 +9,27 @@ public class ApplicationForm {
     private String gender;
     private String date_of_birth;
     private String government_id;
+    private String street_address;
+    private String barangay_address;
+    private String city_address;
+    private String province_address;
+    private String postal_address;
 
     public ApplicationForm(String last_name, String first_name, String middle_name, String gender,
-                           String date_of_birth, String government_id) {
+                           String date_of_birth, String government_id, String street_address,
+                           String barangay_address, String city_address, String province_address,
+                           String postal_address) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
         this.gender = gender;
         this.date_of_birth = date_of_birth;
         this.government_id = government_id;
+        this.street_address = street_address;
+        this.barangay_address = barangay_address;
+        this.city_address = city_address;
+        this.province_address = province_address;
+        this.postal_address = postal_address;
     }
 
     public ApplicationForm() {
@@ -33,9 +45,13 @@ public class ApplicationForm {
                 ", gender='" + gender + '\'' +
                 ", date_of_birth='" + date_of_birth + '\'' +
                 ", government_id='" + government_id + '\'' +
+                ", street_address='" + street_address + '\'' +
+                ", barangay_address='" + barangay_address + '\'' +
+                ", city_address='" + city_address + '\'' +
+                ", province_address='" + province_address + '\'' +
+                ", postal_address='" + postal_address + '\'' +
                 '}';
     }
-
 
     public String getLast_name() {
         return last_name;
@@ -83,5 +99,45 @@ public class ApplicationForm {
 
     public void setGovernment_id(String government_id) {
         this.government_id = government_id;
+    }
+
+    public String getStreet_address() {
+        return street_address;
+    }
+
+    public void setStreet_address(String street_address) {
+        this.street_address = street_address;
+    }
+
+    public String getBarangay_address() {
+        return barangay_address;
+    }
+
+    public void setBarangay_address(String barangay_address) {
+        this.barangay_address = barangay_address;
+    }
+
+    public String getCity_address() {
+        return city_address;
+    }
+
+    public void setCity_address(String city_address) {
+        this.city_address = city_address;
+    }
+
+    public String getProvince_address() {
+        return province_address;
+    }
+
+    public void setProvince_address(String province_address) {
+        this.province_address = province_address;
+    }
+
+    public String getPostal_address() {
+        return postal_address;
+    }
+
+    public void setPostal_address(String postal_address) {
+        this.postal_address = postal_address;
     }
 }

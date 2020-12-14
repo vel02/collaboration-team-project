@@ -12,11 +12,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
@@ -25,22 +31,51 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     private static final String TAG = "ApplyActivity";
 
     @Override
-    public void onFillUp(ApplicationForm applicationForm) {
+    public void onEnlist(ApplicationForm applicationForm) {
         sessionManager.setApplicationForm(applicationForm);
+    }
+
+    @Override
+    public void onSave() {
         sessionManager.observeApplicationForm().observe(this, form -> {
             if (form != null) {
                 Log.d(TAG, "onChanged: form: " + form);
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                assert user != null;
+                save(reference, user.getUid(), getString(R.string.database_field_last_name), form.getLast_name());
+                save(reference, user.getUid(), getString(R.string.database_field_first_name), form.getFirst_name());
+                save(reference, user.getUid(), getString(R.string.database_field_middle_name), form.getMiddle_name());
+                save(reference, user.getUid(), getString(R.string.database_field_gender), form.getGender());
+                save(reference, user.getUid(), getString(R.string.database_field_date_of_birth), form.getDate_of_birth());
+                save(reference, user.getUid(), getString(R.string.database_field_government_image), form.getGovernment_id());
+                save(reference, user.getUid(), getString(R.string.database_field_street_address), form.getStreet_address());
+                save(reference, user.getUid(), getString(R.string.database_field_barangay_address), form.getBarangay_address());
+                save(reference, user.getUid(), getString(R.string.database_field_city_address), form.getCity_address());
+                save(reference, user.getUid(), getString(R.string.database_field_province_address), form.getProvince_address());
+                save(reference, user.getUid(), getString(R.string.database_field_postal_address), form.getPostal_address());
             }
         });
+    }
 
+    private void save(DatabaseReference reference, String userId, String field, String value) {
+        reference.child(getString(R.string.database_node_users))
+                .child(userId)
+                .child(field).setValue(value);
     }
 
     @Override
     public void onInflate(View view, String screen) {
+        NavDirections action;
         switch (screen) {
             case "tag_fragment_step_two":
                 //government id
-                NavDirections action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
+                action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+            case "tag_fragment_step_three":
+                action = StepTwoFragmentDirections.actionStepTwoFragmentToStepThreeFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
             default:
@@ -64,7 +99,6 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         setContentView(R.layout.activity_apply);
         viewModel = new ViewModelProvider(this, providerFactory).get(ApplyViewModel.class);
         navigationController();
-
     }
 
     private void navigationController() {

@@ -127,8 +127,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
             public void onClick(View v) {
 
                 //call other form ....
-                Toast.makeText(getActivity(), "NEXT", Toast.LENGTH_SHORT).show();
-//                hostable.onInflate(getString(R.string.tag_fragment_step_two));
+                hostable.onInflate(v, getString(R.string.tag_fragment_step_three));
             }
         });
     }
@@ -205,11 +204,8 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                             if (uri != null) {
                                 Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
-
-                                //send to session manager.
                                 ApplicationForm form = userInfo(uri.toString());
-                                Log.d(TAG, "onSuccess: form: " + form);
-                                hostable.onFillUp(userInfo(form.getGovernment_id()));
+                                hostable.onEnlist(userInfo(form.getGovernment_id()));
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -231,6 +227,10 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
         }
     }
 
+    /**
+     * Validation for observers
+     * let the observer finished its process before proceeding
+     */
     private ApplicationForm userInfo(String governmentID) {
 
         ApplicationForm info = new ApplicationForm();
