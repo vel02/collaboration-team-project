@@ -28,5 +28,14 @@
         android:id="@+id/stepThreeFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragment"
         android:label="@string/loan_application_label"
-        tools:layout="@layout/fragment_step_three" />
+        tools:layout="@layout/fragment_step_three">
+        <action
+            android:id="@+id/action_stepThreeFragment_to_stepFourFragment"
+            app:destination="@id/stepFourFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepFourFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.StepFourFragment"
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_step_four" />
 </navigation>

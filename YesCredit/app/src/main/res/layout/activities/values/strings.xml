@@ -78,5 +78,12 @@
     <string name="database_field_city_address">city_address</string>
     <string name="database_field_province_address">province_address</string>
     <string name="database_field_postal_address">postal_address</string>
+    <string name="review_label">Review</string>
+    <string name="personal_info_label">Personal Info</string>
+    <string name="tag_fragment_step_four">tag_fragment_step_four</string>
+    <string name="edit_label"><u>Edit</u></string>
+    <string name="address_label">Address</string>
+    <string name="database_field_user_id">user_id</string>
+    <string name="step_4_10_label">Step 4/10</string>
 
 </resources>

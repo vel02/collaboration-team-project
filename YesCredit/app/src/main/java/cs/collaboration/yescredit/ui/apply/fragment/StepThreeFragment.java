@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepThreeBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
@@ -69,6 +70,7 @@ public class StepThreeFragment extends DaggerFragment {
             ApplicationForm form = userInfo(street, barangay, city, province, postal);
             hostable.onEnlist(form);
             hostable.onSave();
+            hostable.onInflate(view, getString(R.string.tag_fragment_step_four));
 
         });
 

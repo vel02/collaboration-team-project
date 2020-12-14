@@ -12,16 +12,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -40,21 +38,21 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         sessionManager.observeApplicationForm().observe(this, form -> {
             if (form != null) {
                 Log.d(TAG, "onChanged: form: " + form);
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                assert user != null;
-                save(reference, user.getUid(), getString(R.string.database_field_last_name), form.getLast_name());
-                save(reference, user.getUid(), getString(R.string.database_field_first_name), form.getFirst_name());
-                save(reference, user.getUid(), getString(R.string.database_field_middle_name), form.getMiddle_name());
-                save(reference, user.getUid(), getString(R.string.database_field_gender), form.getGender());
-                save(reference, user.getUid(), getString(R.string.database_field_date_of_birth), form.getDate_of_birth());
-                save(reference, user.getUid(), getString(R.string.database_field_government_image), form.getGovernment_id());
-                save(reference, user.getUid(), getString(R.string.database_field_street_address), form.getStreet_address());
-                save(reference, user.getUid(), getString(R.string.database_field_barangay_address), form.getBarangay_address());
-                save(reference, user.getUid(), getString(R.string.database_field_city_address), form.getCity_address());
-                save(reference, user.getUid(), getString(R.string.database_field_province_address), form.getProvince_address());
-                save(reference, user.getUid(), getString(R.string.database_field_postal_address), form.getPostal_address());
+//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                assert user != null;
+//                save(reference, user.getUid(), getString(R.string.database_field_last_name), form.getLast_name());
+//                save(reference, user.getUid(), getString(R.string.database_field_first_name), form.getFirst_name());
+//                save(reference, user.getUid(), getString(R.string.database_field_middle_name), form.getMiddle_name());
+//                save(reference, user.getUid(), getString(R.string.database_field_gender), form.getGender());
+//                save(reference, user.getUid(), getString(R.string.database_field_date_of_birth), form.getDate_of_birth());
+//                save(reference, user.getUid(), getString(R.string.database_field_government_image), form.getGovernment_id());
+//                save(reference, user.getUid(), getString(R.string.database_field_street_address), form.getStreet_address());
+//                save(reference, user.getUid(), getString(R.string.database_field_barangay_address), form.getBarangay_address());
+//                save(reference, user.getUid(), getString(R.string.database_field_city_address), form.getCity_address());
+//                save(reference, user.getUid(), getString(R.string.database_field_province_address), form.getProvince_address());
+//                save(reference, user.getUid(), getString(R.string.database_field_postal_address), form.getPostal_address());
             }
         });
     }
@@ -78,6 +76,11 @@ public class ApplyActivity extends BaseActivity implements Hostable {
                 action = StepTwoFragmentDirections.actionStepTwoFragmentToStepThreeFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
+            case "tag_fragment_step_four":
+                action = StepThreeFragmentDirections.actionStepThreeFragmentToStepFourFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
             default:
                 Log.d(TAG, "onInflate: step_one ako nag triggered!");
                 break;
