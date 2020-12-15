@@ -49,14 +49,14 @@
     <string name="date_of_birth_label">Date of Birth:</string>
     <string name="date_format_label">MM/DD/YYYY</string>
     <string name="next_label">Next</string>
-    <string name="step_1_10_label">Step 1/10</string>
+    <string name="step_1_10_label">Step 1/6</string>
     <string name="tag_fragment_step_one">tag_fragment_step_one</string>
     <string name="tag_dialog_fragment_date_picker">tag_dialog_fragment_date_picker</string>
     <string name="tag_fragment_step_two">tag_fragment_step_two</string>
     <string name="provide_a_government_id_label">Provide a Government ID</string>
     <string name="provided_government_id_label">Provided Government ID</string>
     <string name="upload_image_label"><u>Upload Image</u></string>
-    <string name="step_2_10_label">Step 2/10</string>
+    <string name="step_2_10_label">Step 2/6</string>
     <string name="choose_photo_from_memory_label">Choose photo from memory</string>
     <string name="take_a_photo_label">Take a Photo</string>
     <string name="tag_dialog_fragment_government_photo">tag_dialog_fragment_government_photo</string>
@@ -66,7 +66,7 @@
     <string name="city_label">City:</string>
     <string name="province_label">Province:</string>
     <string name="postal_code_label">Postal Code:</string>
-    <string name="step_3_10_label">Step 3/10</string>
+    <string name="step_3_10_label">Step 3/6</string>
     <string name="database_field_last_name">last_name</string>
     <string name="database_field_first_name">first_name</string>
     <string name="database_field_middle_name">middle_name</string>
@@ -84,12 +84,12 @@
     <string name="edit_label"><u>Edit</u></string>
     <string name="address_label">Address</string>
     <string name="database_field_user_id">user_id</string>
-    <string name="step_4_10_label">Step 4/10</string>
+    <string name="step_4_10_label">Step 4/6</string>
     <string name="personal_information_label">Personal Information</string>
     <string name="tag_fragment_personal_info">tag_fragment_personal_info</string>
     <string name="update_label">Update</string>
     <string name="tag_fragment_address">tag_fragment_address</string>
-    <string name="step_5_10_label">Step 5/10</string>
+    <string name="step_5_10_label">Step 5/6</string>
     <string name="highest_level_of_education_achieved_label">Highest Level of Education Achieved:</string>
     <string name="tag_fragment_step_five">tag_fragment_step_five</string>
     <string name="reason_for_loaning_label">Reason for loaning:</string>
@@ -97,6 +97,11 @@
     <string name="any_outstanding_loans_label">Any outstanding loans?</string>
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>
+    <string name="tag_fragment_step_six">tag_fragment_step_six</string>
+    <string name="civil_status_label">Civil Status:</string>
+    <string name="source_of_income_label">Main Source of Income (Describe):</string>
+    <string name="household_income_per_month_label">Household Income per Month (PHP)</string>
+    <string name="step_6_10_label">Step 6/6</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
@@ -111,6 +116,11 @@
         <item>reason_loaning 2</item>
         <item>reason_loaning 3</item>
         <item>reason_loaning 4</item>
+    </string-array>
+
+    <string-array name="civil_status_array">
+        <item>Single</item>
+        <item>Married</item>
     </string-array>
 
 </resources>
