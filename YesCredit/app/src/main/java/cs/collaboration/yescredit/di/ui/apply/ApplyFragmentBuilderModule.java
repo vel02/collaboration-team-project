@@ -1,6 +1,7 @@
 package cs.collaboration.yescredit.di.ui.apply;
 
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
+import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragment;
@@ -34,5 +35,8 @@ public abstract class ApplyFragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract AddressFragment contributeAddressFragment();
+
+    @ContributesAndroidInjector
+    abstract StepFiveFragment contributeStepFiveFragment();
 
 }

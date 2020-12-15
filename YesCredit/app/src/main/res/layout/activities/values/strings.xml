@@ -89,5 +89,28 @@
     <string name="tag_fragment_personal_info">tag_fragment_personal_info</string>
     <string name="update_label">Update</string>
     <string name="tag_fragment_address">tag_fragment_address</string>
+    <string name="step_5_10_label">Step 5/10</string>
+    <string name="highest_level_of_education_achieved_label">Highest Level of Education Achieved:</string>
+    <string name="tag_fragment_step_five">tag_fragment_step_five</string>
+    <string name="reason_for_loaning_label">Reason for loaning:</string>
+    <string name="describe_in_more_detail_label">Describe in more detail:</string>
+    <string name="any_outstanding_loans_label">Any outstanding loans?</string>
+    <string name="yes_label">Yes</string>
+    <string name="no_label">No</string>
+
+    <string-array name="education_achieved_array">
+        <item>High School Graduate</item>
+        <item>Associate Degree</item>
+        <item>Bachelor degree</item>
+        <item>Master Degree</item>
+        <item>Professional Doctorate Degree</item>
+    </string-array>
+
+    <string-array name="reason_loaning_array">
+        <item>reason_loaning 1</item>
+        <item>reason_loaning 2</item>
+        <item>reason_loaning 3</item>
+        <item>reason_loaning 4</item>
+    </string-array>
 
 </resources>

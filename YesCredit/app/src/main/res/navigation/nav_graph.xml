@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_stepFourFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_stepFourFragment_to_stepFiveFragment"
+            app:destination="@id/stepFiveFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
@@ -55,4 +58,9 @@
         android:name="cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment"
         android:label="@string/address_label"
         tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/stepFiveFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment"
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_step_five" />
 </navigation>
