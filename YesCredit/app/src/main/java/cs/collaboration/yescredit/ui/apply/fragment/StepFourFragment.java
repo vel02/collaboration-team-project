@@ -75,8 +75,8 @@ public class StepFourFragment extends DaggerFragment {
 
     private void getUserInfo() {
 
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), form -> {
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
                 String personal_info =
                         form.getLast_name() + ", " + form.getFirst_name() + " " + form.getMiddle_name()

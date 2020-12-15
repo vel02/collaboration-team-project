@@ -16,7 +16,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepThreeBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
-import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
+import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import dagger.android.support.DaggerFragment;
 
 public class StepThreeFragment extends DaggerFragment {
@@ -41,10 +41,10 @@ public class StepThreeFragment extends DaggerFragment {
 
     private void getUserInfo() {
 
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
             @Override
-            public void onChanged(ApplicationForm form) {
+            public void onChanged(UserForm form) {
                 if (form != null) {
                     binding.fragmentThreeStreetAdd.setText(form.getStreet_address());
                     binding.fragmentThreeBarangayAdd.setText(form.getBarangay_address());
@@ -67,7 +67,7 @@ public class StepThreeFragment extends DaggerFragment {
             String province = binding.fragmentThreeProvinceAdd.getText().toString();
             String postal = binding.fragmentThreePostalAdd.getText().toString();
 
-            ApplicationForm form = userInfo(street, barangay, city, province, postal);
+            UserForm form = userInfo(street, barangay, city, province, postal);
             hostable.onEnlist(form);
 //            hostable.onSave();
             hostable.onInflate(view, getString(R.string.tag_fragment_step_four));
@@ -76,13 +76,13 @@ public class StepThreeFragment extends DaggerFragment {
 
     }
 
-    private ApplicationForm userInfo(String street, String barangay, String city, String province, String postal) {
+    private UserForm userInfo(String street, String barangay, String city, String province, String postal) {
 
-        ApplicationForm info = new ApplicationForm();
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+        UserForm info = new UserForm();
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
             @Override
-            public void onChanged(ApplicationForm form) {
+            public void onChanged(UserForm form) {
                 if (form != null) {
                     info.setLast_name(form.getLast_name());
                     info.setFirst_name(form.getFirst_name());

@@ -34,7 +34,7 @@ import cs.collaboration.yescredit.databinding.FragmentStepTwoBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.GovernmentPhotoFragment;
-import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
+import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.util.BackgroundImageResize;
 import dagger.android.support.DaggerFragment;
 
@@ -95,10 +95,10 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
     }
 
     private void getUserInfo() {
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
             @Override
-            public void onChanged(ApplicationForm form) {
+            public void onChanged(UserForm form) {
                 if (form != null) {
                     if (form.getGovernment_id() != null)
                         ImageLoader.getInstance().displayImage(form.getGovernment_id(), binding.fragmentTwoImage);
@@ -204,7 +204,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
                             if (uri != null) {
                                 Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
-                                ApplicationForm form = userInfo(uri.toString());
+                                UserForm form = userInfo(uri.toString());
                                 hostable.onEnlist(userInfo(form.getGovernment_id()));
                             }
                         }
@@ -231,13 +231,13 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
      * Validation for observers
      * let the observer finished its process before proceeding
      */
-    private ApplicationForm userInfo(String governmentID) {
+    private UserForm userInfo(String governmentID) {
 
-        ApplicationForm info = new ApplicationForm();
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+        UserForm info = new UserForm();
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
             @Override
-            public void onChanged(ApplicationForm form) {
+            public void onChanged(UserForm form) {
                 if (form != null) {
                     info.setLast_name(form.getLast_name());
                     info.setFirst_name(form.getFirst_name());

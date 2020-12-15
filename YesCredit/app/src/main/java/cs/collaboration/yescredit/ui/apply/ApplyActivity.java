@@ -22,7 +22,8 @@ import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragmentDirections;
-import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
+import cs.collaboration.yescredit.ui.apply.model.LoanForm;
+import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class ApplyActivity extends BaseActivity implements Hostable {
@@ -30,14 +31,13 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     private static final String TAG = "ApplyActivity";
 
     @Override
-    public void onEnlist(ApplicationForm applicationForm) {
-        sessionManager.setApplicationForm(applicationForm);
+    public void onEnlist(UserForm userForm) {
+        sessionManager.setApplicationForm(userForm);
     }
 
-    private void save(DatabaseReference reference, String userId, String field, String value) {
-        reference.child(getString(R.string.database_node_users))
-                .child(userId)
-                .child(field).setValue(value);
+    @Override
+    public void onEnlist(LoanForm LoanForm) {
+        sessionManager.setLoan(LoanForm);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     }
 
     private void subscribeObservers() {
-        sessionManager.observeApplicationForm().observe(this, form -> {
+        sessionManager.observeUserForm().observe(this, form -> {
             if (form != null) {
                 Log.d(TAG, "onChanged: form: " + form);
 //                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -118,6 +118,20 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 //                save(reference, user.getUid(), getString(R.string.database_field_postal_address), form.getPostal_address() != null ? form.getPostal_address() : "");
             }
         });
+
+        sessionManager.observeLoanForm().observe(this, loanForm -> {
+            if (loanForm != null) {
+                Log.d(TAG, "subscribeObservers: loan: " + loanForm);
+
+            }
+
+        });
+    }
+
+    private void save(DatabaseReference reference, String userId, String field, String value) {
+        reference.child(getString(R.string.database_node_users))
+                .child(userId)
+                .child(field).setValue(value);
     }
 
     private void navigationController() {

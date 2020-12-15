@@ -2,7 +2,7 @@ package cs.collaboration.yescredit.ui.apply.model;
 
 import androidx.annotation.NonNull;
 
-public class ApplicationForm {
+public class UserForm {
     private String last_name;
     private String first_name;
     private String middle_name;
@@ -15,10 +15,10 @@ public class ApplicationForm {
     private String province_address;
     private String postal_address;
 
-    public ApplicationForm(String last_name, String first_name, String middle_name, String gender,
-                           String date_of_birth, String government_id, String street_address,
-                           String barangay_address, String city_address, String province_address,
-                           String postal_address) {
+    public UserForm(String last_name, String first_name, String middle_name, String gender,
+                    String date_of_birth, String government_id, String street_address,
+                    String barangay_address, String city_address, String province_address,
+                    String postal_address) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
@@ -32,7 +32,7 @@ public class ApplicationForm {
         this.postal_address = postal_address;
     }
 
-    public ApplicationForm() {
+    public UserForm() {
     }
 
     @NonNull

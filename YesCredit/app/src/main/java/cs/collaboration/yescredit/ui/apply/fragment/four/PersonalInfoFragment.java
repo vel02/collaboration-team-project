@@ -24,7 +24,7 @@ import cs.collaboration.yescredit.databinding.FragmentPersonalInfoBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
-import cs.collaboration.yescredit.ui.apply.model.ApplicationForm;
+import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import dagger.android.support.DaggerFragment;
 
 public class PersonalInfoFragment extends DaggerFragment implements DatePickerFragment.OnDatePickerListener {
@@ -67,10 +67,10 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
 
     private void getUserInfo() {
         Log.d(TAG, "getUserInfo: started");
-        sessionManager.observeApplicationForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeApplicationForm().observe(getViewLifecycleOwner(), new Observer<ApplicationForm>() {
+        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
             @Override
-            public void onChanged(ApplicationForm form) {
+            public void onChanged(UserForm form) {
                 if (form != null) {
                     Log.d(TAG, "onChanged: started");
                     binding.fragmentPersonalInfoLastName.setText(form.getLast_name());
@@ -149,9 +149,9 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
 
     }
 
-    private ApplicationForm userInfo() {
+    private UserForm userInfo() {
 
-        ApplicationForm info = new ApplicationForm();
+        UserForm info = new UserForm();
         String last_name = binding.fragmentPersonalInfoLastName.getText().toString();
         String first_name = binding.fragmentPersonalInfoFirstName.getText().toString();
         String middle_name = binding.fragmentPersonalInfoMiddleName.getText().toString();
