@@ -41,10 +41,18 @@
         <action
             android:id="@+id/action_stepFourFragment_to_personalInfoFragment"
             app:destination="@id/personalInfoFragment" />
+        <action
+            android:id="@+id/action_stepFourFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.four.PersonalInfoFragment"
         android:label="@string/personal_information_label"
         tools:layout="@layout/fragment_personal_info" />
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment"
+        android:label="@string/address_label"
+        tools:layout="@layout/fragment_address" />
 </navigation>

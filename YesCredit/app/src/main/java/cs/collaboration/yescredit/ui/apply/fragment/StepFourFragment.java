@@ -103,7 +103,7 @@ public class StepFourFragment extends DaggerFragment {
         binding.fragmentFourAddressRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                hostable.onInflate(v,getString(R.string.tag_fragment_address));
             }
         });
 

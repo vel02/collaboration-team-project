@@ -88,5 +88,6 @@
     <string name="personal_information_label">Personal Information</string>
     <string name="tag_fragment_personal_info">tag_fragment_personal_info</string>
     <string name="update_label">Update</string>
+    <string name="tag_fragment_address">tag_fragment_address</string>
 
 </resources>
