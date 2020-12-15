@@ -85,5 +85,8 @@
     <string name="address_label">Address</string>
     <string name="database_field_user_id">user_id</string>
     <string name="step_4_10_label">Step 4/10</string>
+    <string name="personal_information_label">Personal Information</string>
+    <string name="tag_fragment_personal_info">tag_fragment_personal_info</string>
+    <string name="update_label">Update</string>
 
 </resources>

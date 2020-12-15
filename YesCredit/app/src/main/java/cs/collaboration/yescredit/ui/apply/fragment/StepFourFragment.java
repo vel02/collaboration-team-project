@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepFourBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
@@ -95,7 +96,7 @@ public class StepFourFragment extends DaggerFragment {
         binding.fragmentFourPersonalInfoRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                hostable.onInflate(v, getString(R.string.tag_fragment_personal_info));
             }
         });
 

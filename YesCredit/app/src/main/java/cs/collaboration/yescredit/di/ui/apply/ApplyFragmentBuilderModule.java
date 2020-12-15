@@ -5,6 +5,7 @@ import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.four.PersonalInfoFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -26,5 +27,8 @@ public abstract class ApplyFragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract StepFourFragment contributeStepFourFragment();
+
+    @ContributesAndroidInjector
+    abstract PersonalInfoFragment contributePersonalInfoFragment();
 
 }

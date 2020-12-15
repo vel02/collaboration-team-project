@@ -8,7 +8,5 @@ public interface Hostable {
 
     void onEnlist(ApplicationForm applicationForm);
 
-    void onSave();
-
     void onInflate(View view, String screen);
 }
