@@ -103,13 +103,22 @@ public class StepFourFragment extends DaggerFragment {
         binding.fragmentFourAddressRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hostable.onInflate(v,getString(R.string.tag_fragment_address));
+                hostable.onInflate(v, getString(R.string.tag_fragment_address));
             }
         });
 
         binding.fragmentFourNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //load latest data from userForm
+                //save it to firebase
+                sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
+                sessionManager.observeUserForm().observe(getViewLifecycleOwner(), userForm -> {
+                    if (userForm != null) {
+                        hostable.onSaveUserInfo(userForm);
+                    }
+                });
+
                 hostable.onInflate(v, getString(R.string.tag_fragment_step_five));
             }
         });

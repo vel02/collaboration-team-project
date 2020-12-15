@@ -11,5 +11,7 @@ public interface Hostable {
 
     void onEnlist(LoanForm LoanForm);
 
+    void onSaveUserInfo(UserForm userForm);
+
     void onInflate(View view, String screen);
 }

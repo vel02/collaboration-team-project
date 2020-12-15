@@ -69,7 +69,6 @@ public class StepThreeFragment extends DaggerFragment {
 
             UserForm form = userInfo(street, barangay, city, province, postal);
             hostable.onEnlist(form);
-//            hostable.onSave();
             hostable.onInflate(view, getString(R.string.tag_fragment_step_four));
 
         });
