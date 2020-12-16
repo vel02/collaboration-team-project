@@ -108,6 +108,11 @@
     <string name="database_node_loans">loans</string>
     <string name="amount_label">Enter Amount</string>
     <string name="tag_fragment_amount_application">tag_fragment_amount_application</string>
+    <string name="your_loan_of_label">Your Loan of</string>
+    <string name="has_been_approved_label">has been approved!</string>
+    <string name="cancel_loan_application_label">Cancel Loan Application</string>
+    <string name="choose_repayment_schedule_label">Choose Repayment Schedule</string>
+    <string name="tag_fragment_approved">tag_fragment_approved</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

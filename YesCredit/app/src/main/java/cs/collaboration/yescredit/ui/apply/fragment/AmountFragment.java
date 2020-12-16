@@ -87,6 +87,7 @@ public class AmountFragment extends DaggerFragment {
 
                 if (isQualified) {
                     hostable.onEnlist(loanInfo());
+                    hostable.onInflate(v, getString(R.string.tag_fragment_approved));
 
                 } else {
                     Snackbar.make(v, "Not Qualified!", Snackbar.LENGTH_SHORT).show();
