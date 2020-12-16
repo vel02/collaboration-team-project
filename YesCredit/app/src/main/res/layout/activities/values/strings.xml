@@ -83,7 +83,7 @@
     <string name="tag_fragment_step_four">tag_fragment_step_four</string>
     <string name="edit_label"><u>Edit</u></string>
     <string name="address_label">Address</string>
-    <string name="database_field_user_id">user_id</string>
+    <string name="database_field_user_id">userId</string>
     <string name="step_4_10_label">Step 4/6</string>
     <string name="personal_information_label">Personal Information</string>
     <string name="tag_fragment_personal_info">tag_fragment_personal_info</string>
@@ -106,6 +106,8 @@
     <string name="submit_label">Submit Application</string>
     <string name="tag_fragment_submit_application">tag_fragment_submit_application</string>
     <string name="database_node_loans">loans</string>
+    <string name="amount_label">Enter Amount</string>
+    <string name="tag_fragment_amount_application">tag_fragment_amount_application</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
@@ -125,6 +127,26 @@
     <string-array name="civil_status_array">
         <item>Single</item>
         <item>Married</item>
+    </string-array>
+
+    <string-array name="available_amount_array">
+        <item>P 1,000.00</item>
+        <item>P 2,000.00</item>
+        <item>P 5,000.00</item>
+        <item>P 10,000.00</item>
+        <item>P 20,000.00</item>
+        <item>P 30,000.00</item>
+        <item>P 50,000.00</item>
+    </string-array>
+
+    <string-array name="available_amount_array_data">
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>50000</item>
     </string-array>
 
 </resources>

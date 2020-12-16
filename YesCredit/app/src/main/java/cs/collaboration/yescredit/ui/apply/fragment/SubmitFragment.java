@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,7 +70,9 @@ public class SubmitFragment extends DaggerFragment {
         });
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child(getString(R.string.database_node_loans));
+        Query query = reference.child(getString(R.string.database_node_loans))
+                .orderByChild(getString(R.string.database_field_user_id))
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,6 +137,8 @@ public class SubmitFragment extends DaggerFragment {
                 loanForm.setRepayment_total("");
 
                 hostable.onEnlist(loanForm);
+                hostable.onInflate(v, getString(R.string.tag_fragment_amount_application));
+                number_of_times = 0;
 
             }
         });
