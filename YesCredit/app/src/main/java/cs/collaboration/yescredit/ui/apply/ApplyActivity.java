@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.apply.fragment.AmountFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
@@ -119,6 +120,11 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 
             case "tag_fragment_approved":
                 action = AmountFragmentDirections.actionAmountFragmentToApprovedFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
+            case "tag_fragment_schedule":
+                action = ApprovedFragmentDirections.actionApprovedFragmentToScheduleFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
 

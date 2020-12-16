@@ -16,4 +16,9 @@ public class Utility {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         return formatter.format(m);
     }
+
+    public static String currencyFormatterWithFixDecimal(String amount) {
+        DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
+        return formatter.format(Double.parseDouble(amount));
+    }
 }

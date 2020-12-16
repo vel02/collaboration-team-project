@@ -113,6 +113,15 @@
     <string name="cancel_loan_application_label">Cancel Loan Application</string>
     <string name="choose_repayment_schedule_label">Choose Repayment Schedule</string>
     <string name="tag_fragment_approved">tag_fragment_approved</string>
+    <string name="repayment_label">Repayment</string>
+    <string name="choose_label">Choose:</string>
+    <string name="_30_days_to_pay_label">30 days to pay</string>
+    <string name="php_12_738_due_date_label">PHP 12,738.00 due (Date)</string>
+    <string name="php_12_386_due_date_label">PHP 12,386.00 due (Date)</string>
+    <string name="service_free_php_1738_00_15_interest_0_8_tax_label">Service Free = PHP 1738.00 (15% Interest + 0.8% tax)</string>
+    <string name="service_free_php_1386_00_15_interest_0_8_tax_label">Service Free = PHP 1386.00 (12% Interest + 0.6% tax)</string>
+    <string name="_14_days_to_pay_label">14 days to pay</string>
+    <string name="tag_fragment_schedule">tag_fragment_schedule</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

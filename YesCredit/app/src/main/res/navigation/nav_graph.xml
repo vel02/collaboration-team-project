@@ -98,5 +98,14 @@
         android:id="@+id/approvedFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragment"
         android:label="@string/loan_application_label"
-        tools:layout="@layout/fragment_approved" />
+        tools:layout="@layout/fragment_approved">
+        <action
+            android:id="@+id/action_approvedFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment"
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_schedule" />
 </navigation>
