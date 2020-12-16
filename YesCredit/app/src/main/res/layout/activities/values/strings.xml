@@ -130,8 +130,6 @@
     </string-array>
 
     <string-array name="available_amount_array">
-        <item>P 1,000.00</item>
-        <item>P 2,000.00</item>
         <item>P 5,000.00</item>
         <item>P 10,000.00</item>
         <item>P 20,000.00</item>
@@ -140,8 +138,6 @@
     </string-array>
 
     <string-array name="available_amount_array_data">
-        <item>1000</item>
-        <item>2000</item>
         <item>5000</item>
         <item>10000</item>
         <item>20000</item>

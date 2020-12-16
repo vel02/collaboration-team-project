@@ -146,19 +146,15 @@ public class SubmitFragment extends DaggerFragment {
 
     private String getLimitAmount(int number_of_times) {
         if (number_of_times >= 2 && number_of_times < 5) {
-            return "2000";
-        } else if (number_of_times >= 5 && number_of_times < 10) {
-            return "5000";
-        } else if (number_of_times >= 10 && number_of_times < 15) {
             return "10000";
-        } else if (number_of_times >= 15 && number_of_times < 20) {
+        } else if (number_of_times >= 5 && number_of_times < 10) {
             return "20000";
-        } else if (number_of_times >= 20 && number_of_times < 40) {
+        } else if (number_of_times >= 10 && number_of_times < 25) {
             return "30000";
-        } else if (number_of_times >= 40) {
+        } else if (number_of_times >= 25) {
             return "50000";
         }
-        return "1000";
+        return "10000";
     }
 
     @Override

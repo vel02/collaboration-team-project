@@ -89,7 +89,7 @@ public class SignUpViewModel extends ViewModel {
             loan.setCivilStatus("");
             loan.setSourceOfIncome("");
             loan.setIncomePerMonth("");
-            loan.setLimit("1000");
+            loan.setLimit("10000");
             loan.setStatus("paid");
             loan.setRepayment_loan("");
             loan.setRepayment_date("");
