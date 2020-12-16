@@ -102,6 +102,10 @@
     <string name="source_of_income_label">Main Source of Income (Describe):</string>
     <string name="household_income_per_month_label">Household Income per Month (PHP)</string>
     <string name="step_6_10_label">Step 6/6</string>
+    <string name="loan_information_label">Loan Information:</string>
+    <string name="submit_label">Submit Application</string>
+    <string name="tag_fragment_submit_application">tag_fragment_submit_application</string>
+    <string name="database_node_loans">loans</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

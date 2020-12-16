@@ -13,10 +13,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.model.Loan;
 import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.util.Keys;
 
@@ -56,6 +58,7 @@ public class SignUpViewModel extends ViewModel {
                             Log.d(TAG, "onComplete: uid: " + auth.getCurrentUser().getUid());
 
                             sendVerificationEmail();
+                            createInitialLoan();
                             createNewUserStorage();
 
                         } else {
@@ -64,6 +67,41 @@ public class SignUpViewModel extends ViewModel {
                         progressBarState.setValue(State.INVISIBLE);
                     }
                 });
+    }
+
+
+    private void createInitialLoan() {
+        DatabaseReference reference = database.getReference();
+
+        FirebaseUser current = auth.getCurrentUser();
+
+        String loanId = reference.child(Keys.DATABASE_NODE_LOAN)
+                .push().getKey();
+
+        if (current != null && loanId != null) {
+            Loan loan = new Loan();
+            loan.setUserId(current.getUid());
+            loan.setLoanId(loanId);
+            loan.setLevelOfEducation("");
+            loan.setReason("");
+            loan.setMoreDetails("");
+            loan.setOutstanding("");
+            loan.setCivilStatus("");
+            loan.setSourceOfIncome("");
+            loan.setIncomePerMonth("");
+            loan.setLimit("1000");
+            loan.setStatus("paid");
+            loan.setRepayment_loan("");
+            loan.setRepayment_date("");
+            loan.setRepayment_interest("");
+            loan.setRepayment_penalty("");
+            loan.setRepayment_total("");
+            loan.setRepayment_days("");
+
+            reference.child(Keys.DATABASE_NODE_LOAN)
+                    .child(loanId).setValue(loan);
+
+        }
     }
 
     public void createNewUserStorage() {

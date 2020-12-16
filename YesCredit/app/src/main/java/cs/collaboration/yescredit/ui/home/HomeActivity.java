@@ -26,6 +26,8 @@ import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 public class HomeActivity extends BaseActivity {
 
+    private static final String TAG = "HomeActivity";
+
     @Inject
     ViewModelProviderFactory providerFactory;
 

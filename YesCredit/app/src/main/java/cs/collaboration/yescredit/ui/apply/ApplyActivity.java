@@ -24,6 +24,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.StepSixFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
@@ -101,6 +102,11 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 
             case "tag_fragment_step_six":
                 action = StepFiveFragmentDirections.actionStepFiveFragmentToStepSixFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
+            case "tag_fragment_submit_application":
+                action = StepSixFragmentDirections.actionStepSixFragmentToSubmitFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
 

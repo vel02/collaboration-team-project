@@ -20,12 +20,13 @@ public class Loan {
     private String repayment_penalty;
     private String repayment_date;
     private String repayment_loan;
+    private String repayment_days;
 
     public Loan(String userId, String loanId, String levelOfEducation, String reason,
                 String moreDetails, String outstanding, String civilStatus, String sourceOfIncome,
                 String incomePerMonth, String limit, String status, String repayment_interest,
                 String repayment_total, String repayment_penalty, String repayment_date,
-                String repayment_loan) {
+                String repayment_loan, String repayment_days) {
         this.userId = userId;
         this.loanId = loanId;
         this.levelOfEducation = levelOfEducation;
@@ -42,6 +43,7 @@ public class Loan {
         this.repayment_penalty = repayment_penalty;
         this.repayment_date = repayment_date;
         this.repayment_loan = repayment_loan;
+        this.repayment_days = repayment_days;
     }
 
     public Loan() {
@@ -67,8 +69,10 @@ public class Loan {
                 ", repayment_penalty='" + repayment_penalty + '\'' +
                 ", repayment_date='" + repayment_date + '\'' +
                 ", repayment_loan='" + repayment_loan + '\'' +
+                ", repayment_days='" + repayment_days + '\'' +
                 '}';
     }
+
 
     public String getUserId() {
         return userId;
@@ -196,5 +200,13 @@ public class Loan {
 
     public void setRepayment_loan(String repayment_loan) {
         this.repayment_loan = repayment_loan;
+    }
+
+    public String getRepayment_days() {
+        return repayment_days;
+    }
+
+    public void setRepayment_days(String repayment_days) {
+        this.repayment_days = repayment_days;
     }
 }

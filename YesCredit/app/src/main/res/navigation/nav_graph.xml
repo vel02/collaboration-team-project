@@ -71,5 +71,14 @@
         android:id="@+id/stepSixFragment"
         android:name="cs.collaboration.yescredit.ui.apply.fragment.StepSixFragment"
         android:label="@string/loan_application_label"
-        tools:layout="@layout/fragment_step_six" />
+        tools:layout="@layout/fragment_step_six">
+        <action
+            android:id="@+id/action_stepSixFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/submitFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.SubmitFragment"
+        android:label="@string/loan_application_label"
+        tools:layout="@layout/fragment_submit" />
 </navigation>

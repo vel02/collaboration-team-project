@@ -74,6 +74,7 @@ public class StepSixFragment extends DaggerFragment {
             @Override
             public void onClick(View v) {
                 hostable.onEnlist(loanInfo());
+                hostable.onInflate(v, getString(R.string.tag_fragment_submit_application));
             }
         });
     }
