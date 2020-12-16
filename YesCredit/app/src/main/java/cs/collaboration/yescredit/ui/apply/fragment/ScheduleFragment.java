@@ -1,5 +1,7 @@
 package cs.collaboration.yescredit.ui.apply.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import androidx.lifecycle.Observer;
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.databinding.FragmentScheduleBinding;
+import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 import dagger.android.support.DaggerFragment;
@@ -28,6 +31,7 @@ public class ScheduleFragment extends DaggerFragment {
 
     private FragmentScheduleBinding binding;
     private LoanForm loanForm;
+    private Hostable hostable;
 
     private double interest30;
     private double interest14;
@@ -124,6 +128,13 @@ public class ScheduleFragment extends DaggerFragment {
             Log.d(TAG, "onCheckedChanged: updated: " + loanForm);
         });
 
+        binding.fragmentScheduleConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hostable.onEnlist(loanForm);
+//                hostable.onInflate(v, "");
+            }
+        });
     }
 
     private String getDaysToPay(String value) {
@@ -138,6 +149,24 @@ public class ScheduleFragment extends DaggerFragment {
 
     private double getTotal(double loan, double service) {
         return loan + service;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity = getActivity();
+        if (!(activity instanceof Hostable)) {
+            assert activity != null;
+            throw new ClassCastException(activity.getClass().getSimpleName()
+                    + " must implement Hostable interface.");
+        }
+        hostable = (Hostable) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        hostable = null;
     }
 
 }
