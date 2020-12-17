@@ -132,6 +132,9 @@
     <string name="failure_to_pay_on_time_would_nsubject_you_to_8_0_penalty_fee_label">Failure to pay on time would<br />\nsubject you to 8.0% penalty fee</string>
     <string name="accept_label">Accept</string>
     <string name="tag_fragment_receipt">tag_fragment_receipt</string>
+    <string name="you_can_request_a_loan_of_up_to_label">You can request a loan of up to</string>
+    <string name="you_can_easily_increase_your_limit_by_consistently_paying_your_loans_on_time_and_reach_to_up_to_php_30_000_label">You can easily increase your limit by consistently paying your loans on time and reach to up to PHP 30,000!</string>
+    <string name="apply_for_a_loan_label">Apply for a Loan</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

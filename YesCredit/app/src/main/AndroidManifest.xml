@@ -18,18 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YesCredit">
+        <activity android:name=".ui.allowable.AllowableActivity"
+            android:label="@string/allowable_loan_label"/>
         <activity
             android:name=".ui.apply.ApplyActivity"
             android:label="@string/loan_application_label"
-            android:theme="@style/Theme.YesCredit.NoActionBar"/>
+            android:theme="@style/Theme.YesCredit.NoActionBar" />
         <activity
             android:name=".ui.referral.ReferralActivity"
-            android:label="@string/referral_label"
-            android:parentActivityName=".ui.referral.ReferralActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.referral.ReferralActivity" />
-        </activity>
+            android:label="@string/referral_label" />
         <activity
             android:name=".ui.faq.FaqActivity"
             android:label="@string/faq_label"

@@ -1,5 +1,7 @@
 package cs.collaboration.yescredit.di;
 
+import cs.collaboration.yescredit.di.ui.allowable.AllowableModule;
+import cs.collaboration.yescredit.di.ui.allowable.AllowableScope;
 import cs.collaboration.yescredit.di.ui.apply.ApplyFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyScope;
@@ -15,6 +17,7 @@ import cs.collaboration.yescredit.di.ui.referral.ReferralModule;
 import cs.collaboration.yescredit.di.ui.referral.ReferralViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
+import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
@@ -77,4 +80,13 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract ApplyActivity contributeApplyActivity();
+
+
+    @AllowableScope
+    @ContributesAndroidInjector(
+            modules = {
+                    AllowableModule.class
+            }
+    )
+    abstract AllowableActivity contributeAllowableActivity();
 }

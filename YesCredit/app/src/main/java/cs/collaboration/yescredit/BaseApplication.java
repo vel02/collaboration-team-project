@@ -13,6 +13,7 @@ public class BaseApplication extends DaggerApplication {
                 .homeActivity(R.layout.activity_home)
                 .faqActivity(R.layout.activity_faq)
                 .referralActivity(R.layout.activity_referral)
+                .allowableActivity(R.layout.activity_allowable)
                 .build();
     }
 }

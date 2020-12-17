@@ -46,6 +46,9 @@ public interface AppComponent extends AndroidInjector<BaseApplication> {
         @BindsInstance
         Builder referralActivity(@Named("Referral Activity") int layout);
 
+        @BindsInstance
+        Builder allowableActivity(@Named("Allowable Activity") int layout);
+
         AppComponent build();
     }
 

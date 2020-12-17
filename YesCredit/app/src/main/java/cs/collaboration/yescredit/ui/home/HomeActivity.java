@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
+import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.referral.ReferralActivity;
@@ -64,7 +65,8 @@ public class HomeActivity extends BaseActivity {
         binding.contentHome.homeContentCardAllowableLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Allowable Loan", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, AllowableActivity.class);
+                startActivity(intent);
             }
         });
 
