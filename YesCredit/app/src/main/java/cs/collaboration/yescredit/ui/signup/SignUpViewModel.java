@@ -171,6 +171,7 @@ public class SignUpViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String benefit = generateBenefit();
                 Log.d(TAG, "onDataChange: benefit " + benefit);
+
                 for (DataSnapshot singleShot : snapshot.getChildren()) {
 
                     Code generated = singleShot.getValue(Code.class);
