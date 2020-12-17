@@ -7,6 +7,9 @@ import cs.collaboration.yescredit.di.ui.apply.ApplyFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyScope;
 import cs.collaboration.yescredit.di.ui.apply.ApplyViewModelModule;
+import cs.collaboration.yescredit.di.ui.existing.ExistingLoanModule;
+import cs.collaboration.yescredit.di.ui.existing.ExistingLoanScope;
+import cs.collaboration.yescredit.di.ui.existing.ExistingLoanViewModelModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqViewModelModule;
 import cs.collaboration.yescredit.di.ui.home.HomeModule;
@@ -20,6 +23,7 @@ import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
 import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
+import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
 import cs.collaboration.yescredit.ui.login.LoginActivity;
@@ -91,4 +95,13 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract AllowableActivity contributeAllowableActivity();
+
+    @ExistingLoanScope
+    @ContributesAndroidInjector(
+            modules = {
+                    ExistingLoanViewModelModule.class,
+                    ExistingLoanModule.class
+            }
+    )
+    abstract ExistingLoanActivity contributeExistingLoneActivity();
 }

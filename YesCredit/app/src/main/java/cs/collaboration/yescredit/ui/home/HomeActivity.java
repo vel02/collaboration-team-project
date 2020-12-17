@@ -21,6 +21,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
+import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.referral.ReferralActivity;
 import cs.collaboration.yescredit.util.UniversalImageLoader;
@@ -60,7 +61,8 @@ public class HomeActivity extends BaseActivity {
         binding.contentHome.homeContentCardLoanStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Existing Loan Status", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, ExistingLoanActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -18,8 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YesCredit">
-        <activity android:name=".ui.allowable.AllowableActivity"
-            android:label="@string/allowable_loan_label"/>
+        <activity android:name=".ui.existing.ExistingLoanActivity"></activity>
+        <activity
+            android:name=".ui.allowable.AllowableActivity"
+            android:label="@string/allowable_loan_label" />
         <activity
             android:name=".ui.apply.ApplyActivity"
             android:label="@string/loan_application_label"

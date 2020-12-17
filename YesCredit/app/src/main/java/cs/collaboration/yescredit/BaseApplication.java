@@ -14,6 +14,7 @@ public class BaseApplication extends DaggerApplication {
                 .faqActivity(R.layout.activity_faq)
                 .referralActivity(R.layout.activity_referral)
                 .allowableActivity(R.layout.activity_allowable)
+                .existingLoanActivity(R.layout.activity_existing_loan)
                 .build();
     }
 }
