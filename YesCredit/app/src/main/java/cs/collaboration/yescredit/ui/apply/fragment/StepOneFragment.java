@@ -123,7 +123,7 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
                         }
                     }
                     dateOfBirth = form.getDate_of_birth();
-                    binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : getString(R.string.date_format_label));
+                    binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : "");
                     governmentId = form.getGovernment_id();
                     street = form.getStreet_address();
                     barangay = form.getBarangay_address();
