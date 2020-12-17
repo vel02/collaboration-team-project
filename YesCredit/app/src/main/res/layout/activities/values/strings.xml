@@ -135,6 +135,10 @@
     <string name="you_can_request_a_loan_of_up_to_label">You can request a loan of up to</string>
     <string name="you_can_easily_increase_your_limit_by_consistently_paying_your_loans_on_time_and_reach_to_up_to_php_30_000_label">You can easily increase your limit by consistently paying your loans on time and reach to up to PHP 30,000!</string>
     <string name="apply_for_a_loan_label">Apply for a Loan</string>
+    <string name="increase_your_credit_limit_label">Increase your Credit Limit!</string>
+    <string name="up_to_php_50_000_label">Up to PHP 50,000</string>
+    <string name="would_you_like_to_apply_for_a_loan_label">Would you like to apply for a Loan?</string>
+    <string name="apply_now_label">Apply Now!</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
