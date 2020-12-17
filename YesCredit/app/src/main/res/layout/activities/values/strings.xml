@@ -31,8 +31,8 @@
     <string name="reset_password_label">Reset Password</string>
     <string name="confirm_label">Confirm</string>
     <string name="invite">Invite your friends and earn discounts for the first successful loan they pay back!</string>
-    <string name="link">(Link)</string>
-    <string name="generate_link">Generate Link</string>
+    <string name="code_label">(code)</string>
+    <string name="generate_code">Generate Code</string>
     <string name="desc_referral_photo">Referral Photo</string>
     <string name="desc_show_and_hide_password">Show and Hide Password</string>
     <string name="desc_faqs_logo">FAQs Logo</string>
@@ -139,6 +139,8 @@
     <string name="up_to_php_50_000_label">Up to PHP 50,000</string>
     <string name="would_you_like_to_apply_for_a_loan_label">Would you like to apply for a Loan?</string>
     <string name="apply_now_label">Apply Now!</string>
+    <string name="copy_label">Copy</string>
+    <string name="referral_code_optional_label">Referral Code (optional)</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

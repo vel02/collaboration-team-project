@@ -7,8 +7,7 @@
     android:background="@drawable/photo_home_background"
     android:orientation="vertical"
     android:padding="16dp"
-    android:weightSum="3"
-    tools:context=".ui.referral.ReferralActivity">
+    android:weightSum="3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_weight="1.2"
-        android:background="@color/card_referral"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp">
@@ -44,23 +43,25 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/content_referral_code"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_round_corner"
             android:gravity="center"
-            android:hint="@string/link"
+            android:hint="@string/code_label"
             android:importantForAutofill="no"
             android:inputType="text"
             android:textColorHint="@color/basic_color" />
 
         <Button
+            android:id="@+id/content_referral_generate"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="22dp"
             android:background="@drawable/button_round_corner"
-            android:text="@string/generate_link"
+            android:text="@string/generate_code"
             android:textColor="@color/white" />
 
 

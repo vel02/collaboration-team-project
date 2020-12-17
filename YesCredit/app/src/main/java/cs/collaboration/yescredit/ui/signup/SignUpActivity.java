@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
@@ -64,7 +63,9 @@ public class SignUpActivity extends DaggerAppCompatActivity {
                                 binding.contentSignup.signupContentConfirmPassword.getText().toString())) {
 
                             viewModel.registerNewEmail(binding.contentSignup.signupContentEmail.getText().toString(),
-                                    binding.contentSignup.signupContentPassword.getText().toString());
+                                    binding.contentSignup.signupContentPassword.getText().toString(),
+                                    binding.contentSignup.signupContentReferralCode.getText().toString());
+
 
                         } else {
                             Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -105,32 +106,41 @@ public class SignUpActivity extends DaggerAppCompatActivity {
     }
 
     private void subscribeObservers() {
-        viewModel.observeProgressBarState().observe(this, new Observer<SignUpViewModel.State>() {
-            @Override
-            public void onChanged(SignUpViewModel.State state) {
-                if (state != null) {
-                    switch (state) {
-                        case VISIBLE:
-                            showDialog();
-                            break;
-                        case INVISIBLE:
-                            hideDialog();
-                            break;
-                    }
+        viewModel.observeProgressBarState().observe(this, state -> {
+            if (state != null) {
+                switch (state) {
+                    case VISIBLE:
+                        showDialog();
+                        break;
+                    case INVISIBLE:
+                        hideDialog();
+                        break;
                 }
             }
         });
 
-        viewModel.observeDirectToLoginScreen().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean != null) {
-                    if (aBoolean) {
-                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
+        viewModel.observeDirectToLoginScreen().observe(this, aBoolean -> {
+            if (aBoolean != null) {
+                if (aBoolean) {
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        viewModel.observeNotification().observe(this, notification -> {
+            if (notification != null) {
+                switch (notification) {
+                    case REFERRAL_SUCCESS:
+                        Toast.makeText(SignUpActivity.this, "Referral Code Success", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "subscribeObservers: Referral Code Success");
+                        break;
+                    case REFERRAL_FAILED:
+                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "subscribeObservers: Referral Code Failed");
+                        break;
                 }
             }
         });

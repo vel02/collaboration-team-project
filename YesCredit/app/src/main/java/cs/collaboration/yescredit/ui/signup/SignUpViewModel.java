@@ -13,11 +13,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.model.Code;
 import cs.collaboration.yescredit.model.Loan;
 import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.util.Keys;
@@ -28,8 +35,10 @@ public class SignUpViewModel extends ViewModel {
 
     private final MutableLiveData<State> progressBarState = new MutableLiveData<>();
     private final MutableLiveData<Boolean> redirectToLoginScreen = new MutableLiveData<>();
+    private final MutableLiveData<Notification> notifications = new MutableLiveData<>();
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
+
 
     @Inject
     public SignUpViewModel() {
@@ -46,7 +55,7 @@ public class SignUpViewModel extends ViewModel {
         - Couldn't Send Verification Email
      */
 
-    public void registerNewEmail(String email, String password) {
+    public void registerNewEmail(String email, String password, String code) {
         progressBarState.setValue(State.VISIBLE);
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -59,6 +68,7 @@ public class SignUpViewModel extends ViewModel {
 
                             sendVerificationEmail();
                             createInitialLoan();
+                            checkReferralCode(code);
                             createNewUserStorage();
 
                         } else {
@@ -144,6 +154,59 @@ public class SignUpViewModel extends ViewModel {
         });
     }
 
+    private void checkReferralCode(String code) {
+        if (code == null || code.isEmpty()) {
+            notifications.postValue(Notification.REFERRAL_FAILED);
+            return;
+        }
+
+        DatabaseReference reference = database.getReference();
+
+        Query query = reference.child(Keys.DATABASE_NODE_CODES)
+                .orderByChild(Keys.DATABASE_FIELD_CODE)
+                .equalTo(code.toUpperCase());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String benefit = generateBenefit();
+                Log.d(TAG, "onDataChange: benefit " + benefit);
+                for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                    Code generated = singleShot.getValue(Code.class);
+                    if (generated != null) {
+                        reference.child(Keys.DATABASE_NODE_CODES)
+                                .child(generated.getCodeId())
+                                .child(Keys.DATABASE_FIELD_REFERRED_STATUS)
+                                .setValue("referred");
+
+                        reference.child(Keys.DATABASE_NODE_CODES)
+                                .child(generated.getCodeId())
+                                .child(Keys.DATABASE_FIELD_CODE_BENEFIT)
+                                .setValue(benefit);
+
+                        notifications.postValue(Notification.REFERRAL_SUCCESS);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: " + error.getDetails());
+            }
+        });
+
+    }
+
+    private String generateBenefit() {
+        final byte max = 4;
+        final byte min = 1;
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return String.valueOf(randomNum);
+    }
+
     public void sendVerificationEmail() {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -168,6 +231,12 @@ public class SignUpViewModel extends ViewModel {
         return redirectToLoginScreen;
     }
 
+    public LiveData<Notification> observeNotification() {
+        return notifications;
+    }
+
     public enum State {VISIBLE, INVISIBLE}
+
+    public enum Notification {REFERRAL_SUCCESS, REFERRAL_FAILED}
 
 }
