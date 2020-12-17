@@ -2,6 +2,7 @@ package cs.collaboration.yescredit.di;
 
 import cs.collaboration.yescredit.di.ui.allowable.AllowableModule;
 import cs.collaboration.yescredit.di.ui.allowable.AllowableScope;
+import cs.collaboration.yescredit.di.ui.allowable.AllowableViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyScope;
@@ -85,6 +86,7 @@ public abstract class ActivityBuilderModule {
     @AllowableScope
     @ContributesAndroidInjector(
             modules = {
+                    AllowableViewModelModule.class,
                     AllowableModule.class
             }
     )

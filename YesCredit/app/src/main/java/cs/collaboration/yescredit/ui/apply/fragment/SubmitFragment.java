@@ -82,6 +82,7 @@ public class SubmitFragment extends DaggerFragment {
                         String status = loan.getStatus();
                         if (status.equals("paid")) {
                             number_of_times++;
+                            Log.d(TAG, "onDataChange: " + number_of_times);
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.home;
+package cs.collaboration.yescredit.ui.allowable;
 
 import android.util.Log;
 
@@ -21,17 +21,16 @@ import javax.inject.Inject;
 import cs.collaboration.yescredit.model.Loan;
 import cs.collaboration.yescredit.util.Keys;
 
-public class HomeViewModel extends ViewModel {
+public class AllowableViewModel extends ViewModel {
 
-    private static final String TAG = "HomeViewModel";
+    private static final String TAG = "AllowableViewModel";
 
     private final MutableLiveData<Boolean> isAllowed = new MutableLiveData<>();
 
     @Inject
-    public HomeViewModel() {
-        Log.d(TAG, "HomeViewModel: view model is working...");
+    public AllowableViewModel() {
+        Log.d(TAG, "AllowableViewModel: view model is working...");
     }
-
 
     public void checkPendingLoan() {
 
@@ -73,6 +72,5 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Boolean> observeIsAllowed() {
         return isAllowed;
     }
-
 
 }

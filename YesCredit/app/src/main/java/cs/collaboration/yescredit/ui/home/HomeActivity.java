@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +46,7 @@ public class HomeActivity extends BaseActivity {
         initImageLoader();
 
         init();
+        subscribeObservers();
 
     }
 
@@ -73,8 +75,7 @@ public class HomeActivity extends BaseActivity {
         binding.contentHome.homeContentCardApplyLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ApplyActivity.class);
-                startActivity(intent);
+                viewModel.checkPendingLoan();
             }
         });
 
@@ -91,6 +92,22 @@ public class HomeActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, FaqActivity.class);
                 startActivity(intent);
+            }
+        });
+
+    }
+
+    private void subscribeObservers() {
+        viewModel.observeIsAllowed().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isAllowed) {
+                if (isAllowed) {
+                    Toast.makeText(HomeActivity.this, "You are allowed to make new Transaction", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HomeActivity.this, ApplyActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(HomeActivity.this, "You still have On-Going Transaction", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
