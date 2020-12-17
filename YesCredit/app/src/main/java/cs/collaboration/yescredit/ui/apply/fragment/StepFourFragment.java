@@ -37,42 +37,6 @@ public class StepFourFragment extends DaggerFragment {
         return binding.getRoot();
     }
 
-//    private void getUserInfo() {
-//
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        assert user != null;
-//
-//        Query query = reference.child(getString(R.string.database_node_users))
-//                .orderByChild(getString(R.string.database_field_user_id))
-//                .equalTo(user.getUid());
-//
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-//                    User single = singleSnapshot.getValue(User.class);
-//                    if (single != null) {
-//                        String personal_info =
-//                                single.getLast_name() + ", " + single.getFirst_name() + " " + single.getMiddle_name()
-//                                        + "\n" + single.getGender() + "\n" + single.getDate_of_birth();
-//                        String address = single.getStreet_address() + ", " + single.getBarangay_address()
-//                                + "\n" + single.getCity_address() + "\n" + single.getProvince_address()
-//                                + "\n" + single.getPostal_address();
-//                        binding.fragmentFourPersonalInfo.setText(personal_info);
-//                        binding.fragmentFourAddress.setText(address);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
-
     private void getUserInfo() {
 
         sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());

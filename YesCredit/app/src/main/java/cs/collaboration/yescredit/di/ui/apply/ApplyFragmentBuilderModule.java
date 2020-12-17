@@ -3,6 +3,7 @@ package cs.collaboration.yescredit.di.ui.apply;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
 import cs.collaboration.yescredit.ui.apply.fragment.AmountFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragment;
@@ -15,6 +16,7 @@ import cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.PersonalInfoFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+
 
 @Module
 public abstract class ApplyFragmentBuilderModule {
@@ -58,5 +60,8 @@ public abstract class ApplyFragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract ScheduleFragment contributeScheduleFragment();
+
+    @ContributesAndroidInjector
+    abstract ReceiptFragment contributeReceiptFragment();
 
 }

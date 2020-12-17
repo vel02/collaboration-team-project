@@ -122,6 +122,16 @@
     <string name="service_free_php_1386_00_15_interest_0_8_tax_label">Service Free = PHP 1386.00 (12% Interest + 0.6% tax)</string>
     <string name="_14_days_to_pay_label">14 days to pay</string>
     <string name="tag_fragment_schedule">tag_fragment_schedule</string>
+    <string name="review_your_loan_label">Review your Loan</string>
+    <string name="schedule_label">Schedule</string>
+    <string name="loan_label">Loan</string>
+    <string name="interest_label">Interest</string>
+    <string name="tax_label">Tax</string>
+    <string name="total_label">Total</string>
+    <string name="late_fee_label">Late Fee</string>
+    <string name="failure_to_pay_on_time_would_nsubject_you_to_8_0_penalty_fee_label">Failure to pay on time would<br />\nsubject you to 8.0% penalty fee</string>
+    <string name="accept_label">Accept</string>
+    <string name="tag_fragment_receipt">tag_fragment_receipt</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

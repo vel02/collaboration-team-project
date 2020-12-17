@@ -114,9 +114,9 @@ public class StepFiveFragment extends DaggerFragment {
         sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
                 Log.d(TAG, "getLoanInfo: loanForm: " + loanForm);
-                binding.fragmentFiveEducationAchieved.setSelection(getLevelOfEducation(loanForm.getLevelOfEducation()));
-                binding.fragmentFiveReasonLoaning.setSelection(getReason(loanForm.getReason()));
-                binding.fragmentFiveDescribe.setText(loanForm.getMoreDetails());
+                binding.fragmentFiveEducationAchieved.setSelection(getLevelOfEducation(loanForm.getLevelOfEducation() != null ? loanForm.getLevelOfEducation() : ""));
+                binding.fragmentFiveReasonLoaning.setSelection(getReason(loanForm.getReason() != null ? loanForm.getReason() : ""));
+                binding.fragmentFiveDescribe.setText(loanForm.getMoreDetails() != null ? loanForm.getMoreDetails() : "");
                 if (loanForm.getOutstanding() != null) {
                     switch (loanForm.getOutstanding().toLowerCase()) {
                         case "yes":

@@ -2,6 +2,7 @@ package cs.collaboration.yescredit.di;
 
 import cs.collaboration.yescredit.di.ui.apply.ApplyFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.ApplyModule;
+import cs.collaboration.yescredit.di.ui.apply.ApplyScope;
 import cs.collaboration.yescredit.di.ui.apply.ApplyViewModelModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqViewModelModule;
@@ -67,6 +68,7 @@ public abstract class ActivityBuilderModule {
     )
     abstract ReferralActivity contributeReferralActivity();
 
+    @ApplyScope
     @ContributesAndroidInjector(
             modules = {
                     ApplyFragmentBuilderModule.class,

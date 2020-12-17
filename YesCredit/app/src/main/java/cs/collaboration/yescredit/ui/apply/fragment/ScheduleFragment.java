@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentScheduleBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
@@ -39,6 +40,8 @@ public class ScheduleFragment extends DaggerFragment {
     private double penalty14;
     private double total30;
     private double total14;
+    private double tax30;
+    private double tax14;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -86,6 +89,7 @@ public class ScheduleFragment extends DaggerFragment {
         total30 = total;
         interest30 = loan * interest_30;
         penalty30 = loan * penalty;
+        tax30 = getTax(loan, tax_30);
 
         String display_due = "PHP " + currencyFormatterWithFixDecimal(String.valueOf(total)) + " due (Date)";
         String display_service = "Service Fee = PHP " + currencyFormatterWithFixDecimal(String.valueOf(service)) + "(15% Interest + 0.8% tax)";
@@ -98,6 +102,7 @@ public class ScheduleFragment extends DaggerFragment {
         total14 = total;
         interest14 = loan * interest_14;
         penalty14 = loan * penalty;
+        tax14 = getTax(loan, tax_14);
 
         display_due = "PHP " + currencyFormatterWithFixDecimal(String.valueOf(total)) + " due (Date)";
         display_service = "Service Fee = PHP " + currencyFormatterWithFixDecimal(String.valueOf(service)) + "(12% Interest + 0.6% tax)";
@@ -117,10 +122,12 @@ public class ScheduleFragment extends DaggerFragment {
 
             if (checkedId == binding.fragmentSchedule30Days.getId()) {
                 loanForm.setRepayment_total(String.valueOf(total30));
+                loanForm.setRepayment_tax(String.valueOf(tax30));
                 loanForm.setRepayment_interest(String.valueOf(interest30));
                 loanForm.setRepayment_penalty(String.valueOf(penalty30));
             } else if (checkedId == binding.fragmentSchedule14Days.getId()) {
                 loanForm.setRepayment_total(String.valueOf(total14));
+                loanForm.setRepayment_tax(String.valueOf(tax14));
                 loanForm.setRepayment_interest(String.valueOf(interest14));
                 loanForm.setRepayment_penalty(String.valueOf(penalty14));
             }
@@ -132,7 +139,7 @@ public class ScheduleFragment extends DaggerFragment {
             @Override
             public void onClick(View v) {
                 hostable.onEnlist(loanForm);
-//                hostable.onInflate(v, "");
+                hostable.onInflate(v, getString(R.string.tag_fragment_receipt));
             }
         });
     }
@@ -141,10 +148,13 @@ public class ScheduleFragment extends DaggerFragment {
         return value.substring(0, value.indexOf(" "));
     }
 
+    private double getTax(double loan, double tax) {
+        return loan * tax;
+    }
+
     private double getServiceFee(double loan, double interest, double tax) {
         double due = loan * interest;
-        tax = loan * tax;
-        return due + tax;
+        return due + getTax(loan, tax);
     }
 
     private double getTotal(double loan, double service) {
