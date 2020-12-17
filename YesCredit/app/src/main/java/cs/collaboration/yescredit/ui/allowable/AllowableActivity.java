@@ -54,13 +54,13 @@ public class AllowableActivity extends BaseActivity {
     private void subscribeObservers() {
         viewModel.observeIsAllowed().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(Boolean isAllowed) {
-                if (isAllowed) {
+            public void onChanged(Boolean isNotAllowed) {
+                if (isNotAllowed) {
+                    Toast.makeText(AllowableActivity.this, "You still have On-Going Transaction", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(AllowableActivity.this, "You are allowed to make new Transaction", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AllowableActivity.this, ApplyActivity.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(AllowableActivity.this, "You still have On-Going Transaction", Toast.LENGTH_SHORT).show();
                 }
             }
         });

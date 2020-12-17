@@ -25,7 +25,7 @@ public class AllowableViewModel extends ViewModel {
 
     private static final String TAG = "AllowableViewModel";
 
-    private final MutableLiveData<Boolean> isAllowed = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isNotAllowed = new MutableLiveData<>();
 
     @Inject
     public AllowableViewModel() {
@@ -47,15 +47,19 @@ public class AllowableViewModel extends ViewModel {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Log.d(TAG, "onDataChange: " + snapshot.getChildrenCount());
-
-                    int number_of_transactions = 0;
+                    long number_of_transaction = 0;
                     for (DataSnapshot singleShot : snapshot.getChildren()) {
-                        number_of_transactions++;
+                        number_of_transaction++;
                         Loan loan = singleShot.getValue(Loan.class);
-                        if (number_of_transactions == snapshot.getChildrenCount()) {
-                            Log.d(TAG, "onDataChange: done!");
-                            isAllowed.postValue(loan.getStatus().toLowerCase().equals("paid"));
+                        Log.d(TAG, "onDataChange: done!");
+                        if (loan.getStatus().toLowerCase().equals("on-going")) {
+                            isNotAllowed.postValue(true);
+                            return;
+                        }
+
+                        if (number_of_transaction == snapshot.getChildrenCount()
+                                && !loan.getStatus().toLowerCase().equals("on-going")) {
+                            isNotAllowed.postValue(false);
                         }
                     }
                 }
@@ -70,7 +74,7 @@ public class AllowableViewModel extends ViewModel {
     }
 
     public LiveData<Boolean> observeIsAllowed() {
-        return isAllowed;
+        return isNotAllowed;
     }
 
 }
