@@ -11,15 +11,19 @@ import cs.collaboration.yescredit.di.ui.existing.ExistingLoanModule;
 import cs.collaboration.yescredit.di.ui.existing.ExistingLoanScope;
 import cs.collaboration.yescredit.di.ui.existing.ExistingLoanViewModelModule;
 import cs.collaboration.yescredit.di.ui.faq.FaqModule;
+import cs.collaboration.yescredit.di.ui.faq.FaqScope;
 import cs.collaboration.yescredit.di.ui.faq.FaqViewModelModule;
 import cs.collaboration.yescredit.di.ui.home.HomeModule;
+import cs.collaboration.yescredit.di.ui.home.HomeScope;
 import cs.collaboration.yescredit.di.ui.home.HomeViewModelModule;
 import cs.collaboration.yescredit.di.ui.login.LoginDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.login.LoginModule;
+import cs.collaboration.yescredit.di.ui.login.LoginScope;
 import cs.collaboration.yescredit.di.ui.login.LoginViewModelModule;
 import cs.collaboration.yescredit.di.ui.referral.ReferralModule;
 import cs.collaboration.yescredit.di.ui.referral.ReferralViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
+import cs.collaboration.yescredit.di.ui.signup.SignUpScope;
 import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
 import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
@@ -35,6 +39,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilderModule {
 
+    @LoginScope
     @ContributesAndroidInjector(
             modules = {
                     LoginDialogBuilderModule.class,
@@ -44,6 +49,7 @@ public abstract class ActivityBuilderModule {
     )
     abstract LoginActivity contributeLoginActivity();
 
+    @SignUpScope
     @ContributesAndroidInjector(
             modules = {
                     SignUpViewModelModule.class,
@@ -52,6 +58,7 @@ public abstract class ActivityBuilderModule {
     )
     abstract SignUpActivity contributeSignUpActivity();
 
+    @HomeScope
     @ContributesAndroidInjector(
             modules = {
                     HomeViewModelModule.class,
@@ -60,6 +67,7 @@ public abstract class ActivityBuilderModule {
     )
     abstract HomeActivity contributeHomeActivity();
 
+    @FaqScope
     @ContributesAndroidInjector(
             modules = {
                     FaqViewModelModule.class,

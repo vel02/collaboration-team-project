@@ -8,4 +8,10 @@
         android:title="@string/sign_out"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_account_settings"
+        android:orderInCategory="200"
+        android:title="@string/account_settings"
+        app:showAsAction="never"/>
+
 </menu>

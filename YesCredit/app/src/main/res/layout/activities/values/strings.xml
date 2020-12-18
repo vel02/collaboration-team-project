@@ -142,6 +142,7 @@
     <string name="copy_label">Copy</string>
     <string name="referral_code_optional_label">Referral Code (optional)</string>
     <string name="apply_available_referral_benefits_label">Apply Available Referral Benefits</string>
+    <string name="account_settings">Account Settings</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
