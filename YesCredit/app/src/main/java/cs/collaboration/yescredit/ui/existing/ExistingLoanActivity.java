@@ -50,7 +50,8 @@ public class ExistingLoanActivity extends BaseActivity {
 
                 String repayment = "PHP " + currencyFormatter(loan.getRepayment_loan());
                 String schedule = loan.getRepayment_days() + " Days to Pay";
-                String interest = "PHP " + currencyFormatter(loan.getRepayment_interest());
+                String interest = "PHP " + currencyFormatter(loan.getRepayment_interest()) + "(" + loan.getRepayment_interest_used() + "%)";
+                String tax = "PHP " + currencyFormatter(loan.getRepayment_tax()) + "(" + (loan.getRepayment_days().equals("30") ? "0.8%" : "0.6%") + ")";
                 String total = "PHP " + currencyFormatter(loan.getRepayment_total());
 
                 binding.contentExistingLoan.contentExistingRepayment.setText(repayment);
@@ -59,6 +60,7 @@ public class ExistingLoanActivity extends BaseActivity {
                 binding.contentExistingLoan.contentExistingLoan.setText(repayment);
                 binding.contentExistingLoan.contentExistingInterest.setText(interest);
                 binding.contentExistingLoan.contentExistingTotal.setText(total);
+                binding.contentExistingLoan.contentExistingTax.setText(tax);
             } else {
                 binding.contentExistingLoan.contentExistingExistingRoot.setVisibility(View.GONE);
                 binding.contentExistingLoan.contentExistingApplyRoot.setVisibility(View.VISIBLE);

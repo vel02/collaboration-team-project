@@ -95,7 +95,7 @@
             android:layout_marginTop="8dp"
             android:background="@color/white"
             android:padding="16dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/content_existing_days_to_pay"
@@ -170,6 +170,14 @@
                         android:text="@string/interest_label"
                         android:textAppearance="?attr/textAppearanceBody2" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/tax_label"
+                        android:textAppearance="?attr/textAppearanceBody2" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,6 +203,15 @@
                         android:gravity="end"
                         android:textAppearance="?attr/textAppearanceBody2"
                         tools:text="PHP 1,100.00(15%)" />
+
+                    <TextView
+                        android:id="@+id/content_existing_tax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="end"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        tools:text="PHP 88.00(0.8%)" />
 
                 </LinearLayout>
 
