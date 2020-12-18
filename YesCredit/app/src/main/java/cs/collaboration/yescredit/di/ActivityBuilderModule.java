@@ -1,5 +1,7 @@
 package cs.collaboration.yescredit.di;
 
+import cs.collaboration.yescredit.di.ui.account.AccountModule;
+import cs.collaboration.yescredit.di.ui.account.AccountScope;
 import cs.collaboration.yescredit.di.ui.allowable.AllowableModule;
 import cs.collaboration.yescredit.di.ui.allowable.AllowableScope;
 import cs.collaboration.yescredit.di.ui.allowable.AllowableViewModelModule;
@@ -25,6 +27,7 @@ import cs.collaboration.yescredit.di.ui.referral.ReferralViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpScope;
 import cs.collaboration.yescredit.di.ui.signup.SignUpViewModelModule;
+import cs.collaboration.yescredit.ui.account.AccountSettingsActivity;
 import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
@@ -112,4 +115,12 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract ExistingLoanActivity contributeExistingLoneActivity();
+
+    @AccountScope
+    @ContributesAndroidInjector(
+            modules = {
+                    AccountModule.class
+            }
+    )
+    abstract AccountSettingsActivity contributeAccountSettingsActivity();
 }

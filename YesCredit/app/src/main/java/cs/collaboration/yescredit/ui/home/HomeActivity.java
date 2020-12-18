@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -127,12 +128,16 @@ public class HomeActivity extends BaseActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_sign_out) {
-            FirebaseAuth.getInstance().signOut();
-            checkAuthenticationState();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_sign_out:
+                FirebaseAuth.getInstance().signOut();
+                checkAuthenticationState();
+                return true;
+            case R.id.action_account_settings:
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
