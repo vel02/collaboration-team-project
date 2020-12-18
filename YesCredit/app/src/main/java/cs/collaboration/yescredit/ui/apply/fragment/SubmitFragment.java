@@ -110,21 +110,6 @@ public class SubmitFragment extends DaggerFragment {
                 loanForm.setCivilStatus(SubmitFragment.this.loanForm.getCivilStatus());
                 loanForm.setSourceOfIncome(SubmitFragment.this.loanForm.getSourceOfIncome());
                 loanForm.setIncomePerMonth(SubmitFragment.this.loanForm.getIncomePerMonth());
-
-                    /*
-                        this will increase depends on number of times users paid loans
-                        1 = 1,000
-                        2 = 2,000
-                        5 = 5,000
-                        10 = 10,000
-                        15 = 20,000
-                        20 = 30,000
-                        40 = 50,000 which is maximum amount
-                        41+ = 50,000 fix
-
-                        logic:
-                        number of times = get current number of paid loans in database.
-                     */
                 loanForm.setLimit(getLimitAmount((int) number_of_times));
 
                     /*
@@ -145,14 +130,25 @@ public class SubmitFragment extends DaggerFragment {
         });
     }
 
+    /*
+                       this will increase depends on number of times users paid loans
+                       2 = 5,000 or 10,000
+                       5 = 20,000
+                       10 = 30,000
+                       20 = 50,000 which is maximum amount
+                       20+ = 50,000 fix
+
+                       logic:
+                       number of times = get current number of paid loans in database.
+                    */
     private String getLimitAmount(int number_of_times) {
         if (number_of_times >= 2 && number_of_times < 5) {
             return "10000";
         } else if (number_of_times >= 5 && number_of_times < 10) {
             return "20000";
-        } else if (number_of_times >= 10 && number_of_times < 25) {
+        } else if (number_of_times >= 10 && number_of_times < 20) {
             return "30000";
-        } else if (number_of_times >= 25) {
+        } else if (number_of_times >= 20) {
             return "50000";
         }
         return "10000";

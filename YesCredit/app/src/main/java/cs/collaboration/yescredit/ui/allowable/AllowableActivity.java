@@ -80,14 +80,17 @@ public class AllowableActivity extends BaseActivity {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int number_of_paid_transaction = 0;
                     for (DataSnapshot singleShot : snapshot.getChildren()) {
                         Loan loan = singleShot.getValue(Loan.class);
                         Log.d(TAG, "onDataChange: loan " + loan);
+                        assert loan != null;
                         if (loan.getStatus().toLowerCase().equals("paid")) {
-                            String limit = "PHP " + currencyFormatter(loan.getLimit());
-                            binding.contentAllowable.contentAllowableLimit.setText(limit);
+                            number_of_paid_transaction++;
                         }
                     }
+                    String limit = "PHP " + currencyFormatter(getLimitAmount(number_of_paid_transaction));
+                    binding.contentAllowable.contentAllowableLimit.setText(limit);
                 }
 
                 @Override
@@ -97,6 +100,19 @@ public class AllowableActivity extends BaseActivity {
             });
 
         }
+    }
+
+    private String getLimitAmount(int number_of_times) {
+        if (number_of_times >= 2 && number_of_times < 5) {
+            return "10000";
+        } else if (number_of_times >= 5 && number_of_times < 10) {
+            return "20000";
+        } else if (number_of_times >= 10 && number_of_times < 20) {
+            return "30000";
+        } else if (number_of_times >= 20) {
+            return "50000";
+        }
+        return "10000";
     }
 
     private void navigation() {
