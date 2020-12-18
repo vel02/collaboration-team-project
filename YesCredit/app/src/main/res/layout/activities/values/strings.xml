@@ -141,6 +141,7 @@
     <string name="apply_now_label">Apply Now!</string>
     <string name="copy_label">Copy</string>
     <string name="referral_code_optional_label">Referral Code (optional)</string>
+    <string name="apply_available_referral_benefits_label">Apply Available Referral Benefits</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
@@ -176,6 +177,10 @@
         <item>20000</item>
         <item>30000</item>
         <item>50000</item>
+    </string-array>
+
+    <string-array name="available_benefits">
+        <item>Apply Available</item>
     </string-array>
 
 </resources>

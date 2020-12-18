@@ -3,6 +3,7 @@ package cs.collaboration.yescredit.ui.apply.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,12 @@ import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +29,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.databinding.FragmentReceiptBinding;
+import cs.collaboration.yescredit.model.Code;
 import cs.collaboration.yescredit.model.Loan;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
@@ -60,7 +66,7 @@ public class ReceiptFragment extends DaggerFragment {
         sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
 
-                String displayInterest = loanForm.getRepayment_days().equals("30") ? "15%" : "12%";
+                String displayInterest = loanForm.getRepayment_interest_used() + "%";
                 String displayTax = loanForm.getRepayment_days().equals("30") ? "0.8%" : "0.6%";
 
                 String date = getSchedule(getCurrentDate(), Integer.parseInt(loanForm.getRepayment_days()));
@@ -93,10 +99,52 @@ public class ReceiptFragment extends DaggerFragment {
         binding.fragmentReceiptAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchAvailableBenefits();
                 onEnlistLoan(v);
             }
         });
 
+    }
+
+    private void searchAvailableBenefits() {
+        Log.d(TAG, "searchAvailableBenefits: started");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (current != null) {
+
+            Query query = reference.child(Keys.DATABASE_NODE_CODES)
+                    .orderByChild(Keys.DATABASE_FIELD_FROM_ID)
+                    .equalTo(current.getUid());
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        Code generated = singleShot.getValue(Code.class);
+                        Log.d(TAG, "onDataChange: " + generated);
+                        if (generated != null) {
+                            if (generated.getReferred_status().equals("referred")
+                                    && generated.getCode_status().equals("not-used")) {
+                                Log.d(TAG, "onDataChange: triggered");
+                                reference.child(Keys.DATABASE_NODE_CODES)
+                                        .child(generated.getCodeId())
+                                        .child(Keys.DATABASE_FIELD_CODE_STATUS)
+                                        .setValue("used");
+                            }
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     private void onEnlistLoan(View view) {
@@ -124,6 +172,7 @@ public class ReceiptFragment extends DaggerFragment {
             loan.setRepayment_loan(loanForm.getRepayment_loan());
             loan.setRepayment_date(getSchedule(getCurrentDate(), Integer.parseInt(loanForm.getRepayment_days())));
             loan.setRepayment_interest(loanForm.getRepayment_interest());
+            loan.setRepayment_interest_used(loanForm.getRepayment_interest_used());
             loan.setRepayment_tax(loanForm.getRepayment_tax());
             loan.setRepayment_penalty(loanForm.getRepayment_penalty());
             loan.setRepayment_total(loanForm.getRepayment_total());

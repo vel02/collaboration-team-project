@@ -16,6 +16,7 @@ public class Loan {
     private String limit;
     private String status;
     private String repayment_interest;
+    private String repayment_interest_used;
     private String repayment_tax;
     private String repayment_total;
     private String repayment_penalty;
@@ -26,8 +27,9 @@ public class Loan {
     public Loan(String userId, String loanId, String levelOfEducation, String reason,
                 String moreDetails, String outstanding, String civilStatus, String sourceOfIncome,
                 String incomePerMonth, String limit, String status, String repayment_interest,
-                String repayment_tax, String repayment_total, String repayment_penalty,
-                String repayment_date, String repayment_loan, String repayment_days) {
+                String repayment_interest_used, String repayment_tax, String repayment_total,
+                String repayment_penalty, String repayment_date, String repayment_loan,
+                String repayment_days) {
         this.userId = userId;
         this.loanId = loanId;
         this.levelOfEducation = levelOfEducation;
@@ -40,6 +42,7 @@ public class Loan {
         this.limit = limit;
         this.status = status;
         this.repayment_interest = repayment_interest;
+        this.repayment_interest_used = repayment_interest_used;
         this.repayment_tax = repayment_tax;
         this.repayment_total = repayment_total;
         this.repayment_penalty = repayment_penalty;
@@ -67,6 +70,7 @@ public class Loan {
                 ", limit='" + limit + '\'' +
                 ", status='" + status + '\'' +
                 ", repayment_interest='" + repayment_interest + '\'' +
+                ", repayment_interest_used='" + repayment_interest_used + '\'' +
                 ", repayment_tax='" + repayment_tax + '\'' +
                 ", repayment_total='" + repayment_total + '\'' +
                 ", repayment_penalty='" + repayment_penalty + '\'' +
@@ -171,6 +175,14 @@ public class Loan {
 
     public void setRepayment_interest(String repayment_interest) {
         this.repayment_interest = repayment_interest;
+    }
+
+    public String getRepayment_interest_used() {
+        return repayment_interest_used;
+    }
+
+    public void setRepayment_interest_used(String repayment_interest_used) {
+        this.repayment_interest_used = repayment_interest_used;
     }
 
     public String getRepayment_tax() {

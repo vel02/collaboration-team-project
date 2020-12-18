@@ -7,8 +7,10 @@ public class Keys {
     public static final String DATABASE_NODE_CODES = "codes";
 
     public static final String DATABASE_FIELD_USER_ID = "userId";
+    public static final String DATABASE_FIELD_FROM_ID = "fromId";
     public static final String DATABASE_FIELD_CODE = "code";
     public static final String DATABASE_FIELD_REFERRED_STATUS = "referred_status";
+    public static final String DATABASE_FIELD_CODE_STATUS = "code_status";
     public static final String DATABASE_FIELD_CODE_BENEFIT = "code_benefit";
 
 }

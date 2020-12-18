@@ -104,6 +104,7 @@ public class SignUpViewModel extends ViewModel {
             loan.setRepayment_loan("");
             loan.setRepayment_date("");
             loan.setRepayment_interest("");
+            loan.setRepayment_interest_used("");
             loan.setRepayment_tax("");
             loan.setRepayment_penalty("");
             loan.setRepayment_total("");
