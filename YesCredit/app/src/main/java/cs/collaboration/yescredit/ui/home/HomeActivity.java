@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
+import cs.collaboration.yescredit.ui.account.AccountSettingsActivity;
 import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
@@ -137,6 +138,8 @@ public class HomeActivity extends BaseActivity {
                 checkAuthenticationState();
                 return true;
             case R.id.action_account_settings:
+                Intent intent = new Intent(this, AccountSettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

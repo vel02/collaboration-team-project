@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.di;
 
+import cs.collaboration.yescredit.di.ui.account.AccountFragmentBuilderModule;
 import cs.collaboration.yescredit.di.ui.account.AccountModule;
 import cs.collaboration.yescredit.di.ui.account.AccountScope;
 import cs.collaboration.yescredit.di.ui.allowable.AllowableModule;
@@ -119,6 +120,7 @@ public abstract class ActivityBuilderModule {
     @AccountScope
     @ContributesAndroidInjector(
             modules = {
+                    AccountFragmentBuilderModule.class,
                     AccountModule.class
             }
     )

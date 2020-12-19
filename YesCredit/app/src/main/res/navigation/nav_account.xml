@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_account"
+    app:startDestination="@id/personalInformationFragment">
+
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.InformationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_information">
+        <action
+            android:id="@+id/action_personalInformationFragment_to_personalFragment"
+            app:destination="@id/personalFragment" />
+        <action
+            android:id="@+id/action_personalInformationFragment_to_cardAccountFragment"
+            app:destination="@id/cardAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.PersonalFragment"
+        android:label="@string/personal_information_label"
+        tools:layout="@layout/fragment_personal" />
+    <fragment
+        android:id="@+id/cardAccountFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment"
+        android:label=""
+        tools:layout="@layout/fragment_card_account" />
+</navigation>

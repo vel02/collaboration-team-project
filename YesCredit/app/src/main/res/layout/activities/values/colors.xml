@@ -2,4 +2,6 @@
 <resources>
     <color name="basic_color">#4cd0d0</color>
     <color name="card_referral">#eae0e0</color>
+    <color name="fab_color">#212121</color>
+    <color name="account_base">#ECEFF1</color>
 </resources>

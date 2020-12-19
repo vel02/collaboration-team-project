@@ -143,6 +143,20 @@
     <string name="referral_code_optional_label">Referral Code (optional)</string>
     <string name="apply_available_referral_benefits_label">Apply Available Referral Benefits</string>
     <string name="account_settings">Account Settings</string>
+    <string name="desc_right_arrow">Right Arrow</string>
+    <string name="bank_accounts_and_credit_cards_label">Bank Accounts and Credit Cards</string>
+    <string name="payment_preference_label">Payment Preference</string>
+    <string name="about_label">About</string>
+    <string name="log_out_label">Log Out</string>
+    <string name="tag_fragment_personal">tag_fragment_personal</string>
+    <string name="information_label">Information</string>
+    <string name="change_photo_label">Change Photo</string>
+    <string name="email_addresses_label">Email Address</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="desc_we_keep_your_financial_details_more_secure">We keep your financial details more secure</string>
+    <string name="desc_add_card">Add Card</string>
+    <string name="tag_fragment_card">tag_fragment_card</string>
+    <string name="desc_credit_card">Credit Card</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

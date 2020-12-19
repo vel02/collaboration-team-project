@@ -86,4 +86,13 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     //reference: https://developer.android.com/guide/navigation/navigation-getting-started
 
+    def circle_version = "3.1.0"
+    implementation "de.hdodenhof:circleimageview:$circle_version"
+    //reference: https://github.com/hdodenhof/CircleImageView
+
+    def glide_version = "4.11.0"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    //reference: https://github.com/bumptech/glide
+
 }
