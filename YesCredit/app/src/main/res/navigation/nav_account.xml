@@ -35,5 +35,23 @@
         android:id="@+id/addCardFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.AddCardFragment"
         android:label="@string/add_credit_card_label"
-        tools:layout="@layout/fragment_add_card" />
+        tools:layout="@layout/fragment_add_card">
+        <action
+            android:id="@+id/action_addCardFragment_to_billingAddressFragment"
+            app:destination="@id/billingAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billingAddressFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.BillingAddressFragment"
+        android:label=""
+        tools:layout="@layout/fragment_billing_address">
+        <action
+            android:id="@+id/action_billingAddressFragment_to_addBillingFragment"
+            app:destination="@id/addBillingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBillingFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.AddBillingFragment"
+        android:label="@string/add_your_billing_address_label"
+        tools:layout="@layout/fragment_add_billing" />
 </navigation>

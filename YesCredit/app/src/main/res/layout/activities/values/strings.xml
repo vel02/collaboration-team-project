@@ -172,6 +172,17 @@
     <string name="desc_enter_card_security_code">Enter card security code (CSC).</string>
     <string name="add_card_label">Add Card</string>
     <string name="billing_address_label">Billing address</string>
+    <string name="tag_fragment_billing_address">tag_fragment_billing_address</string>
+    <string name="billing_addresses_label">Billing addresses</string>
+    <string name="desc_applied">Applied</string>
+    <string name="tag_fragment_add_billing_address">tag_fragment_add_billing_address</string>
+    <string name="add_your_billing_address_label">Add your billing address</string>
+    <string name="street_name_house_number_subdivision_label">Street name, house number, subdivision</string>
+    <string name="barangay_district_optional_label">Barangay / District (optional)</string>
+    <string name="city_municipality_label">City / Municipality</string>
+    <string name="zip_code_optional_label">ZIP code (optional)</string>
+    <string name="province_region_optional_label">Province / Region (optional)</string>
+    <string name="save_label">Save</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

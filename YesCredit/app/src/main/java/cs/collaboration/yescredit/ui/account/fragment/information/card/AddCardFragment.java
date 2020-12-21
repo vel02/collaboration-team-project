@@ -118,7 +118,7 @@ public class AddCardFragment extends DaggerFragment {
         });
 
         binding.fragmentAddCardSelectAddress.setOnClickListener(v -> {
-            hostable.onInflate(v, "");
+            hostable.onInflate(v, getString(R.string.tag_fragment_billing_address));
         });
 
     }
@@ -165,9 +165,19 @@ public class AddCardFragment extends DaggerFragment {
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.white));
 
+        if (!binding.fragmentAddCardCode.getText().toString().isEmpty()) {
+            setViewGone(binding.fragmentAddCardNumber);
+            setViewVisible(binding.fragmentAddCardRelativeRoot);
+            int length = binding.fragmentAddCardCode.getText().length();
+            binding.fragmentAddCardCode.requestFocus();
+            binding.fragmentAddCardCode.setSelection(length);
+        }
+
         //focus listener
         binding.fragmentAddCardConstraintRoot.getViewTreeObserver()
                 .addOnGlobalFocusChangeListener(
-                        (oldFocus, newFocus) -> setDescription());
+                        (oldFocus, newFocus) -> {
+                            setDescription();
+                        });
     }
 }
