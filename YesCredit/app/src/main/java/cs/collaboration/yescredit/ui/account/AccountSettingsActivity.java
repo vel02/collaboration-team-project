@@ -57,6 +57,11 @@ public class AccountSettingsActivity extends BaseActivity implements Hostable {
                 Navigation.findNavController(view).navigate(action);
                 break;
 
+            case "tag_fragment_preference":
+                action = InformationFragmentDirections.actionPersonalInformationFragmentToPaymentPreferenceFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
 
         }
 

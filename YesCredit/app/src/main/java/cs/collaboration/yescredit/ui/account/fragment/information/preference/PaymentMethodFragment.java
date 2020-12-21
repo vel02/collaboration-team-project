@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.account.fragment;
+package cs.collaboration.yescredit.ui.account.fragment.information.preference;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,51 +8,34 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.databinding.FragmentInformationBinding;
+import cs.collaboration.yescredit.databinding.FragmentPaymentPreferenceBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import dagger.android.support.DaggerFragment;
 
-public class InformationFragment extends DaggerFragment {
+public class PaymentMethodFragment extends DaggerFragment {
 
-    private static final String TAG = "PersonalInformationFrag";
+    private static final String TAG = "PaymentMethodFragment";
 
-    private FragmentInformationBinding binding;
 
+    private FragmentPaymentPreferenceBinding binding;
+    private Activity activity;
     private Hostable hostable;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        binding = FragmentInformationBinding.inflate(inflater);
-        navigation();
+        binding = FragmentPaymentPreferenceBinding.inflate(inflater);
         return binding.getRoot();
-    }
-
-    private void navigation() {
-
-        binding.fragmentInformationOut.setOnClickListener(v -> hostable.onLogout());
-
-        binding.fragmentInformationInfo.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_personal));
-        });
-
-        binding.fragmentInformationCards.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_card));
-        });
-
-        binding.fragmentInformationPreference.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_preference));
-        });
-
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Activity activity = getActivity();
+        activity = getActivity();
         if (!(activity instanceof Hostable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
@@ -65,5 +48,12 @@ public class InformationFragment extends DaggerFragment {
     public void onDetach() {
         super.onDetach();
         hostable = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
     }
 }

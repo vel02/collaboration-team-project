@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_personalInformationFragment_to_cardAccountFragment"
             app:destination="@id/cardAccountFragment" />
+        <action
+            android:id="@+id/action_personalInformationFragment_to_paymentPreferenceFragment"
+            app:destination="@id/paymentPreferenceFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalFragment"
@@ -54,4 +57,9 @@
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.AddBillingFragment"
         android:label="@string/add_your_billing_address_label"
         tools:layout="@layout/fragment_add_billing" />
+    <fragment
+        android:id="@+id/paymentPreferenceFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment"
+        android:label=""
+        tools:layout="@layout/fragment_payment_preference" />
 </navigation>

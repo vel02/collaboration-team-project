@@ -77,6 +77,7 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = getActivity();
+        assert activity != null;
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
         if (!(activity instanceof Hostable)) {

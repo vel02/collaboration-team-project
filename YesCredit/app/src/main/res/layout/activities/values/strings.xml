@@ -183,6 +183,14 @@
     <string name="zip_code_optional_label">ZIP code (optional)</string>
     <string name="province_region_optional_label">Province / Region (optional)</string>
     <string name="save_label">Save</string>
+    <string name="payment_preferences_label">Payment Preferences</string>
+    <string name="how_do_you_like_to_pay_check_out_your_preferences_below_label">How do you like to pay? Check out your preferences below.</string>
+    <string name="preferred_way_to_pay_label">PREFERRED WAY TO PAY</string>
+    <string name="desc_cart">Cart</string>
+    <string name="online_purchases_label">Online purchases</string>
+    <string name="tag_fragment_preference">tag_fragment_preference</string>
+    <string name="preferred_payment_method_to_pay_online_label">Preferred payment method to pay online</string>
+    <string name="we_ll_use_this_when_you_pay_online_for_goods_and_services_label">We\'ll use this when you pay online for goods and services.</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

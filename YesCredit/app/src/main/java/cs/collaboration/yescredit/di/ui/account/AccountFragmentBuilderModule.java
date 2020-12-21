@@ -2,6 +2,7 @@ package cs.collaboration.yescredit.di.ui.account;
 
 import cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragment;
+import cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.PersonalFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.AddBillingFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.AddCardFragment;
@@ -29,5 +30,8 @@ public abstract class AccountFragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract AddBillingFragment contributeAddBillingFragment();
+
+    @ContributesAndroidInjector
+    abstract PaymentPreferenceFragment contributePaymentPreferenceFragment();
 
 }
