@@ -6,12 +6,14 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import static cs.collaboration.yescredit.util.Keys.PROJECT_PACKAGE;
+
 public class CardAdapter {
 
     @BindingAdapter({"sti_bgc:cardImage"})
     public static void setCardImage(ImageView view, String path) {
         if (path != null) {
-            Uri uri = Uri.parse("android.resource://" + "cs.collaboration.yescredit" + "/drawable/" + path);
+            Uri uri = Uri.parse("android.resource://" + PROJECT_PACKAGE + "/drawable/" + path);
             view.setImageURI(uri);
         }
     }

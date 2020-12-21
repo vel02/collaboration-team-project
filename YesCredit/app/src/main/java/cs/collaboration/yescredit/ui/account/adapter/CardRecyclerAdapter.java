@@ -14,7 +14,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.CardItemBinding;
 import cs.collaboration.yescredit.ui.account.model.Card;
 
-public class CardRecyclerAdapter extends RecyclerView.Adapter<BaseBindHolder> {
+public class CardRecyclerAdapter extends RecyclerView.Adapter<CardBindHolder> {
 
     private List<Card> cards = new ArrayList<>();
     private OnCardRecyclerListener listener;
@@ -30,7 +30,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<BaseBindHolder> {
 
     @NonNull
     @Override
-    public BaseBindHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CardBindHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardItemBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.card_item,
                         parent, false);
@@ -38,7 +38,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<BaseBindHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseBindHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CardBindHolder holder, int position) {
         holder.onBind(cards.get(position));
     }
 

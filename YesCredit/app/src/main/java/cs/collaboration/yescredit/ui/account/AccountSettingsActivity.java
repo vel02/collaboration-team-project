@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragmentDirections;
+import cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragmentDirections;
 
 public class AccountSettingsActivity extends BaseActivity implements Hostable {
 
@@ -38,6 +39,13 @@ public class AccountSettingsActivity extends BaseActivity implements Hostable {
                 action = InformationFragmentDirections.actionPersonalInformationFragmentToCardAccountFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
+
+            case "tag_fragment_add_card":
+                action = CardAccountFragmentDirections.actionCardAccountFragmentToAddCardFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
+
         }
 
     }

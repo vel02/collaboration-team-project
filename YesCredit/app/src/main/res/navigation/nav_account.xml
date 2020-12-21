@@ -26,5 +26,14 @@
         android:id="@+id/cardAccountFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment"
         android:label=""
-        tools:layout="@layout/fragment_card_account" />
+        tools:layout="@layout/fragment_card_account">
+        <action
+            android:id="@+id/action_cardAccountFragment_to_addCardFragment"
+            app:destination="@id/addCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.AddCardFragment"
+        android:label="@string/add_credit_card_label"
+        tools:layout="@layout/fragment_add_card" />
 </navigation>

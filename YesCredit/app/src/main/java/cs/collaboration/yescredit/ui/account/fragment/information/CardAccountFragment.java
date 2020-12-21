@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentCardAccountBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.ui.account.adapter.CardRecyclerAdapter;
@@ -35,6 +37,7 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     private Hostable hostable;
 
     private CardRecyclerAdapter adapter;
+    private Activity activity;
 
     //tester
     private final List<Card> cards = new ArrayList<>();
@@ -58,21 +61,24 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
 
     private void navigation() {
         binding.fragmentCardAddCard.setOnClickListener(v -> {
-            Card card = new Card();
-            card.setName("American Express");
-            card.setNumber("6542-5645-9879-6543");
-            card.setExp_date("05/26");
-            card.setImage("ic_american_express");
-            card.setBill_address("195 - y 25th Avenue, East Rembo\nMakati City\nMetro Manila Philippines\n1219 METRO MANILA");
-            cards.add(card);
-            adapter.refresh(cards);
+            hostable.onInflate(v, getString(R.string.tag_fragment_add_card));
+//            Card card = new Card();
+//            card.setName("American Express");
+//            card.setNumber("6542-5645-9879-6543");
+//            card.setExp_date("05/26");
+//            card.setImage("ic_american_express");
+//            card.setBill_address("195 - y 25th Avenue, East Rembo\nMakati City\nMetro Manila Philippines\n1219 METRO MANILA");
+//            cards.add(card);
+//            adapter.refresh(cards);
         });
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Activity activity = getActivity();
+        activity = getActivity();
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
         if (!(activity instanceof Hostable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
@@ -87,4 +93,10 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
         hostable = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+    }
 }

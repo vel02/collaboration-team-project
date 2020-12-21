@@ -21,7 +21,8 @@
         <activity
             android:name=".ui.account.AccountSettingsActivity"
             android:label=""
-            android:theme="@style/Theme.YesCredit.NoActionBar" />
+            android:theme="@style/Theme.YesCredit.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.existing.ExistingLoanActivity" />
         <activity
             android:name=".ui.allowable.AllowableActivity"

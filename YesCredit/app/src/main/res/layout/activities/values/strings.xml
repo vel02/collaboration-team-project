@@ -157,6 +157,21 @@
     <string name="desc_add_card">Add Card</string>
     <string name="tag_fragment_card">tag_fragment_card</string>
     <string name="desc_credit_card">Credit Card</string>
+    <string name="add_credit_card_label">Add a credit card</string>
+    <string name="tag_fragment_add_card">tag_fragment_add_card</string>
+    <string name="card_placeholder_label">Card Placeholder</string>
+    <string name="credit_card_number_label">Credit card number</string>
+    <string name="card_master">ic_card_master</string>
+    <string name="card_placeholder">ic_card_placeholder</string>
+    <string name="card_visa">ic_card_visa</string>
+    <string name="card_express">ic_card_express</string>
+    <string name="desc_let_s_start_with_your_card_number">Let\'s start with your card number.</string>
+    <string name="hint_mm_yy">MM/YY</string>
+    <string name="hint_security_code">Security Code</string>
+    <string name="desc_now_enter_your_expiration_date">Now enter your expiration date.</string>
+    <string name="desc_enter_card_security_code">Enter card security code (CSC).</string>
+    <string name="add_card_label">Add Card</string>
+    <string name="billing_address_label">Billing address</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
