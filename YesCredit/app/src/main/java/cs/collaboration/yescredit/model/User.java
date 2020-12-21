@@ -15,6 +15,7 @@ public class User {
     private String postal_address;
     private String government_image;
     private String profile_image;
+    private String phone_number;
 
     public User() {
     }
@@ -22,7 +23,7 @@ public class User {
     public User(String user_id, String last_name, String first_name, String middle_name,
                 String gender, String date_of_birth, String street_address, String barangay_address,
                 String city_address, String province_address, String postal_address,
-                String government_image, String profile_image) {
+                String government_image, String profile_image, String phone_number) {
         this.user_id = user_id;
         this.last_name = last_name;
         this.first_name = first_name;
@@ -36,6 +37,7 @@ public class User {
         this.postal_address = postal_address;
         this.government_image = government_image;
         this.profile_image = profile_image;
+        this.phone_number = phone_number;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class User {
                 ", postal_address='" + postal_address + '\'' +
                 ", government_image='" + government_image + '\'' +
                 ", profile_image='" + profile_image + '\'' +
+                ", phone_number='" + phone_number + '\'' +
                 '}';
     }
 
@@ -159,5 +162,13 @@ public class User {
 
     public void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 }

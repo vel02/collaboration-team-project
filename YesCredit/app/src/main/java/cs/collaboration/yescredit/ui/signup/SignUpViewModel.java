@@ -134,6 +134,7 @@ public class SignUpViewModel extends ViewModel {
         user.setPostal_address("");
         user.setGovernment_image("");
         user.setProfile_image("");
+        user.setPhone_number("");
 
         database.getReference()
                 .child(Keys.DATABASE_NODE_USER)
