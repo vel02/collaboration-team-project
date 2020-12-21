@@ -17,7 +17,7 @@ import androidx.fragment.app.DialogFragment;
 
 import cs.collaboration.yescredit.databinding.DialogGovernmentPhotoBinding;
 
-public class GovernmentPhotoFragment extends DialogFragment {
+public class GeneratePhotoFragment extends DialogFragment {
 
     private static final String TAG = "GovernmentPhotoFragment";
 

@@ -27,19 +27,21 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
-                android:src="@drawable/profile_image_placeholder" />
+                android:src="@drawable/ic_temp_placeholder" />
 
             <TextView
+                android:id="@+id/fragment_information_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/black"
                 android:textStyle=""
                 tools:text="Ariel Austria" />
 
             <TextView
+                android:id="@+id/fragment_information_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

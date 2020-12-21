@@ -34,7 +34,7 @@
                     android:id="@+id/fragment_personal_image"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:src="@drawable/profile_image_placeholder" />
+                    android:src="@drawable/ic_temp_placeholder" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +56,6 @@
 
 
                 <LinearLayout
-                    android:id="@+id/fragment_personal_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -77,6 +76,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <TextView
+                        android:id="@+id/fragment_personal_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

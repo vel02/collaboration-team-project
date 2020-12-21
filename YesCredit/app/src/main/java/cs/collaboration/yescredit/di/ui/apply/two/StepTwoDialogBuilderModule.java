@@ -1,6 +1,6 @@
 package cs.collaboration.yescredit.di.ui.apply.two;
 
-import cs.collaboration.yescredit.ui.apply.dialog.GovernmentPhotoFragment;
+import cs.collaboration.yescredit.ui.apply.dialog.GeneratePhotoFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -8,6 +8,6 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class StepTwoDialogBuilderModule {
 
     @ContributesAndroidInjector
-    abstract GovernmentPhotoFragment contributeGovernmentPhotoFragment();
+    abstract GeneratePhotoFragment contributeGovernmentPhotoFragment();
 
 }

@@ -33,12 +33,12 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepTwoBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.SessionManager;
-import cs.collaboration.yescredit.ui.apply.dialog.GovernmentPhotoFragment;
+import cs.collaboration.yescredit.ui.apply.dialog.GeneratePhotoFragment;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.util.BackgroundImageResize;
 import dagger.android.support.DaggerFragment;
 
-public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFragment.OnPhotoReceivedListener {
+public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFragment.OnPhotoReceivedListener {
 
     @Override
     public void getImagePath(Uri imagePath) {
@@ -113,7 +113,7 @@ public class StepTwoFragment extends DaggerFragment implements GovernmentPhotoFr
             @Override
             public void onClick(View v) {
                 if (storagePermissions) {
-                    GovernmentPhotoFragment dialog = new GovernmentPhotoFragment();
+                    GeneratePhotoFragment dialog = new GeneratePhotoFragment();
                     dialog.setOnPhotoReceived(StepTwoFragment.this);
                     dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_government_photo));
                 } else {

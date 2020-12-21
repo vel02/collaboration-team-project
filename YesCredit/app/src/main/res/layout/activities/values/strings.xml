@@ -199,6 +199,8 @@
     <string name="tag_fragment_add_address">tag_fragment_add_address</string>
     <string name="tag_fragment_addresses">tag_fragment_addresses</string>
     <string name="add_an_address_label">Add an address</string>
+    <string name="database_field_profile_image">profile_image</string>
+    <string name="database_field_user_id_underscore">user_id</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
