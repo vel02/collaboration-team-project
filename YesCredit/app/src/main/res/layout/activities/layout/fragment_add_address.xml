@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".ui.account.fragment.information.card.AddBillingFragment">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/street_name_house_number_subdivision_label"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <EditText
+                android:id="@+id/fragment_add_street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/barangay_district_optional_label"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <EditText
+                android:id="@+id/fragment_add_barangay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city_municipality_label"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <EditText
+                android:id="@+id/fragment_add_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zip_code_optional_label"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <EditText
+                android:id="@+id/fragment_add_zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/province_region_optional_label"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <EditText
+                android:id="@+id/fragment_add_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:ignore="LabelFor" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/fragment_add"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/solid"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/add_label"
+            android:textAllCaps="false"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UnusedAttribute"
+            tools:targetApi="m" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -7,6 +7,9 @@ import cs.collaboration.yescredit.ui.account.fragment.information.PersonalFragme
 import cs.collaboration.yescredit.ui.account.fragment.information.card.AddBillingFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.AddCardFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.BillingAddressFragment;
+import cs.collaboration.yescredit.ui.account.fragment.information.personal.AddressesFragment;
+import cs.collaboration.yescredit.ui.account.fragment.information.personal.PhoneNumberFragment;
+import cs.collaboration.yescredit.ui.account.fragment.information.personal.addresses.AddAddressFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -33,5 +36,14 @@ public abstract class AccountFragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract PaymentPreferenceFragment contributePaymentPreferenceFragment();
+
+    @ContributesAndroidInjector
+    abstract PhoneNumberFragment contributePhoneNumberFragment();
+
+    @ContributesAndroidInjector
+    abstract AddressesFragment contributeAddressesFragment();
+
+    @ContributesAndroidInjector
+    abstract AddAddressFragment contributeAddAddressFragment();
 
 }

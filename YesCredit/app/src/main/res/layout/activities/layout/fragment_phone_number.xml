@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.account.fragment.information.personal.PhoneNumberFragment">
+
+
+        <TextView
+            android:id="@+id/fragment_phone_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/phone_number_label"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/fragment_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:importantForAutofill="no"
+            android:inputType="number|phone"
+            android:maxLength="11"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor" />
+
+
+        <Button
+            android:id="@+id/fragment_phone_add"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/solid"
+            android:enabled="false"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/add_label"
+            android:textAllCaps="false"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UnusedAttribute"
+            tools:targetApi="m" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

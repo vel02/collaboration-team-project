@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.account.fragment.information;
+package cs.collaboration.yescredit.ui.account.fragment.information.personal.addresses;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,35 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.databinding.FragmentPersonalBinding;
+import cs.collaboration.yescredit.databinding.FragmentAddAddressBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import dagger.android.support.DaggerFragment;
 
-public class PersonalFragment extends DaggerFragment {
+public class AddAddressFragment extends DaggerFragment {
 
-    private static final String TAG = "PersonalFragment";
+    private static final String TAG = "AddAddressFragment";
 
-    private FragmentPersonalBinding binding;
+
+    private FragmentAddAddressBinding binding;
     private Activity activity;
     private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPersonalBinding.inflate(inflater);
-        navigation();
+        binding = FragmentAddAddressBinding.inflate(inflater);
         return binding.getRoot();
-    }
-
-    private void navigation() {
-
-        binding.fragmentPersonalPhoneAdd.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_phone_number));
-        });
-
-        binding.fragmentPersonalAddressAdd.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_addresses));
-        });
     }
 
     @Override
@@ -64,6 +53,6 @@ public class PersonalFragment extends DaggerFragment {
     public void onResume() {
         super.onResume();
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.white));
     }
 }

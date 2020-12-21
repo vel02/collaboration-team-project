@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentInformationBinding;
@@ -19,7 +20,7 @@ public class InformationFragment extends DaggerFragment {
     private static final String TAG = "PersonalInformationFrag";
 
     private FragmentInformationBinding binding;
-
+    private Activity activity;
     private Hostable hostable;
 
     @Override
@@ -52,7 +53,7 @@ public class InformationFragment extends DaggerFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Activity activity = getActivity();
+        activity = getActivity();
         if (!(activity instanceof Hostable)) {
             assert activity != null;
             throw new ClassCastException(activity.getClass().getSimpleName()
@@ -65,5 +66,12 @@ public class InformationFragment extends DaggerFragment {
     public void onDetach() {
         super.onDetach();
         hostable = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
     }
 }

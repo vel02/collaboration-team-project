@@ -24,7 +24,14 @@
         android:id="@+id/personalFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.PersonalFragment"
         android:label="@string/personal_information_label"
-        tools:layout="@layout/fragment_personal" />
+        tools:layout="@layout/fragment_personal">
+        <action
+            android:id="@+id/action_personalFragment_to_phoneNumberFragment"
+            app:destination="@id/phoneNumberFragment" />
+        <action
+            android:id="@+id/action_personalFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cardAccountFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment"
@@ -62,4 +69,23 @@
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment"
         android:label=""
         tools:layout="@layout/fragment_payment_preference" />
+    <fragment
+        android:id="@+id/phoneNumberFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.personal.PhoneNumberFragment"
+        android:label="@string/add_a_phone_number_label"
+        tools:layout="@layout/fragment_phone_number" />
+    <fragment
+        android:id="@+id/addressesFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.personal.AddressesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_addresses">
+        <action
+            android:id="@+id/action_addressesFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.personal.addresses.AddAddressFragment"
+        android:label="@string/add_an_address_label"
+        tools:layout="@layout/fragment_add_address" />
 </navigation>

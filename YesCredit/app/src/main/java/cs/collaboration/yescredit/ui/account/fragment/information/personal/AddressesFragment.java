@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.account.fragment.information;
+package cs.collaboration.yescredit.ui.account.fragment.information.personal;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,35 +11,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.databinding.FragmentPersonalBinding;
+import cs.collaboration.yescredit.databinding.FragmentAddressesBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import dagger.android.support.DaggerFragment;
 
-public class PersonalFragment extends DaggerFragment {
+public class AddressesFragment extends DaggerFragment {
 
-    private static final String TAG = "PersonalFragment";
+    private static final String TAG = "AddressesFragment";
 
-    private FragmentPersonalBinding binding;
+    private FragmentAddressesBinding binding;
     private Activity activity;
     private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPersonalBinding.inflate(inflater);
+        binding = FragmentAddressesBinding.inflate(inflater);
         navigation();
         return binding.getRoot();
     }
 
     private void navigation() {
 
-        binding.fragmentPersonalPhoneAdd.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_phone_number));
+        binding.fragmentAddressesAdd.setOnClickListener(v -> {
+            hostable.onInflate(v, getString(R.string.tag_fragment_add_address));
         });
 
-        binding.fragmentPersonalAddressAdd.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_addresses));
-        });
     }
 
     @Override

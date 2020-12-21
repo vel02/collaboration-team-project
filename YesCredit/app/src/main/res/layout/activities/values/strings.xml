@@ -191,6 +191,14 @@
     <string name="tag_fragment_preference">tag_fragment_preference</string>
     <string name="preferred_payment_method_to_pay_online_label">Preferred payment method to pay online</string>
     <string name="we_ll_use_this_when_you_pay_online_for_goods_and_services_label">We\'ll use this when you pay online for goods and services.</string>
+    <string name="add_label">Add</string>
+    <string name="add_a_phone_number_label">Add a phone number</string>
+    <string name="tag_fragment_phone_number">tag_fragment_phone_number</string>
+    <string name="addresses_label">Addresses</string>
+    <string name="add_as_many_addresses_as_you_like_they_re_places_most_often_have_things_shipped_label">Add as many addresses as you like. They\'re places most often have things shipped.</string>
+    <string name="tag_fragment_add_address">tag_fragment_add_address</string>
+    <string name="tag_fragment_addresses">tag_fragment_addresses</string>
+    <string name="add_an_address_label">Add an address</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
