@@ -12,8 +12,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentAddCardBinding;
+import cs.collaboration.yescredit.model.Address;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.util.CodeCardFormatter;
 import cs.collaboration.yescredit.util.CreditCardFormatter;
@@ -26,15 +36,66 @@ public class AddCardFragment extends DaggerFragment {
 
     private FragmentAddCardBinding binding;
 
+    private DatabaseReference reference;
     private Hostable hostable;
     private Activity activity;
+
+    private Address address;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddCardBinding.inflate(inflater);
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        reference = FirebaseDatabase.getInstance().getReference();
+    }
+
+
+    private void getUserSelectedAddress() {
+
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (current != null) {
+
+            Query query = reference.child(getString(R.string.database_node_address))
+                    .orderByChild(getString(R.string.database_field_user_id_underscore))
+                    .equalTo(current.getUid());
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        Address address = singleShot.getValue(Address.class);
+                        assert address != null;
+                        if (address.getAddress_selected().equals("selected")) {
+                            binding.fragmentAddCardBillingAddress.setText(addressFormatter(address));
+                            AddCardFragment.this.address = address;
+                            return;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+    }
+
+    private String addressFormatter(Address address) {
+        return address.getAddress_street() + ", " + address.getAddress_barangay()
+                + "\n" + address.getAddress_city() + "\n" + address.getAddress_province()
+                + "\n" + address.getAddress_zipcode() + " " + address.getAddress_province().toUpperCase();
     }
 
     private void navigation() {
@@ -43,9 +104,10 @@ public class AddCardFragment extends DaggerFragment {
         creditCardFormatter.setViews(binding.fragmentAddCardNumber, binding.fragmentAddCardNext, binding.fragmentAddCardImage);
 
         ExpirationCardFormatter expirationCardFormatter = new ExpirationCardFormatter("/", 3);
+        expirationCardFormatter.setView(this, binding.fragmentAddCardSelectedRoot, binding.fragmentAddCardCode, binding.fragmentAddCardAdd);
 
         CodeCardFormatter codeCardFormatter = new CodeCardFormatter();
-        codeCardFormatter.setViews(this, binding.fragmentAddCardListRoot, binding.fragmentAddCardAdd);
+        codeCardFormatter.setViews(this, binding.fragmentAddCardSelectedRoot, binding.fragmentAddCardAdd, binding.fragmentAddCardExpiration);
 
         binding.fragmentAddCardNumber.addTextChangedListener(creditCardFormatter);
         binding.fragmentAddCardExpiration.addTextChangedListener(expirationCardFormatter);
@@ -55,6 +117,7 @@ public class AddCardFragment extends DaggerFragment {
         binding.fragmentAddCardNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setFourDigitNumber();
                 //hide to left card number
                 binding.fragmentAddCardNumber.animate()
                         .translationX(-300)
@@ -77,7 +140,7 @@ public class AddCardFragment extends DaggerFragment {
                                     binding.fragmentAddCardCode.setSelection(length);
                                     if (length == 4) {
                                         setViewVisible(binding.fragmentAddCardAdd);
-                                        setViewVisible(binding.fragmentAddCardListRoot);
+                                        setViewVisible(binding.fragmentAddCardSelectedRoot);
                                     }
                                 }
 
@@ -103,6 +166,7 @@ public class AddCardFragment extends DaggerFragment {
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
                                 setViewGone(binding.fragmentAddCardRelativeRoot);
+                                setViewGone(binding.fragmentAddCardSelectedRoot);
                                 setViewGone(binding.fragmentAddCardAdd);
                                 setViewVisible(binding.fragmentAddCardNumber);
                                 binding.fragmentAddCardNumber.setAlpha(1.0f);
@@ -121,6 +185,16 @@ public class AddCardFragment extends DaggerFragment {
             hostable.onInflate(v, getString(R.string.tag_fragment_billing_address));
         });
 
+        binding.fragmentAddCardAdd.setOnClickListener(v -> {
+            //create card
+        });
+
+    }
+
+    private void setFourDigitNumber() {
+        String number = binding.fragmentAddCardNumber.getText().toString();
+        if (!number.isEmpty())
+            binding.fragmentAddCardFourNumber.setText(number.substring(number.length() - 4));
     }
 
     private void setDescription() {
@@ -179,5 +253,8 @@ public class AddCardFragment extends DaggerFragment {
                         (oldFocus, newFocus) -> {
                             setDescription();
                         });
+
+        setFourDigitNumber();
+        getUserSelectedAddress();
     }
 }

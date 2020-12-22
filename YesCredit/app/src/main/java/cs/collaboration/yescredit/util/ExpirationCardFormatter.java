@@ -2,17 +2,36 @@ package cs.collaboration.yescredit.util;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
+
+import static cs.collaboration.yescredit.util.Utility.hideSoftKeyboard;
 
 public class ExpirationCardFormatter implements TextWatcher {
 
     private final String separator;
     private final int divider;
 
+    private Fragment context;
+    private LinearLayout address;
+    private EditText code;
+    private Button add;
+
     public ExpirationCardFormatter(String separator, int divider) {
         this.separator = separator;
         this.divider = divider;
     }
 
+    public void setView(Fragment context, LinearLayout address, EditText code, Button add) {
+        this.context = context;
+        this.address = address;
+        this.code = code;
+        this.add = add;
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -29,6 +48,16 @@ public class ExpirationCardFormatter implements TextWatcher {
         if (s == null) {
             return;
         }
+
+        if (s.toString().length() < 5 && !code.getText().toString().isEmpty()) {
+            address.setVisibility(View.GONE);
+            add.setVisibility(View.GONE);
+        } else if (!code.getText().toString().isEmpty()) {
+            address.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            hideSoftKeyboard(context);
+        }
+
 
         //month validation part I
         if (s.toString().equals("00")) {

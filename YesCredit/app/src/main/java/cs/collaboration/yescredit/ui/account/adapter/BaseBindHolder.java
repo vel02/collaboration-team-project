@@ -29,8 +29,8 @@ public abstract class BaseBindHolder extends RecyclerView.ViewHolder {
 
     public void onBind(Address address) {
         this.address = address;
-        this.initialization();
         this.clear();
+        this.initialization();
     }
 
     public Card getCard() {

@@ -17,6 +17,7 @@ public class CreditCardFormatter implements TextWatcher {
 
     private final Resources resources;
 
+
     private EditText number;
     private Button next;
     private ImageView image;
@@ -57,6 +58,7 @@ public class CreditCardFormatter implements TextWatcher {
         if (s == null) {
             return;
         }
+
         String oldString = s.toString();
         String newString = getNewString(oldString);
         if (!newString.equals(oldString)) {
