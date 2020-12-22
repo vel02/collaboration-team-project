@@ -201,6 +201,9 @@
     <string name="add_an_address_label">Add an address</string>
     <string name="database_field_profile_image">profile_image</string>
     <string name="database_field_user_id_underscore">user_id</string>
+    <string name="database_field_phone_number">phone_number</string>
+    <string name="database_node_address">address</string>
+    <string name="database_field_address_id">address_id</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

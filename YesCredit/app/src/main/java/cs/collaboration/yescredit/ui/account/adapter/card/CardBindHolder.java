@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.account.adapter;
+package cs.collaboration.yescredit.ui.account.adapter.card;
 
 import android.view.View;
 
@@ -6,9 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
 import cs.collaboration.yescredit.databinding.CardItemBinding;
+import cs.collaboration.yescredit.ui.account.adapter.BaseBindHolder;
 import cs.collaboration.yescredit.ui.account.model.Card;
 
-import static cs.collaboration.yescredit.ui.account.adapter.CardRecyclerAdapter.*;
+import static cs.collaboration.yescredit.ui.account.adapter.card.CardRecyclerAdapter.*;
 
 public class CardBindHolder extends BaseBindHolder {
 

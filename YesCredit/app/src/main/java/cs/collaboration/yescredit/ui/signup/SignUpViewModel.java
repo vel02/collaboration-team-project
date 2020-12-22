@@ -24,6 +24,7 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.model.Address;
 import cs.collaboration.yescredit.model.Code;
 import cs.collaboration.yescredit.model.Loan;
 import cs.collaboration.yescredit.model.User;
@@ -68,6 +69,7 @@ public class SignUpViewModel extends ViewModel {
 
                             sendVerificationEmail();
                             createInitialLoan();
+                            createInitialAddress();
                             checkReferralCode(code);
                             createNewUserStorage();
 
@@ -77,6 +79,32 @@ public class SignUpViewModel extends ViewModel {
                         progressBarState.setValue(State.INVISIBLE);
                     }
                 });
+    }
+
+    private void createInitialAddress() {
+        DatabaseReference reference = database.getReference();
+
+        FirebaseUser current = auth.getCurrentUser();
+
+        String addressId = reference.child(Keys.DATABASE_NODE_ADDRESS)
+                .push().getKey();
+
+        if (current != null && addressId != null) {
+
+            Address address = new Address();
+            address.setUser_id(current.getUid());
+            address.setAddress_id(addressId);
+            address.setAddress_street("");
+            address.setAddress_barangay("");
+            address.setAddress_city("");
+            address.setAddress_zipcode("");
+            address.setAddress_province("");
+            address.setAddress_status("initial");
+            address.setAddress_selected("not-selected");
+
+            reference.child(Keys.DATABASE_NODE_ADDRESS)
+                    .child(addressId).setValue(address);
+        }
     }
 
 

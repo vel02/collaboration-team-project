@@ -138,7 +138,7 @@ public class SignUpActivity extends DaggerAppCompatActivity {
                         Log.d(TAG, "subscribeObservers: Referral Code Success");
                         break;
                     case REFERRAL_FAILED:
-                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "subscribeObservers: Referral Code Failed");
                         break;
                 }

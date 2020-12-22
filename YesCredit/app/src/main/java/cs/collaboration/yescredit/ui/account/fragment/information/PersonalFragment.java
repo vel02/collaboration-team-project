@@ -41,6 +41,7 @@ import java.io.IOException;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentPersonalBinding;
+import cs.collaboration.yescredit.model.Address;
 import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.GeneratePhotoFragment;
@@ -98,37 +99,108 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-
-            Query query = reference.child(getString(R.string.database_node_users))
-                    .orderByChild(getString(R.string.database_field_user_id_underscore))
-                    .equalTo(currentUser.getUid());
-
-            Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
-
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
-                    for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                        User user = singleShot.getValue(User.class);
-                        Log.d(TAG, "onDataChange: user " + user);
-                        if (user != null) {
-                            Log.d(TAG, "onDataChange: image " + user.getProfile_image());
-                            ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentPersonalImage);
-                            binding.fragmentPersonalEmail.setText(currentUser.getEmail());
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
+            setUserProfile(reference, currentUser);
+            setUserPhoneNumber(reference, currentUser);
+            setUserPrimaryAddress(reference, currentUser);
         }
+    }
+
+    private void setUserPrimaryAddress(DatabaseReference reference, FirebaseUser currentUser) {
+        Query query = reference.child(getString(R.string.database_node_address))
+                .orderByChild(getString(R.string.database_field_user_id_underscore))
+                .equalTo(currentUser.getUid());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                    Address address = singleShot.getValue(Address.class);
+                    assert address != null;
+
+                    if (address.getAddress_status().equals("primary")) {
+                        binding.fragmentPersonalAddress.setText(addressFormatter(address));
+                        return;
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private String addressFormatter(Address address) {
+        return address.getAddress_street() + ", " + address.getAddress_barangay()
+                + "\n" + address.getAddress_city() + "\n" + address.getAddress_province()
+                + "\n" + address.getAddress_zipcode() + " " + address.getAddress_province().toUpperCase();
+    }
+
+    private void setUserPhoneNumber(DatabaseReference reference, FirebaseUser currentUser) {
+        Query query = reference.child(getString(R.string.database_node_users))
+                .orderByChild(getString(R.string.database_field_user_id_underscore))
+                .equalTo(currentUser.getUid());
+
+        Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
+                for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                    User user = singleShot.getValue(User.class);
+                    Log.d(TAG, "onDataChange: user " + user);
+                    if (user != null) {
+                        Log.d(TAG, "onDataChange: image " + user.getProfile_image());
+                        binding.fragmentPersonalPhone.setText(!user.getPhone_number().isEmpty() ? user.getPhone_number() : "No available");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void setUserProfile(DatabaseReference reference, FirebaseUser currentUser) {
+        Query query = reference.child(getString(R.string.database_node_users))
+                .orderByChild(getString(R.string.database_field_user_id_underscore))
+                .equalTo(currentUser.getUid());
+
+        Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
+                for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                    User user = singleShot.getValue(User.class);
+                    Log.d(TAG, "onDataChange: user " + user);
+                    if (user != null) {
+                        Log.d(TAG, "onDataChange: image " + user.getProfile_image());
+                        ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentPersonalImage);
+                        binding.fragmentPersonalEmail.setText(currentUser.getEmail());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void navigation() {

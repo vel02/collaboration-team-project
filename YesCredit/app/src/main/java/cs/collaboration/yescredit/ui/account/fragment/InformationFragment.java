@@ -87,11 +87,11 @@ public class InformationFragment extends DaggerFragment {
     }
 
     private String nameFormatter(String first_name, String last_name) {
-        return "@" + first_name + " " + last_name;
+        return first_name + " " + last_name;
     }
 
     private String emailFormatter(String email) {
-        return email.substring(0, email.indexOf("@"));
+        return "@" + email.substring(0, email.indexOf("@"));
     }
 
     private void navigation() {

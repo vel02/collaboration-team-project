@@ -19,7 +19,7 @@ import java.util.List;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentCardAccountBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
-import cs.collaboration.yescredit.ui.account.adapter.CardRecyclerAdapter;
+import cs.collaboration.yescredit.ui.account.adapter.card.CardRecyclerAdapter;
 import cs.collaboration.yescredit.ui.account.model.Card;
 import dagger.android.support.DaggerFragment;
 

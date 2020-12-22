@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.account.adapter;
+package cs.collaboration.yescredit.ui.account.adapter.card;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
