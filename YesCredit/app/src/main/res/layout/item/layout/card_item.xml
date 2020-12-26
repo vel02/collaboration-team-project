@@ -30,10 +30,10 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="@string/desc_credit_card"
+            sti_bgc:cardImage="@{card.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            sti_bgc:cardImage="@{card.image}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <LinearLayout
@@ -60,7 +60,7 @@
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
                 sti_bgc:cardNumber="@{card.number}"
-                tools:text="Credit card &#9679;&#9679;&#9679;&#9679;8594" />
+                tools:text="Credit card ●●●●8594" />
 
         </LinearLayout>
 

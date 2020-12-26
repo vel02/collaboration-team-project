@@ -13,6 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +43,15 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     private static final String TAG = "CardAccountFragment";
 
     private FragmentCardAccountBinding binding;
+    private DatabaseReference reference;
     private Hostable hostable;
 
     private CardRecyclerAdapter adapter;
     private Activity activity;
 
-    //tester
-    private final List<Card> cards = new ArrayList<>();
-    private int count;
+//    //tester
+//    private List<Card> cards = new ArrayList<>();
+//    private int count;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -53,6 +63,7 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     }
 
     private void initialization() {
+        reference = FirebaseDatabase.getInstance().getReference();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new CardRecyclerAdapter();
         adapter.setOnCardRecyclerListener(this);
@@ -62,15 +73,71 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     private void navigation() {
         binding.fragmentCardAddCard.setOnClickListener(v -> {
             hostable.onInflate(v, getString(R.string.tag_fragment_add_card));
-//            Card card = new Card();
-//            card.setName("American Express");
-//            card.setNumber("6542-5645-9879-6543");
-//            card.setExp_date("05/26");
-//            card.setImage("ic_american_express");
-//            card.setBill_address("195 - y 25th Avenue, East Rembo\nMakati City\nMetro Manila Philippines\n1219 METRO MANILA");
-//            cards.add(card);
-//            adapter.refresh(cards);
         });
+    }
+
+    private void getUserCards() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+
+            Query query = reference.child(getString(R.string.database_node_cards))
+                    .orderByChild(getString(R.string.database_field_user_id_underscore))
+                    .equalTo(user.getUid());
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Card> cards = new ArrayList<>();
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        cs.collaboration.yescredit.model.Card current = singleShot.getValue(cs.collaboration.yescredit.model.Card.class);
+                        assert current != null;
+                        Card card = new Card();
+                        card.setName(current.getCard_name());
+                        card.setNumber(current.getCard_number());
+                        card.setImage(current.getCard_image());
+                        card.setBill_address(addressFormatter(current));
+                        cards.add(card);
+                    }
+
+                    CardAccountFragment.this.adapter.refresh(cards);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+    }
+
+//    private String setCardName(cs.collaboration.yescredit.model.Card card) {
+//
+//        String number = card.getCard_number();
+//        String name = card.getCard_name();
+//
+//        String append = "Credit card ●●●●" + number.substring(number.length() - 4);
+//
+//        switch (name) {
+//            case "American Express":
+//                return "American Express " + append;
+//            case "Visa":
+//                return "Visa " + append;
+//            case "Master Card":
+//                return "Master Card " + append;
+//            default:
+//                return append;
+//        }
+//
+//    }
+
+    private String addressFormatter(cs.collaboration.yescredit.model.Card card) {
+        return card.getCard_street() + ", " + card.getCard_barangay()
+                + "\n" + card.getCard_city() + "\n" + card.getCard_province()
+                + "\n" + card.getCard_zipcode() + " " + card.getCard_province().toUpperCase();
     }
 
     @Override
@@ -99,5 +166,7 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
         super.onResume();
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+
+        getUserCards();
     }
 }

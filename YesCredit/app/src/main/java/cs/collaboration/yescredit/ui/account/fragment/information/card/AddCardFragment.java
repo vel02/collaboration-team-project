@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentAddCardBinding;
 import cs.collaboration.yescredit.model.Address;
+import cs.collaboration.yescredit.model.Card;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.util.CodeCardFormatter;
 import cs.collaboration.yescredit.util.CreditCardFormatter;
@@ -187,8 +188,105 @@ public class AddCardFragment extends DaggerFragment {
 
         binding.fragmentAddCardAdd.setOnClickListener(v -> {
             //create card
+            createCard();
         });
 
+    }
+
+    private void createCard() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String cardId = reference.child(getString(R.string.database_node_cards))
+                .push().getKey();
+
+        String number = binding.fragmentAddCardNumber.getText().toString();
+        String code = binding.fragmentAddCardCode.getText().toString();
+        String expiration = binding.fragmentAddCardExpiration.getText().toString();
+
+
+        if (user != null && address != null && cardId != null) {
+
+            Card card = new Card();
+            card.setUser_id(user.getUid());
+            card.setCard_id(cardId);
+            card.setCard_name(setCardName(number));
+            card.setCard_code(code);
+            card.setCard_number(number);
+            card.setCard_expiration(expiration);
+            card.setCard_street(address.getAddress_street());
+            card.setCard_barangay(address.getAddress_barangay());
+            card.setCard_city(address.getAddress_city());
+            card.setCard_zipcode(address.getAddress_zipcode());
+            card.setCard_province(address.getAddress_province());
+            card.setCard_image(setCardImage(number));
+
+            Query query = reference.child(getString(R.string.database_node_cards))
+                    .orderByChild(getString(R.string.database_field_user_id_underscore))
+                    .equalTo(user.getUid());
+
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    boolean isPrimary = false;
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        Card current = singleShot.getValue(Card.class);
+                        assert current != null;
+                        if (current.getCard_status().equals("primary")) {
+                            isPrimary = true;
+                        }
+                    }
+
+                    if (isPrimary) {
+                        card.setCard_status("not-primary");
+                        card.setCard_selected("not-selected");
+                    } else {
+                        card.setCard_status("primary");
+                        card.setCard_selected("selected");
+                    }
+                    reference.child(getString(R.string.database_node_cards))
+                            .child(cardId).setValue(card);
+
+                    AddCardFragment.super.requireActivity().onBackPressed();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
+    }
+
+    private String setCardName(String number) {
+        number = number.substring(0, 1);
+        switch (number) {
+            case "3":
+                return "American Express";
+            case "4":
+                return "Visa";
+            case "5":
+                return "Master Card";
+            default:
+                return "";
+        }
+    }
+
+    private String setCardImage(String number) {
+        number = number.substring(0, 1);
+        switch (number) {
+            case "3":
+                return "https://cdn.iconscout.com/icon/free/png-256/american-express-534002.png";
+            case "4":
+                return "https://icons-for-free.com/iconfiles/png/512/cash+checkout+credit+visa+icon-1320162631606015790.png";
+            case "5":
+                return "https://icons-for-free.com/iconfiles/png/512/cash+checkout+credit+mastercard+icon-1320162631073161905.png";
+            default:
+                return "";
+        }
     }
 
     private void setFourDigitNumber() {

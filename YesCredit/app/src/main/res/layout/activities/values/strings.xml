@@ -204,6 +204,7 @@
     <string name="database_field_phone_number">phone_number</string>
     <string name="database_node_address">address</string>
     <string name="database_field_address_id">address_id</string>
+    <string name="database_node_cards">cards</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
