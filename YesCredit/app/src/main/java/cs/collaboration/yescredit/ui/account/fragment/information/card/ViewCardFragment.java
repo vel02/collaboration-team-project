@@ -16,8 +16,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import cs.collaboration.yescredit.R;
@@ -42,17 +48,16 @@ public class ViewCardFragment extends DaggerFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentViewCardBinding.inflate(inflater);
+        reference = FirebaseDatabase.getInstance().getReference();
         setHasOptionsMenu(true);
-        initialization();
         return binding.getRoot();
     }
 
     private void initialization() {
-        reference = FirebaseDatabase.getInstance().getReference();
         ImageLoader.getInstance().displayImage(card.getImage(), binding.fragmentViewCardImage);
         setFourDigitNumber();
         setNameWithNumber();
-        binding.fragmentViewCardExpiration.setText(card.getExp_date());
+        setExpirationDate();
         binding.fragmentViewCardAddress.setText(card.getBill_address());
     }
 
@@ -81,10 +86,84 @@ public class ViewCardFragment extends DaggerFragment {
         }
     }
 
+    private void setExpirationDate() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Query query = reference.child(getString(R.string.database_node_cards))
+                    .orderByChild("card_id").equalTo(card.getId());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        cs.collaboration.yescredit.model.Card current = singleShot.getValue(cs.collaboration.yescredit.model.Card.class);
+                        assert current != null;
+                        binding.fragmentViewCardExpiration.setText(current.getCard_expiration());
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+    }
+
     private void deleteUserCard() {
-        reference.child(getString(R.string.database_node_cards))
-                .child(card.getId()).removeValue();
-        requireActivity().onBackPressed();
+
+        if (!card.getStatus().equals("primary")) {
+            reference.child(getString(R.string.database_node_cards))
+                    .child(card.getId()).removeValue();
+            requireActivity().onBackPressed();
+        } else {
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+
+                Query query = reference.child(getString(R.string.database_node_cards))
+                        .orderByChild(getString(R.string.database_field_user_id_underscore))
+                        .equalTo(user.getUid());
+
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                            cs.collaboration.yescredit.model.Card current = singleShot.getValue(cs.collaboration.yescredit.model.Card.class);
+                            assert current != null;
+                            if (current.getCard_status().equals("not-primary")) {
+                                reference.child(getString(R.string.database_node_cards))
+                                        .child(current.getCard_id())
+                                        .child(getString(R.string.database_field_card_status))
+                                        .setValue("primary");
+
+                                reference.child(getString(R.string.database_node_cards))
+                                        .child(current.getCard_id())
+                                        .child(getString(R.string.database_field_card_selected))
+                                        .setValue("selected");
+
+                                reference.child(getString(R.string.database_node_cards))
+                                        .child(card.getId()).removeValue();
+                                requireActivity().onBackPressed();
+                                return;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+
+
+        }
     }
 
     private void editUserCard() {
@@ -141,5 +220,6 @@ public class ViewCardFragment extends DaggerFragment {
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.white));
         setToolbarTitle(toolbar);
+        initialization();
     }
 }

@@ -11,14 +11,16 @@ public class Card implements Parcelable {
     private String exp_date;
     private String bill_address;
     private String image;
+    private String status;
 
-    public Card(String id, String name, String number, String exp_date, String bill_address, String image) {
+    public Card(String id, String name, String number, String exp_date, String bill_address, String image, String status) {
         this.id = id;
         this.name = name;
         this.number = number;
         this.exp_date = exp_date;
         this.bill_address = bill_address;
         this.image = image;
+        this.status = status;
     }
 
     public Card() {
@@ -31,6 +33,7 @@ public class Card implements Parcelable {
         exp_date = in.readString();
         bill_address = in.readString();
         image = in.readString();
+        status = in.readString();
     }
 
     @Override
@@ -41,6 +44,7 @@ public class Card implements Parcelable {
         dest.writeString(exp_date);
         dest.writeString(bill_address);
         dest.writeString(image);
+        dest.writeString(status);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class Card implements Parcelable {
                 ", exp_date='" + exp_date + '\'' +
                 ", bill_address='" + bill_address + '\'' +
                 ", image='" + image + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 
@@ -118,5 +123,13 @@ public class Card implements Parcelable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

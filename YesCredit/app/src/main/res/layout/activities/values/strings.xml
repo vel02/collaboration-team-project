@@ -213,6 +213,8 @@
     <string name="hint_4_digits_on_front_or_back">4 digits on front or back</string>
     <string name="database_field_card_expiration">card_expiration</string>
     <string name="database_field_card_code">card_code</string>
+    <string name="database_field_card_status">card_status</string>
+    <string name="database_field_card_selected">card_selected</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

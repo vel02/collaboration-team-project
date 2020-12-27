@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -84,8 +82,7 @@ public class EditCardFragment extends DaggerFragment {
 
         binding.fragmentEditCardSave.setOnClickListener(v -> {
             saveUserCardInfo();
-            NavDirections action = EditCardFragmentDirections.actionEditCardFragmentToCardAccountFragment();
-            Navigation.findNavController(EditCardFragment.this.getView()).navigate(action);
+            requireActivity().onBackPressed();
         });
 
     }

@@ -111,8 +111,5 @@
         <argument
             android:name="card"
             app:argType="cs.collaboration.yescredit.ui.account.model.Card" />
-        <action
-            android:id="@+id/action_editCardFragment_to_cardAccountFragment"
-            app:destination="@id/cardAccountFragment" />
     </fragment>
 </navigation>

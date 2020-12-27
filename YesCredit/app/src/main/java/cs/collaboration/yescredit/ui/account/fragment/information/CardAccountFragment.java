@@ -99,6 +99,7 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
                         card.setImage(current.getCard_image());
                         card.setExp_date(current.getCard_expiration());
                         card.setBill_address(addressFormatter(current));
+                        card.setStatus(current.getCard_status());
                         cards.add(card);
                     }
 
