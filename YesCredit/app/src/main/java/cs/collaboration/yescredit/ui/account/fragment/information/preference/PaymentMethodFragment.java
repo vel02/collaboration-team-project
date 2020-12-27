@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.database.DatabaseReference;
+
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.databinding.FragmentPaymentPreferenceBinding;
+import cs.collaboration.yescredit.databinding.FragmentPaymentMethodBinding;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import dagger.android.support.DaggerFragment;
 
@@ -20,7 +22,8 @@ public class PaymentMethodFragment extends DaggerFragment {
     private static final String TAG = "PaymentMethodFragment";
 
 
-    private FragmentPaymentPreferenceBinding binding;
+    private FragmentPaymentMethodBinding binding;
+    private DatabaseReference reference;
     private Activity activity;
     private Hostable hostable;
 
@@ -28,9 +31,10 @@ public class PaymentMethodFragment extends DaggerFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPaymentPreferenceBinding.inflate(inflater);
+        binding = FragmentPaymentMethodBinding.inflate(inflater);
         return binding.getRoot();
     }
+
 
     @Override
     public void onAttach(Context context) {
