@@ -5,13 +5,15 @@ import android.os.Parcelable;
 
 public class Card implements Parcelable {
 
+    private String id;
     private String name;
     private String number;
     private String exp_date;
     private String bill_address;
     private String image;
 
-    public Card(String name, String number, String exp_date, String bill_address, String image) {
+    public Card(String id, String name, String number, String exp_date, String bill_address, String image) {
+        this.id = id;
         this.name = name;
         this.number = number;
         this.exp_date = exp_date;
@@ -23,6 +25,7 @@ public class Card implements Parcelable {
     }
 
     protected Card(Parcel in) {
+        id = in.readString();
         name = in.readString();
         number = in.readString();
         exp_date = in.readString();
@@ -32,6 +35,7 @@ public class Card implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(name);
         dest.writeString(number);
         dest.writeString(exp_date);
@@ -59,12 +63,21 @@ public class Card implements Parcelable {
     @Override
     public String toString() {
         return "Card{" +
+                "id='" + id + '\'' +
                 "name='" + name + '\'' +
                 ", number='" + number + '\'' +
                 ", exp_date='" + exp_date + '\'' +
                 ", bill_address='" + bill_address + '\'' +
                 ", image='" + image + '\'' +
                 '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -25,4 +25,9 @@
 
     <style name="RoundedCornersDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog" />
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
 </resources>

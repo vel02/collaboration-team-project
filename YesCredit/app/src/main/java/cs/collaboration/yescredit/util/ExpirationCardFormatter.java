@@ -17,20 +17,20 @@ public class ExpirationCardFormatter implements TextWatcher {
     private final int divider;
 
     private Fragment context;
-    private LinearLayout address;
-    private EditText code;
-    private Button add;
+    private LinearLayout layout;
+    private EditText text;
+    private Button button;
 
     public ExpirationCardFormatter(String separator, int divider) {
         this.separator = separator;
         this.divider = divider;
     }
 
-    public void setView(Fragment context, LinearLayout address, EditText code, Button add) {
+    public void setView(Fragment context, LinearLayout layout, EditText text, Button button) {
         this.context = context;
-        this.address = address;
-        this.code = code;
-        this.add = add;
+        this.layout = layout;
+        this.text = text;
+        this.button = button;
     }
 
     @Override
@@ -49,12 +49,12 @@ public class ExpirationCardFormatter implements TextWatcher {
             return;
         }
 
-        if (s.toString().length() < 5 && !code.getText().toString().isEmpty()) {
-            address.setVisibility(View.GONE);
-            add.setVisibility(View.GONE);
-        } else if (!code.getText().toString().isEmpty()) {
-            address.setVisibility(View.VISIBLE);
-            add.setVisibility(View.VISIBLE);
+        if (s.toString().length() < 5 && !text.getText().toString().isEmpty()) {
+            if (layout != null) layout.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+        } else if (!text.getText().toString().isEmpty()) {
+            if (layout != null) layout.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
             hideSoftKeyboard(context);
         }
 

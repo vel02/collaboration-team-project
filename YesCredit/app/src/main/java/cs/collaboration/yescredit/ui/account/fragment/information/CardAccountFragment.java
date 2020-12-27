@@ -7,10 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,8 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
     @Override
     public void onCardClick(Card card) {
         Log.d(TAG, "onCardClick: card: " + card);
-        Toast.makeText(requireActivity(), "card: " + card, Toast.LENGTH_SHORT).show();
+        NavDirections action = CardAccountFragmentDirections.actionCardAccountFragmentToViewCardFragment(card);
+        Navigation.findNavController(CardAccountFragment.this.getView()).navigate(action);
     }
 
     private static final String TAG = "CardAccountFragment";
@@ -48,10 +50,6 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
 
     private CardRecyclerAdapter adapter;
     private Activity activity;
-
-//    //tester
-//    private List<Card> cards = new ArrayList<>();
-//    private int count;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -95,9 +93,11 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
                         cs.collaboration.yescredit.model.Card current = singleShot.getValue(cs.collaboration.yescredit.model.Card.class);
                         assert current != null;
                         Card card = new Card();
+                        card.setId(current.getCard_id());
                         card.setName(current.getCard_name());
                         card.setNumber(current.getCard_number());
                         card.setImage(current.getCard_image());
+                        card.setExp_date(current.getCard_expiration());
                         card.setBill_address(addressFormatter(current));
                         cards.add(card);
                     }
@@ -113,26 +113,6 @@ public class CardAccountFragment extends DaggerFragment implements CardRecyclerA
 
         }
     }
-
-//    private String setCardName(cs.collaboration.yescredit.model.Card card) {
-//
-//        String number = card.getCard_number();
-//        String name = card.getCard_name();
-//
-//        String append = "Credit card ●●●●" + number.substring(number.length() - 4);
-//
-//        switch (name) {
-//            case "American Express":
-//                return "American Express " + append;
-//            case "Visa":
-//                return "Visa " + append;
-//            case "Master Card":
-//                return "Master Card " + append;
-//            default:
-//                return append;
-//        }
-//
-//    }
 
     private String addressFormatter(cs.collaboration.yescredit.model.Card card) {
         return card.getCard_street() + ", " + card.getCard_barangay()

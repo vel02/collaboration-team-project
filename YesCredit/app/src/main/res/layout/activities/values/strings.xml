@@ -205,6 +205,14 @@
     <string name="database_node_address">address</string>
     <string name="database_field_address_id">address_id</string>
     <string name="database_node_cards">cards</string>
+    <string name="desc_card_image">Card Image</string>
+    <string name="name_label">Name</string>
+    <string name="expiration_date_label">Expiration date</string>
+    <string name="delete_label">Delete</string>
+    <string name="security_code_label">Security Code</string>
+    <string name="hint_4_digits_on_front_or_back">4 digits on front or back</string>
+    <string name="database_field_card_expiration">card_expiration</string>
+    <string name="database_field_card_code">card_code</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

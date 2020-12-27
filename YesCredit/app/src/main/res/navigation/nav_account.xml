@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_cardAccountFragment_to_addCardFragment"
             app:destination="@id/addCardFragment" />
+        <action
+            android:id="@+id/action_cardAccountFragment_to_viewCardFragment"
+            app:destination="@id/viewCardFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
@@ -88,4 +91,28 @@
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.personal.addresses.AddAddressFragment"
         android:label="@string/add_an_address_label"
         tools:layout="@layout/fragment_add_address" />
+    <fragment
+        android:id="@+id/viewCardFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.ViewCardFragment"
+        android:label=""
+        tools:layout="@layout/fragment_view_card">
+        <argument
+            android:name="card"
+            app:argType="cs.collaboration.yescredit.ui.account.model.Card" />
+        <action
+            android:id="@+id/action_viewCardFragment_to_editCardFragment"
+            app:destination="@id/editCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCardFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.EditCardFragment"
+        android:label="Edit Credit Card"
+        tools:layout="@layout/fragment_edit_card" >
+        <argument
+            android:name="card"
+            app:argType="cs.collaboration.yescredit.ui.account.model.Card" />
+        <action
+            android:id="@+id/action_editCardFragment_to_cardAccountFragment"
+            app:destination="@id/cardAccountFragment" />
+    </fragment>
 </navigation>

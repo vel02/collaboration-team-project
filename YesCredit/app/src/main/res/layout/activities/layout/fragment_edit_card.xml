@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.account.fragment.information.card.ViewCardFragment">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_edit_card_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/view_round_corner"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/fragment_edit_card_image"
+                        android:layout_width="200dp"
+                        android:layout_height="160dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/desc_card_image"
+                        android:scaleType="fitXY"
+                        tools:src="@drawable/ic_card_express" />
+
+                    <TextView
+                        android:id="@+id/fragment_edit_card_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        tools:text="●●●●7972" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/expiration_date_label" />
+
+                <EditText
+                    android:id="@+id/fragment_edit_card_expiration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:hint="@string/hint_mm_yy"
+                    android:importantForAutofill="no"
+                    android:inputType="number|textNoSuggestions"
+                    android:maxLength="5"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColorHint="@color/grey_two" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/security_code_label" />
+
+                <EditText
+                    android:id="@+id/fragment_edit_card_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:hint="@string/hint_4_digits_on_front_or_back"
+                    android:importantForAutofill="no"
+                    android:inputType="number|textNoSuggestions"
+                    android:maxLength="4"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColorHint="@color/grey_two" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/fragment_edit_card_save"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/solid"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/save_label"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UnusedAttribute"
+            tools:targetApi="m" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
