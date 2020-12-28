@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.binding;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,14 +10,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CardAdapter {
 
-    //    @BindingAdapter({"sti_bgc:cardImage"})
-//    public static void setCardImage(ImageView view, String path) {
-//        if (path != null) {
-//            Uri uri = Uri.parse("android.resource://" + PROJECT_PACKAGE + "/drawable/" + path);
-//            view.setImageURI(uri);
-//        }
-//    }
-//
     @BindingAdapter({"sti_bgc:cardImage"})
     public static void setCardImage(ImageView view, String path) {
         if (path != null) {
@@ -40,5 +33,12 @@ public class CardAdapter {
         }
     }
 
+
+    @BindingAdapter({"sti_bgc:card_visibility"})
+    public static void setVisibility(ImageView view, String value) {
+        if (value != null) {
+            view.setVisibility(!value.equals("primary") ? View.GONE : View.VISIBLE);
+        }
+    }
 
 }

@@ -45,6 +45,10 @@ public class PaymentPreferenceFragment extends DaggerFragment {
     private void initialization() {
         reference = FirebaseDatabase.getInstance().getReference();
         getUserCard();
+
+        binding.fragmentPaymentPrefCard.setOnClickListener(v -> {
+            hostable.onInflate(v, getString(R.string.tag_fragment_payment_preference));
+        });
     }
 
     private void getUserCard() {

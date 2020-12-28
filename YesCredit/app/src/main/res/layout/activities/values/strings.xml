@@ -215,6 +215,7 @@
     <string name="database_field_card_code">card_code</string>
     <string name="database_field_card_status">card_status</string>
     <string name="database_field_card_selected">card_selected</string>
+    <string name="tag_fragment_payment_preference">tag_fragment_payment_preference</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

@@ -71,7 +71,11 @@
         android:id="@+id/paymentPreferenceFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment"
         android:label=""
-        tools:layout="@layout/fragment_payment_preference" />
+        tools:layout="@layout/fragment_payment_preference">
+        <action
+            android:id="@+id/action_paymentPreferenceFragment_to_paymentMethodFragment"
+            app:destination="@id/paymentMethodFragment" />
+    </fragment>
     <fragment
         android:id="@+id/phoneNumberFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.personal.PhoneNumberFragment"
@@ -107,9 +111,14 @@
         android:id="@+id/editCardFragment"
         android:name="cs.collaboration.yescredit.ui.account.fragment.information.card.EditCardFragment"
         android:label="Edit Credit Card"
-        tools:layout="@layout/fragment_edit_card" >
+        tools:layout="@layout/fragment_edit_card">
         <argument
             android:name="card"
             app:argType="cs.collaboration.yescredit.ui.account.model.Card" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="cs.collaboration.yescredit.ui.account.fragment.information.preference.PaymentMethodFragment"
+        android:label=""
+        tools:layout="@layout/fragment_payment_method" />
 </navigation>

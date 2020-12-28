@@ -52,7 +52,7 @@
             android:overScrollMode="never"
             android:scrollbars="none"
             tools:itemCount="1"
-            tools:listitem="@layout/card_item" />
+            tools:listitem="@layout/card_selected_item" />
 
     </LinearLayout>
 </layout>

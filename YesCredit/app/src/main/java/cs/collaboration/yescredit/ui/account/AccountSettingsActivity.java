@@ -16,6 +16,7 @@ import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragmentDirections;
 import cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragmentDirections;
+import cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragmentDirections;
 import cs.collaboration.yescredit.ui.account.fragment.information.PersonalFragmentDirections;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.AddCardFragmentDirections;
 import cs.collaboration.yescredit.ui.account.fragment.information.card.BillingAddressFragmentDirections;
@@ -76,6 +77,11 @@ public class AccountSettingsActivity extends BaseActivity implements Hostable {
 
             case "tag_fragment_add_address":
                 action = AddressesFragmentDirections.actionAddressesFragmentToAddAddressFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+
+            case "tag_fragment_payment_preference":
+                action = PaymentPreferenceFragmentDirections.actionPaymentPreferenceFragmentToPaymentMethodFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
 

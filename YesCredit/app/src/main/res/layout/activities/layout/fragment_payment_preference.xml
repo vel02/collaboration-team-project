@@ -67,6 +67,7 @@
                 android:background="?android:attr/dividerVertical" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_payment_pref_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
