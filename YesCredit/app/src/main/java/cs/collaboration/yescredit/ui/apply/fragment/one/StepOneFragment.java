@@ -87,7 +87,7 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
                 binding.fragmentOneLastName.setText(form.getLast_name());
                 binding.fragmentOneFirstName.setText(form.getFirst_name());
                 binding.fragmentOneMiddleName.setText(form.getMiddle_name());
-                if (form.getGender() != null) {
+                if (!form.getGender().isEmpty()) {
                     switch (form.getGender().toLowerCase()) {
                         case "male":
                             binding.fragmentOneGenderMale.setChecked(true);

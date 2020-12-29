@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/stepTwoFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.two.StepTwoFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_step_two">
         <action

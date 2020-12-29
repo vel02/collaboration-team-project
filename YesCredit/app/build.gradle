@@ -95,4 +95,12 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     //reference: https://github.com/bumptech/glide
 
+    def rxjava_version = "3.0.4"
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
+    //reference: https://github.com/ReactiveX/RxJava
+
+    def rxandroid_version = "3.0.0"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
+    //reference: https://github.com/ReactiveX/rxandroid
+
 }

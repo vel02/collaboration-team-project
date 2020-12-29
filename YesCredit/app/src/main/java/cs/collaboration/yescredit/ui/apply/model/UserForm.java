@@ -35,6 +35,10 @@ public class UserForm {
     public UserForm() {
     }
 
+    private String checkNullValue(String value) {
+        return (value != null) ? value : "";
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -54,7 +58,7 @@ public class UserForm {
     }
 
     public String getLast_name() {
-        return last_name;
+        return checkNullValue(last_name);
     }
 
     public void setLast_name(String last_name) {
@@ -62,7 +66,7 @@ public class UserForm {
     }
 
     public String getFirst_name() {
-        return first_name;
+        return checkNullValue(first_name);
     }
 
     public void setFirst_name(String first_name) {
@@ -70,7 +74,7 @@ public class UserForm {
     }
 
     public String getMiddle_name() {
-        return middle_name;
+        return checkNullValue(middle_name);
     }
 
     public void setMiddle_name(String middle_name) {
@@ -78,7 +82,7 @@ public class UserForm {
     }
 
     public String getGender() {
-        return gender;
+        return checkNullValue(gender);
     }
 
     public void setGender(String gender) {
@@ -86,7 +90,7 @@ public class UserForm {
     }
 
     public String getDate_of_birth() {
-        return date_of_birth;
+        return checkNullValue(date_of_birth);
     }
 
     public void setDate_of_birth(String date_of_birth) {
@@ -94,7 +98,7 @@ public class UserForm {
     }
 
     public String getGovernment_id() {
-        return government_id;
+        return checkNullValue(government_id);
     }
 
     public void setGovernment_id(String government_id) {
@@ -102,7 +106,7 @@ public class UserForm {
     }
 
     public String getStreet_address() {
-        return street_address;
+        return checkNullValue(street_address);
     }
 
     public void setStreet_address(String street_address) {
@@ -110,7 +114,7 @@ public class UserForm {
     }
 
     public String getBarangay_address() {
-        return barangay_address;
+        return checkNullValue(barangay_address);
     }
 
     public void setBarangay_address(String barangay_address) {
@@ -118,7 +122,7 @@ public class UserForm {
     }
 
     public String getCity_address() {
-        return city_address;
+        return checkNullValue(city_address);
     }
 
     public void setCity_address(String city_address) {
@@ -126,7 +130,7 @@ public class UserForm {
     }
 
     public String getProvince_address() {
-        return province_address;
+        return checkNullValue(province_address);
     }
 
     public void setProvince_address(String province_address) {
@@ -134,7 +138,7 @@ public class UserForm {
     }
 
     public String getPostal_address() {
-        return postal_address;
+        return checkNullValue(postal_address);
     }
 
     public void setPostal_address(String postal_address) {
