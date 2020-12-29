@@ -10,10 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 
 import javax.inject.Inject;
 
@@ -57,35 +55,29 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
 
     @SuppressLint("ClickableViewAccessibility")
     private void navigation() {
-        binding.fragmentOneBirthDate.setOnTouchListener(new View.OnTouchListener() {
-            //reference: https://stackoverflow.com/questions/3554377/handling-click-events-on-a-drawable-within-an-edittext
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
+        //reference: https://stackoverflow.com/questions/3554377/handling-click-events-on-a-drawable-within-an-edittext
+        binding.fragmentOneBirthDate.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (binding.fragmentOneBirthDate.getRight() - binding.fragmentOneBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        Log.d(TAG, "onTouch: na touch ako sobra!");
-                        DatePickerFragment dialog = new DatePickerFragment();
-                        dialog.setOnDatePickerListener(StepOneFragment.this);
-                        dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
-                        return true;
-                    }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (binding.fragmentOneBirthDate.getRight() - binding.fragmentOneBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    // your action here
+                    Log.d(TAG, "onTouch: na touch ako sobra!");
+                    DatePickerFragment dialog = new DatePickerFragment();
+                    dialog.setOnDatePickerListener(StepOneFragment.this);
+                    dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
-        binding.fragmentOneGenderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int selected = group.getCheckedRadioButtonId();
+        binding.fragmentOneGenderGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int selected = group.getCheckedRadioButtonId();
 
-                RadioButton button = binding.getRoot().findViewById(selected);
-                gender = button.getTag().toString();
-                Log.d(TAG, "onCheckedChanged: gender: " + gender);
-            }
+            RadioButton button = binding.getRoot().findViewById(selected);
+            gender = button.getTag().toString();
+            Log.d(TAG, "onCheckedChanged: gender: " + gender);
         });
 
         binding.fragmentOneNext.setOnClickListener(view -> {
@@ -102,36 +94,33 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
     private void getUserInfo() {
         Log.d(TAG, "getUserInfo: started");
         sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
-            @Override
-            public void onChanged(UserForm form) {
-                Log.d(TAG, "onChanged: started with form: ");
-                if (form != null) {
-                    Log.d(TAG, "onChanged: started");
-                    binding.fragmentOneLastName.setText(form.getLast_name());
-                    binding.fragmentOneFirstName.setText(form.getFirst_name());
-                    binding.fragmentOneMiddleName.setText(form.getMiddle_name());
-                    if (form.getGender() != null) {
-                        switch (form.getGender().toLowerCase()) {
-                            case "male":
-                                binding.fragmentOneGenderMale.setChecked(true);
-                                break;
-                            case "female":
-                                binding.fragmentOneGenderFemale.setChecked(true);
-                                break;
-                            default:
-                        }
+        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), form -> {
+            Log.d(TAG, "onChanged: started with form: ");
+            if (form != null) {
+                Log.d(TAG, "onChanged: started");
+                binding.fragmentOneLastName.setText(form.getLast_name());
+                binding.fragmentOneFirstName.setText(form.getFirst_name());
+                binding.fragmentOneMiddleName.setText(form.getMiddle_name());
+                if (form.getGender() != null) {
+                    switch (form.getGender().toLowerCase()) {
+                        case "male":
+                            binding.fragmentOneGenderMale.setChecked(true);
+                            break;
+                        case "female":
+                            binding.fragmentOneGenderFemale.setChecked(true);
+                            break;
+                        default:
                     }
-                    dateOfBirth = form.getDate_of_birth();
-                    binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : "");
-                    governmentId = form.getGovernment_id();
-                    street = form.getStreet_address();
-                    barangay = form.getBarangay_address();
-                    city = form.getCity_address();
-                    province = form.getProvince_address();
-                    postal = form.getPostal_address();
-                } else Log.d(TAG, "onChanged: is null");
-            }
+                }
+                dateOfBirth = form.getDate_of_birth();
+                binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : "");
+                governmentId = form.getGovernment_id();
+                street = form.getStreet_address();
+                barangay = form.getBarangay_address();
+                city = form.getCity_address();
+                province = form.getProvince_address();
+                postal = form.getPostal_address();
+            } else Log.d(TAG, "onChanged: is null");
         });
     }
 

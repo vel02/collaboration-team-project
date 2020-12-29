@@ -12,11 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
@@ -41,34 +36,17 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 
     @Override
     public void onEnlist(UserForm userForm) {
-        sessionManager.setApplicationForm(userForm);
+        viewModel.setUserForm(userForm);
     }
 
     @Override
     public void onEnlist(LoanForm LoanForm) {
-        sessionManager.setLoan(LoanForm);
+        viewModel.setLoanForm(LoanForm);
     }
 
     @Override
     public void onSaveUserInfo(UserForm form) {
-        if (form != null) {
-            Log.d(TAG, "onChanged: form: " + form);
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-            assert user != null;
-            save(reference, user.getUid(), getString(R.string.database_field_last_name), form.getLast_name() != null ? form.getLast_name() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_first_name), form.getFirst_name() != null ? form.getFirst_name() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_middle_name), form.getMiddle_name() != null ? form.getMiddle_name() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_gender), form.getGender() != null ? form.getGender() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_date_of_birth), form.getDate_of_birth() != null ? form.getDate_of_birth() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_government_image), form.getGovernment_id() != null ? form.getGovernment_id() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_street_address), form.getStreet_address() != null ? form.getStreet_address() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_barangay_address), form.getBarangay_address() != null ? form.getBarangay_address() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_city_address), form.getCity_address() != null ? form.getCity_address() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_province_address), form.getProvince_address() != null ? form.getProvince_address() : "");
-            save(reference, user.getUid(), getString(R.string.database_field_postal_address), form.getPostal_address() != null ? form.getPostal_address() : "");
-        }
+        viewModel.saveUserInputForm(form);
     }
 
     @Override
@@ -76,7 +54,6 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         NavDirections action;
         switch (screen) {
             case "tag_fragment_step_two":
-                //government id
                 action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
@@ -157,12 +134,6 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         navigationController();
     }
 
-    private void save(DatabaseReference reference, String userId, String field, String value) {
-        reference.child(getString(R.string.database_node_users))
-                .child(userId)
-                .child(field).setValue(value);
-    }
-
     private void navigationController() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         assert navHostFragment != null;
@@ -181,5 +152,11 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     protected void onResume() {
         super.onResume();
         checkAuthenticationState();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.resetForm();
     }
 }

@@ -24,13 +24,13 @@ public class SessionManager {
         Log.d(TAG, "SessionManager: I am working...");
     }
 
-    public void setApplicationForm(UserForm userForm) {
+    public void setUserForm(UserForm userForm) {
         if (userForm != null) {
             this.applicationForm.setValue(userForm);
         }
     }
 
-    public void setLoan(LoanForm loanForm) {
+    public void setLoanForm(LoanForm loanForm) {
         if (loanForm != null) {
             this.loanForm.setValue(loanForm);
         }

@@ -24,4 +24,17 @@ public class Keys {
     public static final String DATABASE_FIELD_CODE_STATUS = "code_status";
     public static final String DATABASE_FIELD_CODE_BENEFIT = "code_benefit";
 
+    //FIELD USER
+    public static final String DATABASE_FIELD_LAST_NAME = "last_name";
+    public static final String DATABASE_FIELD_FIRST_NAME = "first_name";
+    public static final String DATABASE_FIELD_MIDDLE_NAME = "middle_name";
+    public static final String DATABASE_FIELD_GENDER = "gender";
+    public static final String DATABASE_FIELD_DATE_OF_BIRTH = "date_of_birth";
+    public static final String DATABASE_FIELD_GOVERNMENT_IMAGE = "government_image";
+    public static final String DATABASE_FIELD_STREET_ADDRESS = "street_address";
+    public static final String DATABASE_FIELD_BARANGAY_ADDRESS = "barangay_address";
+    public static final String DATABASE_FIELD_CITY_ADDRESS = "city_address";
+    public static final String DATABASE_FIELD_PROVINCE_ADDRESS = "province_address";
+    public static final String DATABASE_FIELD_POSTAL_ADDRESS = "postal_address";
+
 }
