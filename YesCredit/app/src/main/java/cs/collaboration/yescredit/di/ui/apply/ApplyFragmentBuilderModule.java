@@ -2,6 +2,8 @@ package cs.collaboration.yescredit.di.ui.apply;
 
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneScope;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.three.StepThreeScope;
+import cs.collaboration.yescredit.di.ui.apply.three.StepThreeViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoScope;
@@ -13,11 +15,11 @@ import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepSixFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.SubmitFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.PersonalInfoFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.three.StepThreeFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.two.StepTwoFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -44,7 +46,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract StepTwoFragment contributeStepTwoFragment();
 
-    @ContributesAndroidInjector
+    @StepThreeScope
+    @ContributesAndroidInjector(
+            modules = {
+                    StepThreeViewModelModule.class
+            }
+    )
     abstract StepThreeFragment contributeStepThreeFragment();
 
     @ContributesAndroidInjector
