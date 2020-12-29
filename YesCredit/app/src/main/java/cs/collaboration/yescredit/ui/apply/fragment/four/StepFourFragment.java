@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.four;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepFourBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
+import cs.collaboration.yescredit.ui.apply.model.UserForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 
@@ -23,33 +25,38 @@ public class StepFourFragment extends DaggerFragment {
     private static final String TAG = "StepFourFragment";
 
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
     private FragmentStepFourBinding binding;
+    private StepFourViewModel viewModel;
+    private UserForm userForm;
     private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStepFourBinding.inflate(inflater);
-        getUserInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(StepFourViewModel.class);
+
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getUserInfo() {
+    private void subscribeObservers() {
 
-        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), form -> {
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
-                String personal_info =
+                StepFourFragment.this.userForm = form;
+                String display_personal_information =
                         form.getLast_name() + ", " + form.getFirst_name() + " " + form.getMiddle_name()
                                 + "\n" + form.getGender() + "\n" + form.getDate_of_birth();
-                String address = form.getStreet_address() + ", " + form.getBarangay_address()
+                String display_personal_address = form.getStreet_address() + ", " + form.getBarangay_address()
                         + "\n" + form.getCity_address() + "\n" + form.getProvince_address()
                         + "\n" + form.getPostal_address() + " " + form.getProvince_address().toUpperCase();
-                binding.fragmentFourPersonalInfo.setText(personal_info);
-                binding.fragmentFourAddress.setText(address);
+                binding.fragmentFourPersonalInfo.setText(display_personal_information);
+                binding.fragmentFourAddress.setText(display_personal_address);
             }
         });
 
@@ -57,34 +64,13 @@ public class StepFourFragment extends DaggerFragment {
 
     private void navigation() {
 
-        binding.fragmentFourPersonalInfoRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostable.onInflate(v, getString(R.string.tag_fragment_personal_info));
-            }
-        });
+        binding.fragmentFourPersonalInfoRoot.setOnClickListener(v -> hostable.onInflate(v, getString(R.string.tag_fragment_personal_info)));
 
-        binding.fragmentFourAddressRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostable.onInflate(v, getString(R.string.tag_fragment_address));
-            }
-        });
+        binding.fragmentFourAddressRoot.setOnClickListener(v -> hostable.onInflate(v, getString(R.string.tag_fragment_address)));
 
-        binding.fragmentFourNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //load latest data from userForm
-                //save it to firebase
-                sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-                sessionManager.observeUserForm().observe(getViewLifecycleOwner(), userForm -> {
-                    if (userForm != null) {
-                        hostable.onSaveUserInfo(userForm);
-                    }
-                });
-
-                hostable.onInflate(v, getString(R.string.tag_fragment_step_five));
-            }
+        binding.fragmentFourNext.setOnClickListener(v -> {
+            hostable.onSaveUserInfo(userForm);
+            hostable.onInflate(v, getString(R.string.tag_fragment_step_five));
         });
 
     }
