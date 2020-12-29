@@ -21,11 +21,11 @@ import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFourFragmentDirections;
-import cs.collaboration.yescredit.ui.apply.fragment.StepOneFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepSixFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepThreeFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.StepTwoFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.SubmitFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -55,6 +55,7 @@ public class ApplyActivity extends BaseActivity implements Hostable {
         switch (screen) {
             case "tag_fragment_step_two":
                 action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
+//                action = StepOneFragmentDirections.actionStepOneFragmentToStepTwoFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
             case "tag_fragment_step_three":
@@ -119,9 +120,6 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 
     @Inject
     ViewModelProviderFactory providerFactory;
-
-    @Inject
-    SessionManager sessionManager;
 
     private ApplyViewModel viewModel;
     private NavController navController;

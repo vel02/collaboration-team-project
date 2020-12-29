@@ -1,10 +1,9 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.one;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,44 +11,40 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class StepOneFragment extends DaggerFragment implements DatePickerFragment.OnDatePickerListener {
 
     private static final String TAG = "StepOneFragment";
 
-    private FragmentStepOneBinding binding;
-
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
+    private FragmentStepOneBinding binding;
+    private StepOneViewModel viewModel;
+    private UserForm userForm;
     private Hostable hostable;
 
-    private String gender;
-    private String dateOfBirth;
-    private String governmentId;
-    private String street;
-    private String barangay;
-    private String city;
-    private String province;
-    private String postal;
+    private String selectedUserGender;
+    private String selectedUserDateOfBirth;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStepOneBinding.inflate(inflater);
-        Log.d(TAG, "onCreateView: started.");
+        viewModel = new ViewModelProvider(this, providerFactory).get(StepOneViewModel.class);
+        subscribeObservers();
         navigation();
-        getUserInfo();
         return binding.getRoot();
     }
 
@@ -62,7 +57,6 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (event.getRawX() >= (binding.fragmentOneBirthDate.getRight() - binding.fragmentOneBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                     // your action here
-                    Log.d(TAG, "onTouch: na touch ako sobra!");
                     DatePickerFragment dialog = new DatePickerFragment();
                     dialog.setOnDatePickerListener(StepOneFragment.this);
                     dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
@@ -74,30 +68,22 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
 
         binding.fragmentOneGenderGroup.setOnCheckedChangeListener((group, checkedId) -> {
             int selected = group.getCheckedRadioButtonId();
-
             RadioButton button = binding.getRoot().findViewById(selected);
-            gender = button.getTag().toString();
-            Log.d(TAG, "onCheckedChanged: gender: " + gender);
+            selectedUserGender = button.getTag().toString();
         });
 
         binding.fragmentOneNext.setOnClickListener(view -> {
-
-            //fill up user form ....
-            hostable.onEnlist(userInfo());
-
-            //call other form ....
+            hostable.onEnlist(enlistUserInformation());
             hostable.onInflate(view, getString(R.string.tag_fragment_step_two));
-
         });
     }
 
-    private void getUserInfo() {
-        Log.d(TAG, "getUserInfo: started");
-        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), form -> {
-            Log.d(TAG, "onChanged: started with form: ");
+    private void subscribeObservers() {
+
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
-                Log.d(TAG, "onChanged: started");
+                StepOneFragment.this.userForm = form;
                 binding.fragmentOneLastName.setText(form.getLast_name());
                 binding.fragmentOneFirstName.setText(form.getFirst_name());
                 binding.fragmentOneMiddleName.setText(form.getMiddle_name());
@@ -111,39 +97,26 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
                             break;
                         default:
                     }
-                }
-                dateOfBirth = form.getDate_of_birth();
-                binding.fragmentOneBirthDate.setText(dateOfBirth != null ? form.getDate_of_birth() : "");
-                governmentId = form.getGovernment_id();
-                street = form.getStreet_address();
-                barangay = form.getBarangay_address();
-                city = form.getCity_address();
-                province = form.getProvince_address();
-                postal = form.getPostal_address();
-            } else Log.d(TAG, "onChanged: is null");
+                } else binding.fragmentOneGenderMale.setChecked(true);
+                binding.fragmentOneBirthDate.setText(form.getDate_of_birth() != null ? form.getDate_of_birth() : "");
+            }
         });
+
     }
 
-    private UserForm userInfo() {
+    private UserForm enlistUserInformation() {
 
-        UserForm info = new UserForm();
         String last_name = binding.fragmentOneLastName.getText().toString();
         String first_name = binding.fragmentOneFirstName.getText().toString();
         String middle_name = binding.fragmentOneMiddleName.getText().toString();
 
-        info.setLast_name(last_name);
-        info.setFirst_name(first_name);
-        info.setMiddle_name(middle_name);
-        info.setGender(gender);
-        info.setDate_of_birth(dateOfBirth);
-        info.setGovernment_id(governmentId);
-        info.setStreet_address(street);
-        info.setBarangay_address(barangay);
-        info.setCity_address(city);
-        info.setProvince_address(province);
-        info.setPostal_address(postal);
+        userForm.setLast_name(last_name);
+        userForm.setFirst_name(first_name);
+        userForm.setMiddle_name(middle_name);
+        userForm.setGender(selectedUserGender);
+        userForm.setDate_of_birth(selectedUserDateOfBirth);
 
-        return info;
+        return userForm;
     }
 
     @Override
@@ -152,9 +125,8 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         String day_string = Integer.toString(day);
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
-        Log.d(TAG, "processDatePickerResult: " + dateMessage);
         binding.fragmentOneBirthDate.setText(dateMessage);
-        dateOfBirth = dateMessage;
+        selectedUserDateOfBirth = dateMessage;
     }
 
     @Override

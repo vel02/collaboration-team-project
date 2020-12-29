@@ -22,6 +22,8 @@ public class SessionManager {
     @Inject
     public SessionManager() {
         Log.d(TAG, "SessionManager: I am working...");
+        this.applicationForm.setValue(new UserForm());
+        this.loanForm.setValue(new LoanForm());
     }
 
     public void setUserForm(UserForm userForm) {
