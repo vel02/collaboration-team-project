@@ -7,10 +7,15 @@ public class Keys {
     public static final String DATABASE_NODE_USER = "users";
     public static final String DATABASE_NODE_LOAN = "loans";
     public static final String DATABASE_NODE_CODES = "codes";
+    public static final String DATABASE_NODE_CARDS = "cards";
     public static final String DATABASE_NODE_ADDRESS = "address";
 
     //USER
     public static final String DATABASE_FIELD_USER_ID = "userId";
+    public static final String DATABASE_FIELD_USER_ID_WITH_UNDERSCORE = "user_id";
+
+    //LOAN
+    public static final String DATABASE_FIELD_LOAN_STATUS = "status";
 
     //CODES
     public static final String DATABASE_FIELD_FROM_ID = "fromId";

@@ -23,6 +23,9 @@ import cs.collaboration.yescredit.di.ui.login.LoginDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.login.LoginModule;
 import cs.collaboration.yescredit.di.ui.login.LoginScope;
 import cs.collaboration.yescredit.di.ui.login.LoginViewModelModule;
+import cs.collaboration.yescredit.di.ui.payment.PaymentModule;
+import cs.collaboration.yescredit.di.ui.payment.PaymentScope;
+import cs.collaboration.yescredit.di.ui.payment.PaymentViewModelModule;
 import cs.collaboration.yescredit.di.ui.referral.ReferralModule;
 import cs.collaboration.yescredit.di.ui.referral.ReferralViewModelModule;
 import cs.collaboration.yescredit.di.ui.signup.SignUpModule;
@@ -35,6 +38,7 @@ import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
 import cs.collaboration.yescredit.ui.home.HomeActivity;
 import cs.collaboration.yescredit.ui.login.LoginActivity;
+import cs.collaboration.yescredit.ui.payment.PaymentActivity;
 import cs.collaboration.yescredit.ui.referral.ReferralActivity;
 import cs.collaboration.yescredit.ui.signup.SignUpActivity;
 import dagger.Module;
@@ -125,4 +129,14 @@ public abstract class ActivityBuilderModule {
             }
     )
     abstract AccountSettingsActivity contributeAccountSettingsActivity();
+
+    @PaymentScope
+    @ContributesAndroidInjector(
+            modules = {
+                    PaymentViewModelModule.class,
+                    PaymentModule.class
+            }
+    )
+    abstract PaymentActivity contributePaymentActivity();
+
 }

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_sign_out"
-        android:orderInCategory="100"
-        android:title="@string/sign_out"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_account_settings"
         android:orderInCategory="200"
         android:title="@string/account_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_account_payment"
+        android:orderInCategory="300"
+        android:title="@string/payment_label"
+        app:showAsAction="never" />
 
 </menu>

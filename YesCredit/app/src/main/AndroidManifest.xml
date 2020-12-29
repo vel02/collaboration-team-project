@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YesCredit">
+        <activity android:name=".ui.payment.PaymentActivity"></activity>
         <activity
             android:name=".ui.account.AccountSettingsActivity"
             android:label=""

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import cs.collaboration.yescredit.ui.allowable.AllowableActivity;
 import cs.collaboration.yescredit.ui.apply.ApplyActivity;
 import cs.collaboration.yescredit.ui.existing.ExistingLoanActivity;
 import cs.collaboration.yescredit.ui.faq.FaqActivity;
+import cs.collaboration.yescredit.ui.payment.PaymentActivity;
 import cs.collaboration.yescredit.ui.referral.ReferralActivity;
 import cs.collaboration.yescredit.util.UniversalImageLoader;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -132,13 +132,15 @@ public class HomeActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
-            case R.id.action_sign_out:
-                FirebaseAuth.getInstance().signOut();
-                checkAuthenticationState();
-                return true;
             case R.id.action_account_settings:
-                Intent intent = new Intent(this, AccountSettingsActivity.class);
+                intent = new Intent(this, AccountSettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_account_payment:
+                intent = new Intent(this, PaymentActivity.class);
                 startActivity(intent);
                 return true;
         }

@@ -52,6 +52,9 @@ public interface AppComponent extends AndroidInjector<BaseApplication> {
         @BindsInstance
         Builder existingLoanActivity(@Named("Existing Loan Activity") int layout);
 
+        @BindsInstance
+        Builder paymentActivity(@Named("Payment Activity") int layout);
+
         AppComponent build();
     }
 

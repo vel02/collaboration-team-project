@@ -216,6 +216,10 @@
     <string name="database_field_card_status">card_status</string>
     <string name="database_field_card_selected">card_selected</string>
     <string name="tag_fragment_payment_preference">tag_fragment_payment_preference</string>
+    <string name="payment_label">Pay Loan</string>
+    <string name="you_don_t_have_available_transaction_label">You don\'t have available transaction</string>
+    <string name="pay_now_label">Pay Now</string>
+    <string name="confirmed_label">Confirmed</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
