@@ -88,23 +88,20 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
     @SuppressLint("ClickableViewAccessibility")
     private void navigation() {
 
-        binding.fragmentPersonalInfoBirthDate.setOnTouchListener(new View.OnTouchListener() {
-            //reference: https://stackoverflow.com/questions/3554377/handling-click-events-on-a-drawable-within-an-edittext
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
+        //reference: https://stackoverflow.com/questions/3554377/handling-click-events-on-a-drawable-within-an-edittext
+        binding.fragmentPersonalInfoBirthDate.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (binding.fragmentPersonalInfoBirthDate.getRight() - binding.fragmentPersonalInfoBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        DatePickerFragment dialog = new DatePickerFragment();
-                        dialog.setOnDatePickerListener(PersonalInfoFragment.this);
-                        dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
-                        return true;
-                    }
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (binding.fragmentPersonalInfoBirthDate.getRight() - binding.fragmentPersonalInfoBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    // your action here
+                    DatePickerFragment dialog = new DatePickerFragment();
+                    dialog.setOnDatePickerListener(PersonalInfoFragment.this);
+                    dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
         binding.fragmentPersonalInfoGenderGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -113,9 +110,9 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
             selectedUserGender = button.getTag().toString();
         });
 
-        binding.fragmentPersonalInfoUpdate.setOnClickListener(v -> {
-            enlistUserInformation();
-        });
+        binding.fragmentPersonalInfoUpdate.setOnClickListener(v ->
+                enlistUserInformation()
+        );
 
     }
 
