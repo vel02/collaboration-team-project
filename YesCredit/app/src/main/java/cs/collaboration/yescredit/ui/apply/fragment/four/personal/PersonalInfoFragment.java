@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment.four;
+package cs.collaboration.yescredit.ui.apply.fragment.four.personal;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,21 +10,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-
-import com.google.android.material.snackbar.Snackbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentPersonalInfoBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class PersonalInfoFragment extends DaggerFragment implements DatePickerFragment.OnDatePickerListener {
@@ -39,68 +36,51 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
         Log.d(TAG, "processDatePickerResult: " + dateMessage);
         binding.fragmentPersonalInfoBirthDate.setText(dateMessage);
-        dateOfBirth = dateMessage;
+        selectedUserDateOfBirth = dateMessage;
     }
 
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
+
     private FragmentPersonalInfoBinding binding;
+    private PersonalInfoViewModel viewModel;
+    private UserForm userForm;
     private Hostable hostable;
 
-    private String gender;
-    private String dateOfBirth;
-    private String governmentId;
-    private String street;
-    private String barangay;
-    private String city;
-    private String province;
-    private String postal;
+    private String selectedUserGender;
+    private String selectedUserDateOfBirth;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPersonalInfoBinding.inflate(inflater);
-        getUserInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(PersonalInfoViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getUserInfo() {
-        Log.d(TAG, "getUserInfo: started");
-        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
-            @Override
-            public void onChanged(UserForm form) {
-                if (form != null) {
-                    Log.d(TAG, "onChanged: started");
-                    binding.fragmentPersonalInfoLastName.setText(form.getLast_name());
-                    binding.fragmentPersonalInfoFirstName.setText(form.getFirst_name());
-                    binding.fragmentPersonalInfoMiddleName.setText(form.getMiddle_name());
-                    if (form.getGender() != null) {
-                        switch (form.getGender().toLowerCase()) {
-                            case "male":
-                                binding.fragmentPersonalInfoGenderMale.setChecked(true);
-                                break;
-                            case "female":
-                                binding.fragmentPersonalInfoGenderFemale.setChecked(true);
-                                break;
-                            default:
-                        }
+    private void subscribeObservers() {
+
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
+            if (form != null) {
+                PersonalInfoFragment.this.userForm = form;
+                binding.fragmentPersonalInfoLastName.setText(form.getLast_name());
+                binding.fragmentPersonalInfoFirstName.setText(form.getFirst_name());
+                binding.fragmentPersonalInfoMiddleName.setText(form.getMiddle_name());
+                if (!form.getGender().isEmpty()) {
+                    switch (form.getGender().toLowerCase()) {
+                        case "male":
+                            binding.fragmentPersonalInfoGenderMale.setChecked(true);
+                            break;
+                        case "female":
+                            binding.fragmentPersonalInfoGenderFemale.setChecked(true);
+                            break;
+                        default:
                     }
-
-
-                    dateOfBirth = form.getDate_of_birth();
-                    if (dateOfBirth != null) {
-                        binding.fragmentPersonalInfoBirthDate.setText(dateOfBirth);
-                    }
-
-                    governmentId = form.getGovernment_id();
-                    street = form.getStreet_address();
-                    barangay = form.getBarangay_address();
-                    city = form.getCity_address();
-                    province = form.getProvince_address();
-                    postal = form.getPostal_address();
                 }
+                binding.fragmentPersonalInfoBirthDate.setText(form.getDate_of_birth());
             }
         });
     }
@@ -117,7 +97,6 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (binding.fragmentPersonalInfoBirthDate.getRight() - binding.fragmentPersonalInfoBirthDate.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        Log.d(TAG, "onTouch: na touch ako sobra!");
                         DatePickerFragment dialog = new DatePickerFragment();
                         dialog.setOnDatePickerListener(PersonalInfoFragment.this);
                         dialog.show(requireActivity().getSupportFragmentManager(), getString(R.string.tag_dialog_fragment_date_picker));
@@ -128,49 +107,31 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
             }
         });
 
-        binding.fragmentPersonalInfoGenderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int selected = group.getCheckedRadioButtonId();
-
-                RadioButton button = binding.getRoot().findViewById(selected);
-                gender = button.getTag().toString();
-                Log.d(TAG, "onCheckedChanged: gender: " + gender);
-            }
+        binding.fragmentPersonalInfoGenderGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int selected = group.getCheckedRadioButtonId();
+            RadioButton button = binding.getRoot().findViewById(selected);
+            selectedUserGender = button.getTag().toString();
         });
 
-        binding.fragmentPersonalInfoUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostable.onEnlist(userInfo());
-                Snackbar.make(v, "Update Successful!", Snackbar.LENGTH_SHORT).show();
-            }
+        binding.fragmentPersonalInfoUpdate.setOnClickListener(v -> {
+            enlistUserInformation();
         });
 
     }
 
-    private UserForm userInfo() {
+    private void enlistUserInformation() {
 
-        UserForm info = new UserForm();
         String last_name = binding.fragmentPersonalInfoLastName.getText().toString();
         String first_name = binding.fragmentPersonalInfoFirstName.getText().toString();
         String middle_name = binding.fragmentPersonalInfoMiddleName.getText().toString();
 
-        info.setLast_name(last_name);
-        info.setFirst_name(first_name);
-        info.setMiddle_name(middle_name);
-        info.setGender(gender);
-        info.setDate_of_birth(dateOfBirth);
+        userForm.setLast_name(last_name);
+        userForm.setFirst_name(first_name);
+        userForm.setMiddle_name(middle_name);
+        userForm.setGender(selectedUserGender);
+        userForm.setDate_of_birth(selectedUserDateOfBirth);
 
-
-        info.setGovernment_id(governmentId);
-        info.setStreet_address(street);
-        info.setBarangay_address(barangay);
-        info.setCity_address(city);
-        info.setProvince_address(province);
-        info.setPostal_address(postal);
-
-        return info;
+        hostable.onEnlist(userForm);
     }
 
     @Override

@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.four.PersonalInfoFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.four.personal.PersonalInfoFragment"
         android:label="@string/personal_information_label"
         tools:layout="@layout/fragment_personal_info" />
     <fragment
