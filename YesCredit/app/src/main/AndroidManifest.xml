@@ -18,41 +18,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YesCredit">
-        <activity android:name=".ui.payment.PaymentActivity"></activity>
+        <activity
+            android:name=".ui.payment.PaymentActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.account.AccountSettingsActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.YesCredit.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.existing.ExistingLoanActivity" />
+        <activity
+            android:name=".ui.existing.ExistingLoanActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.allowable.AllowableActivity"
-            android:label="@string/allowable_loan_label" />
+            android:label="@string/allowable_loan_label"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.apply.ApplyActivity"
             android:label="@string/loan_application_label"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.YesCredit.NoActionBar" />
         <activity
             android:name=".ui.referral.ReferralActivity"
-            android:label="@string/referral_label" />
+            android:label="@string/referral_label"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.faq.FaqActivity"
             android:label="@string/faq_label"
-            android:parentActivityName=".ui.home.HomeActivity">
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.home.HomeActivity" />
         </activity>
-        <activity android:name=".ui.home.HomeActivity" />
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:parentActivityName=".ui.login.LoginActivity">
+            android:parentActivityName=".ui.login.LoginActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.login.LoginActivity" />
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.YesCredit.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
