@@ -2,6 +2,8 @@ package cs.collaboration.yescredit.di.ui.apply;
 
 import cs.collaboration.yescredit.di.ui.apply.four.StepFourScope;
 import cs.collaboration.yescredit.di.ui.apply.four.StepFourViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.four.address.AddressScope;
+import cs.collaboration.yescredit.di.ui.apply.four.address.AddressViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoScope;
 import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneScope;
@@ -19,7 +21,7 @@ import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.StepSixFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.SubmitFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.four.address.AddressFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.personal.PersonalInfoFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragment;
@@ -74,7 +76,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract PersonalInfoFragment contributePersonalInfoFragment();
 
-    @ContributesAndroidInjector
+    @AddressScope
+    @ContributesAndroidInjector(
+            modules = {
+                    AddressViewModelModule.class
+            }
+    )
     abstract AddressFragment contributeAddressFragment();
 
     @ContributesAndroidInjector

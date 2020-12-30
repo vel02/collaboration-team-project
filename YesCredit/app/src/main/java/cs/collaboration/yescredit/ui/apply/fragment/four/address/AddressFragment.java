@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment.four;
+package cs.collaboration.yescredit.ui.apply.fragment.four.address;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,8 +16,8 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.databinding.FragmentAddressBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class AddressFragment extends DaggerFragment {
@@ -25,33 +25,33 @@ public class AddressFragment extends DaggerFragment {
     private static final String TAG = "AddressFragment";
 
     @Inject
-    SessionManager sessionManager;
-
+    ViewModelProviderFactory providerFactory;
     private FragmentAddressBinding binding;
+    private AddressViewModel viewModel;
+    private UserForm userForm;
     private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddressBinding.inflate(inflater);
-        getUserInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(AddressViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getUserInfo() {
+    private void subscribeObservers() {
 
-        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), new Observer<UserForm>() {
-            @Override
-            public void onChanged(UserForm form) {
-                if (form != null) {
-                    binding.fragmentAddressStreetAdd.setText(form.getStreet_address());
-                    binding.fragmentAddressBarangayAdd.setText(form.getBarangay_address());
-                    binding.fragmentAddressCityAdd.setText(form.getCity_address());
-                    binding.fragmentAddressProvinceAdd.setText(form.getProvince_address());
-                    binding.fragmentAddressPostalAdd.setText(form.getPostal_address());
-                }
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
+            if (form != null) {
+                AddressFragment.this.userForm = form;
+                binding.fragmentAddressStreetAdd.setText(form.getStreet_address());
+                binding.fragmentAddressBarangayAdd.setText(form.getBarangay_address());
+                binding.fragmentAddressCityAdd.setText(form.getCity_address());
+                binding.fragmentAddressProvinceAdd.setText(form.getProvince_address());
+                binding.fragmentAddressPostalAdd.setText(form.getPostal_address());
             }
         });
     }
@@ -66,34 +66,19 @@ public class AddressFragment extends DaggerFragment {
             String province = binding.fragmentAddressProvinceAdd.getText().toString();
             String postal = binding.fragmentAddressPostalAdd.getText().toString();
 
-            UserForm form = userInfo(street, barangay, city, province, postal);
-            hostable.onEnlist(form);
+            enlistUserInformation(street, barangay, city, province, postal);
             Snackbar.make(view, "Update Successful!", Snackbar.LENGTH_SHORT).show();
 
         });
     }
 
-    private UserForm userInfo(String street, String barangay, String city, String province, String postal) {
-
-        UserForm info = new UserForm();
-        sessionManager.observeUserForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeUserForm().observe(getViewLifecycleOwner(), form -> {
-            if (form != null) {
-                info.setLast_name(form.getLast_name());
-                info.setFirst_name(form.getFirst_name());
-                info.setMiddle_name(form.getMiddle_name());
-                info.setGender(form.getGender());
-                info.setDate_of_birth(form.getDate_of_birth());
-                info.setGovernment_id(form.getGovernment_id());
-                info.setStreet_address(street);
-                info.setBarangay_address(barangay);
-                info.setCity_address(city);
-                info.setProvince_address(province);
-                info.setPostal_address(postal);
-            }
-        });
-
-        return info;
+    private void enlistUserInformation(String street, String barangay, String city, String province, String postal) {
+        userForm.setStreet_address(street);
+        userForm.setBarangay_address(barangay);
+        userForm.setCity_address(city);
+        userForm.setProvince_address(province);
+        userForm.setPostal_address(postal);
+        hostable.onEnlist(userForm);
     }
 
     @Override

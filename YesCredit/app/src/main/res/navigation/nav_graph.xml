@@ -55,7 +55,7 @@
         tools:layout="@layout/fragment_personal_info" />
     <fragment
         android:id="@+id/addressFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.four.AddressFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.four.address.AddressFragment"
         android:label="@string/address_label"
         tools:layout="@layout/fragment_address" />
     <fragment
