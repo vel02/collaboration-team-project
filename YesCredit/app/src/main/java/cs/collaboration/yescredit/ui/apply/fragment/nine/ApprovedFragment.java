@@ -1,21 +1,21 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.nine;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentApprovedBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 import static cs.collaboration.yescredit.util.Utility.currencyFormatter;
@@ -26,27 +26,28 @@ public class ApprovedFragment extends DaggerFragment {
     private static final String TAG = "ApprovedFragment";
 
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
     private FragmentApprovedBinding binding;
+    private ApprovedViewModel viewModel;
     private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentApprovedBinding.inflate(inflater);
-        getLoanInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(ApprovedViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getLoanInfo() {
-        sessionManager.observeLoanForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
+    private void subscribeObservers() {
+        viewModel.observedLoanForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
                 String amount = "PHP " + currencyFormatter(loanForm.getRepayment_loan());
                 binding.fragmentApprovedAmount.setText(amount);
-                Log.d(TAG, "getLoanInfo: " + loanForm);
             }
         });
         binding.fragmentApprovedCancel.setOnClickListener(v -> requireActivity().finish());
@@ -54,15 +55,9 @@ public class ApprovedFragment extends DaggerFragment {
 
     private void navigation() {
 
-        binding.fragmentApprovedChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostable.onInflate(v, getString(R.string.tag_fragment_schedule));
-            }
-        });
+        binding.fragmentApprovedChoose.setOnClickListener(v -> hostable.onInflate(v, getString(R.string.tag_fragment_schedule)));
 
     }
-
 
     @Override
     public void onAttach(Context context) {

@@ -16,11 +16,11 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragmentDirections;
+import cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.seven.SubmitFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.six.StepSixFragmentDirections;

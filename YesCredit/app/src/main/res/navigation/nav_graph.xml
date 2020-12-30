@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/approvedFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_approved">
         <action

@@ -10,6 +10,8 @@ import cs.collaboration.yescredit.di.ui.apply.four.address.AddressScope;
 import cs.collaboration.yescredit.di.ui.apply.four.address.AddressViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoScope;
 import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.nine.ApprovedScope;
+import cs.collaboration.yescredit.di.ui.apply.nine.ApprovedViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneScope;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.seven.SubmitScope;
@@ -22,16 +24,16 @@ import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoScope;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoViewModelModule;
-import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.seven.SubmitFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.address.AddressFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.personal.PersonalInfoFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.seven.SubmitFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.six.StepSixFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.three.StepThreeFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.two.StepTwoFragment;
@@ -124,7 +126,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract AmountFragment contributeAmountFragment();
 
-    @ContributesAndroidInjector
+    @ApprovedScope
+    @ContributesAndroidInjector(
+            modules = {
+                    ApprovedViewModelModule.class
+            }
+    )
     abstract ApprovedFragment contributeApprovedFragment();
 
     @ContributesAndroidInjector
