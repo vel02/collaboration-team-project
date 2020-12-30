@@ -135,7 +135,7 @@ public class LoanForm {
     }
 
     public String getLimit() {
-        return limit;
+        return checkNullValue(limit);
     }
 
     public void setLimit(String limit) {
@@ -143,7 +143,7 @@ public class LoanForm {
     }
 
     public String getStatus() {
-        return status;
+        return checkNullValue(status);
     }
 
     public void setStatus(String status) {
@@ -151,7 +151,7 @@ public class LoanForm {
     }
 
     public String getRepayment_interest() {
-        return repayment_interest;
+        return checkNullValue(repayment_interest);
     }
 
     public void setRepayment_interest(String repayment_interest) {
@@ -159,7 +159,7 @@ public class LoanForm {
     }
 
     public String getRepayment_interest_used() {
-        return repayment_interest_used;
+        return checkNullValue(repayment_interest_used);
     }
 
     public void setRepayment_interest_used(String repayment_interest_used) {
@@ -167,7 +167,7 @@ public class LoanForm {
     }
 
     public String getRepayment_tax() {
-        return repayment_tax;
+        return checkNullValue(repayment_tax);
     }
 
     public void setRepayment_tax(String repayment_tax) {
@@ -175,7 +175,7 @@ public class LoanForm {
     }
 
     public String getRepayment_total() {
-        return repayment_total;
+        return checkNullValue(repayment_total);
     }
 
     public void setRepayment_total(String repayment_total) {
@@ -183,7 +183,7 @@ public class LoanForm {
     }
 
     public String getRepayment_penalty() {
-        return repayment_penalty;
+        return checkNullValue(repayment_penalty);
     }
 
     public void setRepayment_penalty(String repayment_penalty) {
@@ -191,7 +191,7 @@ public class LoanForm {
     }
 
     public String getRepayment_date() {
-        return repayment_date;
+        return checkNullValue(repayment_date);
     }
 
     public void setRepayment_date(String repayment_date) {
@@ -199,7 +199,7 @@ public class LoanForm {
     }
 
     public String getRepayment_loan() {
-        return repayment_loan;
+        return checkNullValue(repayment_loan);
     }
 
     public void setRepayment_loan(String repayment_loan) {
@@ -207,7 +207,7 @@ public class LoanForm {
     }
 
     public String getRepayment_days() {
-        return repayment_days;
+        return checkNullValue(repayment_days);
     }
 
     public void setRepayment_days(String repayment_days) {

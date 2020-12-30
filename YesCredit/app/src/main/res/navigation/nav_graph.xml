@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/amountFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.AmountFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_amount">
         <action

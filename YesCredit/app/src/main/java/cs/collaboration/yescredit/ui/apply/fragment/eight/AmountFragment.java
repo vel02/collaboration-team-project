@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.eight;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,8 +20,8 @@ import javax.inject.Inject;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentAmountBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class AmountFragment extends DaggerFragment {
@@ -28,31 +29,33 @@ public class AmountFragment extends DaggerFragment {
     private static final String TAG = "AmountFragment";
 
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
     private FragmentAmountBinding binding;
-    private Hostable hostable;
+    private AmountViewModel viewModel;
     private LoanForm loanForm;
+    private Hostable hostable;
 
-    private String amount;
-    private String limit;
-    private boolean isQualified;
+    private String selectedLoanAmount;
+    private String selectedLoanAmountLimit;
+    private boolean isUserQualifiedToLoan;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAmountBinding.inflate(inflater);
-        getLoanInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(AmountViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getLoanInfo() {
-        sessionManager.observeLoanForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
+    private void subscribeObservers() {
+        viewModel.observedLoanForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
-                limit = loanForm.getLimit();
                 AmountFragment.this.loanForm = loanForm;
+                selectedLoanAmountLimit = loanForm.getLimit();
             }
         });
     }
@@ -70,8 +73,8 @@ public class AmountFragment extends DaggerFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemSelected: " + available_amount_array[position]);
-                isQualified = isQualifiedAmount(available_amount_array[position], limit);
-                amount = available_amount_array[position];
+                isUserQualifiedToLoan = isQualifiedAmount(available_amount_array[position], selectedLoanAmountLimit);
+                selectedLoanAmount = available_amount_array[position];
             }
 
             @Override
@@ -81,17 +84,13 @@ public class AmountFragment extends DaggerFragment {
         });
 
 
-        binding.fragmentAmountConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.fragmentAmountConfirm.setOnClickListener(v -> {
 
-                if (isQualified) {
-                    hostable.onEnlist(loanInfo());
-                    hostable.onInflate(v, getString(R.string.tag_fragment_approved));
-
-                } else {
-                    Snackbar.make(v, "Not Qualified!", Snackbar.LENGTH_SHORT).show();
-                }
+            if (isUserQualifiedToLoan) {
+                enlistUserLoanInformation();
+                hostable.onInflate(v, getString(R.string.tag_fragment_approved));
+            } else {
+                Snackbar.make(v, "Not Qualified!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -103,12 +102,9 @@ public class AmountFragment extends DaggerFragment {
         return (amount <= limit_amount);
     }
 
-    private LoanForm loanInfo() {
-
-        LoanForm loan = loanForm;
-        loan.setRepayment_loan(amount);
-
-        return loan;
+    private void enlistUserLoanInformation() {
+        loanForm.setRepayment_loan(selectedLoanAmount);
+        hostable.onEnlist(loanForm);
     }
 
     @Override
