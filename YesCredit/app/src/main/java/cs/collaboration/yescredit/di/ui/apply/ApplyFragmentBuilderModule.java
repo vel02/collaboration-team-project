@@ -10,6 +10,8 @@ import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoScope;
 import cs.collaboration.yescredit.di.ui.apply.four.personal.PersonalInfoViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneScope;
 import cs.collaboration.yescredit.di.ui.apply.one.StepOneViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.seven.SubmitScope;
+import cs.collaboration.yescredit.di.ui.apply.seven.SubmitViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.six.StepSixScope;
 import cs.collaboration.yescredit.di.ui.apply.six.StepSixViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.three.StepThreeScope;
@@ -22,7 +24,7 @@ import cs.collaboration.yescredit.ui.apply.fragment.AmountFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ApprovedFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.SubmitFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.seven.SubmitFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.address.AddressFragment;
@@ -104,7 +106,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract StepSixFragment contributeStepSixFragment();
 
-    @ContributesAndroidInjector
+    @SubmitScope
+    @ContributesAndroidInjector(
+            modules = {
+                    SubmitViewModelModule.class
+            }
+    )
     abstract SubmitFragment contributeSubmitFragment();
 
     @ContributesAndroidInjector

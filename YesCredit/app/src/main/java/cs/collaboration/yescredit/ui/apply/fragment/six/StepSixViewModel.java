@@ -11,7 +11,7 @@ import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 
 public class StepSixViewModel extends ViewModel {
 
-    private static final String TAG = "StepFiveViewModel";
+    private static final String TAG = "StepSixViewModel";
     private final SessionManager sessionManager;
     private final MediatorLiveData<LoanForm> loanForm;
 
