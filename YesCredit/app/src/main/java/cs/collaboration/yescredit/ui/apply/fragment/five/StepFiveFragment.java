@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.five;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,14 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepFiveBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class StepFiveFragment extends DaggerFragment {
@@ -27,23 +28,23 @@ public class StepFiveFragment extends DaggerFragment {
     private static final String TAG = "StepFiveFragment";
 
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
     private FragmentStepFiveBinding binding;
+    private StepFiveViewModel viewModel;
+    private LoanForm loanForm;
     private Hostable hostable;
 
-    private String levelOfEducation;
-    private String reason;
-    private String outstanding;
-    private String civilStatus;
-    private String sourceOfIncome;
-    private String incomePerMonth;
+    private String selectedUserLevelOfEducation;
+    private String selectedUserReason;
+    private String selectedUserOutstanding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStepFiveBinding.inflate(inflater);
-        getLoanInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(StepFiveViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
@@ -61,8 +62,7 @@ public class StepFiveFragment extends DaggerFragment {
         binding.fragmentFiveEducationAchieved.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemSelected: " + education_achieved_array[position]);
-                levelOfEducation = education_achieved_array[position];
+                selectedUserLevelOfEducation = education_achieved_array[position];
             }
 
             @Override
@@ -78,8 +78,7 @@ public class StepFiveFragment extends DaggerFragment {
         binding.fragmentFiveReasonLoaning.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemSelected: " + reason_loaning_array[position]);
-                reason = reason_loaning_array[position];
+                selectedUserReason = reason_loaning_array[position];
             }
 
             @Override
@@ -91,33 +90,29 @@ public class StepFiveFragment extends DaggerFragment {
 
         binding.fragmentFiveOutstandingGroup.setOnCheckedChangeListener((group, checkedId) -> {
             int selected = group.getCheckedRadioButtonId();
-
             RadioButton button = binding.getRoot().findViewById(selected);
-            outstanding = button.getTag().toString();
-            Log.d(TAG, "onCheckedChanged: outstanding: " + outstanding);
+            selectedUserOutstanding = button.getTag().toString();
+            Log.d(TAG, "onCheckedChanged: outstanding: " + selectedUserOutstanding);
         });
 
-        binding.fragmentFiveNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.fragmentFiveNext.setOnClickListener(v -> {
 
-                hostable.onEnlist(loanInfo());
-                hostable.onInflate(v, getString(R.string.tag_fragment_step_six));
+            enlistUserLoanInformation();
+            hostable.onInflate(v, getString(R.string.tag_fragment_step_six));
 
-            }
         });
 
     }
 
-    private void getLoanInfo() {
-        sessionManager.observeLoanForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
+    private void subscribeObservers() {
+        viewModel.observedLoanForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
-                Log.d(TAG, "getLoanInfo: loanForm: " + loanForm);
-                binding.fragmentFiveEducationAchieved.setSelection(getLevelOfEducation(loanForm.getLevelOfEducation() != null ? loanForm.getLevelOfEducation() : ""));
-                binding.fragmentFiveReasonLoaning.setSelection(getReason(loanForm.getReason() != null ? loanForm.getReason() : ""));
-                binding.fragmentFiveDescribe.setText(loanForm.getMoreDetails() != null ? loanForm.getMoreDetails() : "");
-                if (loanForm.getOutstanding() != null) {
+                StepFiveFragment.this.loanForm = loanForm;
+                binding.fragmentFiveEducationAchieved.setSelection(getLevelOfEducation(!loanForm.getLevelOfEducation().isEmpty() ? loanForm.getLevelOfEducation() : ""));
+                binding.fragmentFiveReasonLoaning.setSelection(getReason(!loanForm.getReason().isEmpty() ? loanForm.getReason() : ""));
+                binding.fragmentFiveDescribe.setText(!loanForm.getMoreDetails().isEmpty() ? loanForm.getMoreDetails() : "");
+                if (!loanForm.getOutstanding().isEmpty()) {
                     switch (loanForm.getOutstanding().toLowerCase()) {
                         case "yes":
                             binding.fragmentFiveOutstandingYes.setChecked(true);
@@ -128,9 +123,6 @@ public class StepFiveFragment extends DaggerFragment {
                         default:
                     }
                 }
-                civilStatus = loanForm.getCivilStatus();
-                sourceOfIncome = loanForm.getSourceOfIncome();
-                incomePerMonth = loanForm.getIncomePerMonth();
             }
         });
     }
@@ -165,18 +157,14 @@ public class StepFiveFragment extends DaggerFragment {
         return 0;
     }
 
-    private LoanForm loanInfo() {
-        LoanForm loan = new LoanForm();
+    private void enlistUserLoanInformation() {
 
-        loan.setLevelOfEducation(levelOfEducation);
-        loan.setReason(reason);
-        loan.setMoreDetails(binding.fragmentFiveDescribe.getText().toString());
-        loan.setOutstanding(outstanding);
-        loan.setCivilStatus(civilStatus);
-        loan.setSourceOfIncome(sourceOfIncome);
-        loan.setIncomePerMonth(incomePerMonth);
+        loanForm.setLevelOfEducation(selectedUserLevelOfEducation);
+        loanForm.setReason(selectedUserReason);
+        loanForm.setMoreDetails(binding.fragmentFiveDescribe.getText().toString());
+        loanForm.setOutstanding(selectedUserOutstanding);
+        hostable.onEnlist(loanForm);
 
-        return loan;
     }
 
     @Override

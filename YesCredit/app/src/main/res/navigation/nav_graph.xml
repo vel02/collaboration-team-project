@@ -60,7 +60,7 @@
         tools:layout="@layout/fragment_address" />
     <fragment
         android:id="@+id/stepFiveFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.StepFiveFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_step_five">
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/stepSixFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.StepSixFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.six.StepSixFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_step_six">
         <action

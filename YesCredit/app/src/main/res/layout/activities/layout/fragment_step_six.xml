@@ -12,7 +12,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="24dp"
-        tools:context=".ui.apply.fragment.StepSixFragment">
+        tools:context=".ui.apply.fragment.six.StepSixFragment">
 
         <TextView
             android:layout_width="wrap_content"

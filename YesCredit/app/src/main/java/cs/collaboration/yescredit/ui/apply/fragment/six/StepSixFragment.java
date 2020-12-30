@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment;
+package cs.collaboration.yescredit.ui.apply.fragment.six;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,38 +11,37 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepSixBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
-import cs.collaboration.yescredit.ui.apply.SessionManager;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class StepSixFragment extends DaggerFragment {
 
     private static final String TAG = "StepSixFragment";
 
-    private FragmentStepSixBinding binding;
     @Inject
-    SessionManager sessionManager;
+    ViewModelProviderFactory providerFactory;
 
+    private FragmentStepSixBinding binding;
+    private StepSixViewModel viewModel;
+    private LoanForm loanForm;
     private Hostable hostable;
 
-    private String levelOfEducation;
-    private String reason;
-    private String moreDetails;
-    private String outstanding;
-    private String civilStatus;
-
+    private String selectedUserCivilStatus;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStepSixBinding.inflate(inflater);
-        getLoanInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(StepSixViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
@@ -61,7 +60,7 @@ public class StepSixFragment extends DaggerFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemSelected: " + civil_status_array[position]);
-                civilStatus = civil_status_array[position];
+                selectedUserCivilStatus = civil_status_array[position];
             }
 
             @Override
@@ -70,25 +69,18 @@ public class StepSixFragment extends DaggerFragment {
             }
         });
 
-        binding.fragmentSixNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostable.onEnlist(loanInfo());
-                hostable.onInflate(v, getString(R.string.tag_fragment_submit_application));
-            }
+        binding.fragmentSixNext.setOnClickListener(v -> {
+            enlistUserLoanInformation();
+            hostable.onInflate(v, getString(R.string.tag_fragment_submit_application));
         });
     }
 
-    private void getLoanInfo() {
-        sessionManager.observeLoanForm().removeObservers(getViewLifecycleOwner());
-        sessionManager.observeLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
+    private void subscribeObservers() {
+        viewModel.observedLoanForm().removeObservers(getViewLifecycleOwner());
+        viewModel.observedLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
-                Log.d(TAG, "getLoanInfo: loanForm: " + loanForm);
-                levelOfEducation = loanForm.getLevelOfEducation();
-                reason = loanForm.getReason();
-                moreDetails = loanForm.getMoreDetails();
-                outstanding = loanForm.getOutstanding();
-                if (loanForm.getCivilStatus() != null) {
+                StepSixFragment.this.loanForm = loanForm;
+                if (!loanForm.getCivilStatus().isEmpty()) {
                     binding.fragmentSixCivilStatus.setSelection(getCivilStatus(loanForm.getCivilStatus()));
                 }
                 binding.fragmentSixSourceOfIncome.setText(loanForm.getSourceOfIncome());
@@ -97,18 +89,11 @@ public class StepSixFragment extends DaggerFragment {
         });
     }
 
-    private LoanForm loanInfo() {
-        LoanForm loan = new LoanForm();
-
-        loan.setLevelOfEducation(levelOfEducation);
-        loan.setReason(reason);
-        loan.setMoreDetails(moreDetails);
-        loan.setOutstanding(outstanding);
-        loan.setCivilStatus(civilStatus);
-        loan.setSourceOfIncome(binding.fragmentSixSourceOfIncome.getText().toString());
-        loan.setIncomePerMonth(binding.fragmentSixIncomePerMonth.getText().toString());
-
-        return loan;
+    private void enlistUserLoanInformation() {
+        loanForm.setCivilStatus(selectedUserCivilStatus);
+        loanForm.setSourceOfIncome(binding.fragmentSixSourceOfIncome.getText().toString());
+        loanForm.setIncomePerMonth(binding.fragmentSixIncomePerMonth.getText().toString());
+        hostable.onEnlist(loanForm);
     }
 
     private int getCivilStatus(String value) {

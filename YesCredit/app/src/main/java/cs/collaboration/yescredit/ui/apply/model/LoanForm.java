@@ -50,6 +50,10 @@ public class LoanForm {
     public LoanForm() {
     }
 
+    private String checkNullValue(String value) {
+        return (value != null) ? value : "";
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -75,7 +79,7 @@ public class LoanForm {
     }
 
     public String getLevelOfEducation() {
-        return levelOfEducation;
+        return checkNullValue(levelOfEducation);
     }
 
     public void setLevelOfEducation(String levelOfEducation) {
@@ -83,7 +87,7 @@ public class LoanForm {
     }
 
     public String getReason() {
-        return reason;
+        return checkNullValue(reason);
     }
 
     public void setReason(String reason) {
@@ -91,7 +95,7 @@ public class LoanForm {
     }
 
     public String getMoreDetails() {
-        return moreDetails;
+        return checkNullValue(moreDetails);
     }
 
     public void setMoreDetails(String moreDetails) {
@@ -99,7 +103,7 @@ public class LoanForm {
     }
 
     public String getOutstanding() {
-        return outstanding;
+        return checkNullValue(outstanding);
     }
 
     public void setOutstanding(String outstanding) {
@@ -107,7 +111,7 @@ public class LoanForm {
     }
 
     public String getCivilStatus() {
-        return civilStatus;
+        return checkNullValue(civilStatus);
     }
 
     public void setCivilStatus(String civilStatus) {
@@ -115,7 +119,7 @@ public class LoanForm {
     }
 
     public String getSourceOfIncome() {
-        return sourceOfIncome;
+        return checkNullValue(sourceOfIncome);
     }
 
     public void setSourceOfIncome(String sourceOfIncome) {
@@ -123,7 +127,7 @@ public class LoanForm {
     }
 
     public String getIncomePerMonth() {
-        return incomePerMonth;
+        return checkNullValue(incomePerMonth);
     }
 
     public void setIncomePerMonth(String incomePerMonth) {

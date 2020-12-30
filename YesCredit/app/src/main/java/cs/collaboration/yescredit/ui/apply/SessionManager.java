@@ -16,19 +16,19 @@ public class SessionManager {
 
     private static final String TAG = "SessionManager";
 
-    private final MutableLiveData<UserForm> applicationForm = new MutableLiveData<>();
+    private final MutableLiveData<UserForm> userForm = new MutableLiveData<>();
     private final MutableLiveData<LoanForm> loanForm = new MutableLiveData<>();
 
     @Inject
     public SessionManager() {
         Log.d(TAG, "SessionManager: I am working...");
-        this.applicationForm.setValue(new UserForm());
+        this.userForm.setValue(new UserForm());
         this.loanForm.setValue(new LoanForm());
     }
 
     public void setUserForm(UserForm userForm) {
         if (userForm != null) {
-            this.applicationForm.setValue(userForm);
+            this.userForm.setValue(userForm);
         }
     }
 
@@ -39,7 +39,7 @@ public class SessionManager {
     }
 
     public LiveData<UserForm> observeUserForm() {
-        return applicationForm;
+        return userForm;
     }
 
     public LiveData<LoanForm> observeLoanForm() {
