@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,6 +23,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.one.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
@@ -44,8 +49,23 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         binding = FragmentStepOneBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this, providerFactory).get(StepOneViewModel.class);
         subscribeObservers();
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        List<EditText> views = new ArrayList<>();
+        views.add(binding.fragmentOneLastName);
+        views.add(binding.fragmentOneFirstName);
+        views.add(binding.fragmentOneMiddleName);
+        views.add(binding.fragmentOneBirthDate);
+
+        ViewTextWatcher viewTextWatcher = new ViewTextWatcher(views, binding.fragmentOneNext, "one");
+        binding.fragmentOneLastName.addTextChangedListener(viewTextWatcher);
+        binding.fragmentOneFirstName.addTextChangedListener(viewTextWatcher);
+        binding.fragmentOneMiddleName.addTextChangedListener(viewTextWatcher);
+        binding.fragmentOneBirthDate.addTextChangedListener(viewTextWatcher);
     }
 
     @SuppressLint("ClickableViewAccessibility")
