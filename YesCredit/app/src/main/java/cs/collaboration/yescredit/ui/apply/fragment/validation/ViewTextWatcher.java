@@ -67,8 +67,11 @@ public class ViewTextWatcher implements TextWatcher {
                     !city.getText().toString().isEmpty() &&
                     !province.getText().toString().isEmpty() &&
                     !postal.getText().toString().isEmpty());
+        } else if (tag != null && !tag.isEmpty() && tag.equals("five")
+                && views != null && views.size() > 0) {
+            EditText describe = views.get(0);
 
-
+            toMove.setEnabled(!describe.getText().toString().isEmpty());
         }
     }
 

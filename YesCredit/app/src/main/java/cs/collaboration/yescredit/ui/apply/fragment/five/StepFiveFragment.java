@@ -14,11 +14,14 @@ import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Collections;
+
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepFiveBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.fragment.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
@@ -45,8 +48,14 @@ public class StepFiveFragment extends DaggerFragment {
         binding = FragmentStepFiveBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this, providerFactory).get(StepFiveViewModel.class);
         subscribeObservers();
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        ViewTextWatcher viewTextWatcher = new ViewTextWatcher(Collections.singletonList(binding.fragmentFiveDescribe), binding.fragmentFiveNext, "five");
+        binding.fragmentFiveDescribe.addTextChangedListener(viewTextWatcher);
     }
 
     private void navigation() {
@@ -122,7 +131,7 @@ public class StepFiveFragment extends DaggerFragment {
                             break;
                         default:
                     }
-                }
+                } else binding.fragmentFiveOutstandingYes.setChecked(true);
             }
         });
     }

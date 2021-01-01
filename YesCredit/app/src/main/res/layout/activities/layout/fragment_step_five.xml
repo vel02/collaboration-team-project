@@ -6,129 +6,140 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="24dp"
-        tools:context=".ui.apply.fragment.five.StepFiveFragment">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/highest_level_of_education_achieved_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/fragment_five_education_achieved"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:entries="@array/education_achieved_array" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/reason_for_loaning_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/fragment_five_reason_loaning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:entries="@array/reason_loaning_array" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/describe_in_more_detail_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_five_describe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:gravity="top"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions|text|textMultiLine"
-            android:lines="5"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/any_outstanding_loans_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/fragment_five_outstanding_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <RadioButton
-                android:id="@+id/fragment_five_outstanding_yes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:tag="@string/yes_label"
-                android:text="@string/yes_label" />
-
-            <RadioButton
-                android:id="@+id/fragment_five_outstanding_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:tag="@string/no_label"
-                android:text="@string/no_label" />
-
-        </RadioGroup>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp">
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="24dp"
+            tools:context=".ui.apply.fragment.five.StepFiveFragment">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="16dp"
-                android:text="@string/step_5_10_label"
-                android:textAppearance="?attr/textAppearanceBody1" />
+                android:text="@string/highest_level_of_education_achieved_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/fragment_five_next"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/fragment_five_education_achieved"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:entries="@array/education_achieved_array" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="@string/next_label"
-                tools:ignore="RelativeOverlap" />
+                android:layout_marginTop="16dp"
+                android:text="@string/reason_for_loaning_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/fragment_five_reason_loaning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:entries="@array/reason_loaning_array" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/describe_in_more_detail_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/fragment_five_describe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:gravity="top"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions|text|textMultiLine"
+                android:lines="5"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/any_outstanding_loans_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/fragment_five_outstanding_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RadioButton
+                    android:id="@+id/fragment_five_outstanding_yes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:tag="@string/yes_label"
+                    android:text="@string/yes_label" />
+
+                <RadioButton
+                    android:id="@+id/fragment_five_outstanding_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:tag="@string/no_label"
+                    android:text="@string/no_label" />
+
+            </RadioGroup>
 
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/step_5_10_label"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+
+                <Button
+                    android:id="@+id/fragment_five_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/next_label"
+                    tools:ignore="RelativeOverlap" />
 
 
-    </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 </layout>
