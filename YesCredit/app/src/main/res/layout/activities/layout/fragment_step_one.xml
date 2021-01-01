@@ -138,6 +138,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/edit_round_corner"
                 android:ems="10"
+                android:focusable="false"
                 android:hint="@string/date_format_label"
                 android:importantForAutofill="no"
                 android:inputType="date|textNoSuggestions"
