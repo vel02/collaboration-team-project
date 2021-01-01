@@ -18,6 +18,8 @@ import cs.collaboration.yescredit.di.ui.apply.seven.SubmitScope;
 import cs.collaboration.yescredit.di.ui.apply.seven.SubmitViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.six.StepSixScope;
 import cs.collaboration.yescredit.di.ui.apply.six.StepSixViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.ten.ScheduleScope;
+import cs.collaboration.yescredit.di.ui.apply.ten.ScheduleViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.three.StepThreeScope;
 import cs.collaboration.yescredit.di.ui.apply.three.StepThreeViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
@@ -25,7 +27,6 @@ import cs.collaboration.yescredit.di.ui.apply.two.StepTwoModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoScope;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoViewModelModule;
 import cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragment;
@@ -35,6 +36,7 @@ import cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.one.StepOneFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.seven.SubmitFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.six.StepSixFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.ten.ScheduleFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.three.StepThreeFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.two.StepTwoFragment;
 import dagger.Module;
@@ -134,7 +136,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract ApprovedFragment contributeApprovedFragment();
 
-    @ContributesAndroidInjector
+    @ScheduleScope
+    @ContributesAndroidInjector(
+            modules = {
+                    ScheduleViewModelModule.class
+            }
+    )
     abstract ScheduleFragment contributeScheduleFragment();
 
     @ContributesAndroidInjector

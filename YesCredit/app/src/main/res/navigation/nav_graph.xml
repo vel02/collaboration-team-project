@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.ScheduleFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.ten.ScheduleFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_schedule">
         <action

@@ -13,7 +13,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="24dp"
-        tools:context=".ui.apply.fragment.ScheduleFragment">
+        tools:context=".ui.apply.fragment.ten.ScheduleFragment">
 
         <TextView
             android:id="@+id/fragment_schedule_title"
