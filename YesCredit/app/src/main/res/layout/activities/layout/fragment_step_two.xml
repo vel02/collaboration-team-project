@@ -6,76 +6,84 @@
 
     </data>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="24dp"
-        tools:context=".ui.apply.fragment.two.StepTwoFragment">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            android:text="@string/provide_a_government_id_label"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="@color/solid" />
-
-        <ImageView
-            android:id="@+id/fragment_two_image"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:contentDescription="@string/provided_government_id_label"
-            android:src="@drawable/ic_temp_placeholder" />
-
-        <TextView
-            android:id="@+id/fragment_two_upload"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:text="@string/upload_image_label" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp">
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="24dp"
+            tools:context=".ui.apply.fragment.two.StepTwoFragment">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="16dp"
-                android:text="@string/step_2_10_label"
-                android:textAppearance="?attr/textAppearanceBody1" />
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:text="@string/provide_a_government_id_label"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/fragment_two_next"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/solid" />
+
+            <ImageView
+                android:id="@+id/fragment_two_image"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/provided_government_id_label"
+                android:src="@drawable/ic_placeholder_id" />
+
+            <TextView
+                android:id="@+id/fragment_two_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="@string/next_label"
-                tools:ignore="RelativeOverlap" />
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:text="@string/upload_image_label" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/step_2_10_label"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+
+                <Button
+                    android:id="@+id/fragment_two_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/next_label"
+                    tools:ignore="RelativeOverlap" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </layout>

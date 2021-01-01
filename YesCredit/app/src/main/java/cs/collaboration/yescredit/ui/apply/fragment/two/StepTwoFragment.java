@@ -36,6 +36,9 @@ import cs.collaboration.yescredit.util.RxBackgroundImageResize;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
+import static cs.collaboration.yescredit.ui.apply.fragment.two.StepTwoViewModel.UploadNotification.UPLOADED;
+import static cs.collaboration.yescredit.util.Utility.getUriToDrawable;
+
 public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFragment.OnPhotoReceivedListener,
         RxBackgroundImageResize.OnExecuteUploadListener {
 
@@ -58,6 +61,7 @@ public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFrag
                     if (uri != null) {
                         Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
+                        viewModel.updateUploadNotification(UPLOADED);
                         StepTwoFragment.this.userForm.setGovernment_id(uri.toString());
                         hostable.onEnlist(userForm);
                     }
@@ -139,6 +143,7 @@ public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFrag
     }
 
     private void subscribeObservers() {
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
         viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
                 StepTwoFragment.this.userForm = form;
@@ -146,7 +151,23 @@ public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFrag
                     ImageLoader.getInstance().displayImage(form.getGovernment_id(), binding.fragmentTwoImage);
             }
         });
+
+        viewModel.observedUploadNotification().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUploadNotification().observe(getViewLifecycleOwner(), notification -> {
+            if (notification != null) {
+                switch (notification) {
+                    case UPLOADED:
+                        binding.fragmentTwoNext.setEnabled(true);
+                        break;
+                    case UPLOADING:
+                        binding.fragmentTwoNext.setEnabled(false);
+                        binding.fragmentTwoImage.setImageURI(getUriToDrawable(requireContext(), R.drawable.ic_placeholder_id));
+                        break;
+                }
+            }
+        });
     }
+
 
     private void navigation() {
         binding.fragmentTwoUpload.setOnClickListener(v -> {
@@ -216,4 +237,9 @@ public class StepTwoFragment extends DaggerFragment implements GeneratePhotoFrag
         hostable = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: called");
+    }
 }

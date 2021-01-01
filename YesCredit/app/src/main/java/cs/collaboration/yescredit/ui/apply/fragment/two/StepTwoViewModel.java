@@ -2,6 +2,7 @@ package cs.collaboration.yescredit.ui.apply.fragment.two;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import javax.inject.Inject;
@@ -15,12 +16,20 @@ public class StepTwoViewModel extends ViewModel {
 
     private final SessionManager sessionManager;
     private final MediatorLiveData<UserForm> userForm;
+    private final MutableLiveData<UploadNotification> uploadNotification;
 
     @Inject
+
     public StepTwoViewModel(final SessionManager sessionManager) {
         this.sessionManager = sessionManager;
         this.userForm = new MediatorLiveData<>();
+        this.uploadNotification = new MutableLiveData<>();
+        this.uploadNotification.setValue(UploadNotification.UPLOADING);
         getLatestUserForm();
+    }
+
+    public void updateUploadNotification(UploadNotification notification) {
+        this.uploadNotification.setValue(notification);
     }
 
     private void getLatestUserForm() {
@@ -36,5 +45,11 @@ public class StepTwoViewModel extends ViewModel {
     public LiveData<UserForm> observedUserForm() {
         return userForm;
     }
+
+    public LiveData<UploadNotification> observedUploadNotification() {
+        return uploadNotification;
+    }
+
+    public enum UploadNotification {UPLOADING, UPLOADED}
 
 }

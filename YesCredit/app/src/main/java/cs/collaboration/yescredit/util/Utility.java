@@ -1,15 +1,27 @@
 package cs.collaboration.yescredit.util;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.AnyRes;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.text.DecimalFormat;
 
 public class Utility {
+
+    public static Uri getUriToDrawable(@NonNull Context context,
+                                       @AnyRes int drawableId) {
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId));
+    }
 
     public static void hideSoftKeyboard(Activity activity) {
         activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
