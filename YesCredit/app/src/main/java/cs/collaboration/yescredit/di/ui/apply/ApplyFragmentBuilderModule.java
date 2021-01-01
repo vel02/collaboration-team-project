@@ -2,6 +2,8 @@ package cs.collaboration.yescredit.di.ui.apply;
 
 import cs.collaboration.yescredit.di.ui.apply.eight.AmountScope;
 import cs.collaboration.yescredit.di.ui.apply.eight.AmountViewModelModule;
+import cs.collaboration.yescredit.di.ui.apply.eleven.ReceiptScope;
+import cs.collaboration.yescredit.di.ui.apply.eleven.ReceiptViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.five.StepFiveScope;
 import cs.collaboration.yescredit.di.ui.apply.five.StepFiveViewModelModule;
 import cs.collaboration.yescredit.di.ui.apply.four.StepFourScope;
@@ -26,7 +28,7 @@ import cs.collaboration.yescredit.di.ui.apply.two.StepTwoDialogBuilderModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoModule;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoScope;
 import cs.collaboration.yescredit.di.ui.apply.two.StepTwoViewModelModule;
-import cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment;
+import cs.collaboration.yescredit.ui.apply.fragment.eleven.ReceiptFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragment;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragment;
@@ -144,7 +146,12 @@ public abstract class ApplyFragmentBuilderModule {
     )
     abstract ScheduleFragment contributeScheduleFragment();
 
-    @ContributesAndroidInjector
+    @ReceiptScope
+    @ContributesAndroidInjector(
+            modules = {
+                    ReceiptViewModelModule.class
+            }
+    )
     abstract ReceiptFragment contributeReceiptFragment();
 
 }

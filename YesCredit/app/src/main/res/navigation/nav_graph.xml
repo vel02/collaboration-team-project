@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/receiptFragment"
-        android:name="cs.collaboration.yescredit.ui.apply.fragment.ReceiptFragment"
+        android:name="cs.collaboration.yescredit.ui.apply.fragment.eleven.ReceiptFragment"
         android:label="@string/loan_application_label"
         tools:layout="@layout/fragment_receipt" />
 </navigation>
