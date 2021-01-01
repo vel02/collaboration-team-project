@@ -23,7 +23,7 @@ import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepOneBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.DatePickerFragment;
-import cs.collaboration.yescredit.ui.apply.fragment.one.validation.ViewTextWatcher;
+import cs.collaboration.yescredit.ui.apply.fragment.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;

@@ -6,144 +6,156 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="24dp"
-        tools:context=".ui.apply.fragment.three.StepThreeFragment">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/street_address_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragment_three_street_add"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/barangay_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_three_barangay_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/city_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_three_city_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/province_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_three_province_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/postal_code_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_three_postal_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="8"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp">
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="24dp"
+            tools:context=".ui.apply.fragment.three.StepThreeFragment">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="16dp"
-                android:text="@string/step_3_10_label"
-                android:textAppearance="?attr/textAppearanceBody1" />
+                android:text="@string/street_address_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/fragment_three_next"
+            <EditText
+                android:id="@+id/fragment_three_street_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="@string/next_label"
-                tools:ignore="RelativeOverlap" />
+                android:layout_marginTop="16dp"
+                android:text="@string/barangay_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/fragment_three_barangay_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/city_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/fragment_three_city_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/province_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/fragment_three_province_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/postal_code_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/fragment_three_postal_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="8"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/step_3_10_label"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+
+                <Button
+                    android:id="@+id/fragment_three_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/next_label"
+                    tools:ignore="RelativeOverlap" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </layout>

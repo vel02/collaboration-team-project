@@ -1,4 +1,4 @@
-package cs.collaboration.yescredit.ui.apply.fragment.one.validation;
+package cs.collaboration.yescredit.ui.apply.fragment.validation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,19 +36,41 @@ public class ViewTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable s) {
         if (s == null) return;
 
+        validations();
+
+    }
+
+    private void validations() {
         if (tag != null && !tag.isEmpty() && tag.equals("one")
                 && views != null && views.size() > 0) {
             EditText lastName = views.get(0);
             EditText firstName = views.get(1);
             EditText middleName = views.get(2);
-            EditText dateOfBirth = views.get(2);
+            EditText dateOfBirth = views.get(3);
 
             toMove.setEnabled(!lastName.getText().toString().isEmpty() &&
                     !firstName.getText().toString().isEmpty() &&
                     !middleName.getText().toString().isEmpty() &&
                     !dateOfBirth.getText().toString().isEmpty());
 
-        }
+        } else if (tag != null && !tag.isEmpty() && tag.equals("three")
+                && views != null && views.size() > 0) {
 
+            EditText street = views.get(0);
+            EditText barangay = views.get(1);
+            EditText city = views.get(2);
+            EditText province = views.get(3);
+            EditText postal = views.get(4);
+
+            toMove.setEnabled(!street.getText().toString().isEmpty() &&
+                    !barangay.getText().toString().isEmpty() &&
+                    !city.getText().toString().isEmpty() &&
+                    !province.getText().toString().isEmpty() &&
+                    !postal.getText().toString().isEmpty());
+
+
+        }
     }
+
+
 }

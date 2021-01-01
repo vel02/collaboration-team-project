@@ -6,15 +6,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepThreeBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.fragment.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
@@ -37,8 +42,26 @@ public class StepThreeFragment extends DaggerFragment {
         binding = FragmentStepThreeBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this, providerFactory).get(StepThreeViewModel.class);
         subscribeObservers();
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        List<EditText> views = new ArrayList<>();
+        views.add(binding.fragmentThreeStreetAdd);
+        views.add(binding.fragmentThreeBarangayAdd);
+        views.add(binding.fragmentThreeCityAdd);
+        views.add(binding.fragmentThreeProvinceAdd);
+        views.add(binding.fragmentThreePostalAdd);
+
+        ViewTextWatcher viewTextWatcher = new ViewTextWatcher(views, binding.fragmentThreeNext, "three");
+        binding.fragmentThreeStreetAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentThreeBarangayAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentThreeCityAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentThreeProvinceAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentThreePostalAdd.addTextChangedListener(viewTextWatcher);
+
     }
 
     private void subscribeObservers() {
