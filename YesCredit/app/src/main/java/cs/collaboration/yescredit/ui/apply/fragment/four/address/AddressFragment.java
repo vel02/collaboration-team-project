@@ -6,16 +6,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.snackbar.Snackbar;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.databinding.FragmentAddressBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.fragment.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
@@ -37,8 +41,26 @@ public class AddressFragment extends DaggerFragment {
         binding = FragmentAddressBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this, providerFactory).get(AddressViewModel.class);
         subscribeObservers();
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        List<EditText> views = new ArrayList<>();
+        views.add(binding.fragmentAddressStreetAdd);
+        views.add(binding.fragmentAddressBarangayAdd);
+        views.add(binding.fragmentAddressCityAdd);
+        views.add(binding.fragmentAddressProvinceAdd);
+        views.add(binding.fragmentAddressPostalAdd);
+
+        ViewTextWatcher viewTextWatcher = new ViewTextWatcher(views, binding.fragmentAddressUpdate, "three");
+        binding.fragmentAddressStreetAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentAddressBarangayAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentAddressCityAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentAddressProvinceAdd.addTextChangedListener(viewTextWatcher);
+        binding.fragmentAddressPostalAdd.addTextChangedListener(viewTextWatcher);
+
     }
 
     private void subscribeObservers() {
@@ -67,8 +89,8 @@ public class AddressFragment extends DaggerFragment {
             String postal = binding.fragmentAddressPostalAdd.getText().toString();
 
             enlistUserInformation(street, barangay, city, province, postal);
-            Snackbar.make(view, "Update Successful!", Snackbar.LENGTH_SHORT).show();
-
+            requireActivity().onBackPressed();
+            Toast.makeText(requireContext(), "Update Success", Toast.LENGTH_SHORT).show();
         });
     }
 

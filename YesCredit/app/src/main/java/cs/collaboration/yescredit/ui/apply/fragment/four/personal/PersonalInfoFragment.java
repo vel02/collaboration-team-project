@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -150,6 +151,7 @@ public class PersonalInfoFragment extends DaggerFragment implements DatePickerFr
         userForm.setDate_of_birth(!selectedUserDateOfBirth.isEmpty() ? selectedUserDateOfBirth : binding.fragmentPersonalInfoBirthDate.getText().toString());
 
         hostable.onEnlist(userForm);
+        Toast.makeText(requireContext(), "Update Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -6,125 +6,137 @@
 
     </data>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/street_address_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragment_address_street_add"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/barangay_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/street_address_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragment_address_barangay_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
+            <EditText
+                android:id="@+id/fragment_address_street_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/city_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/barangay_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragment_address_city_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
+            <EditText
+                android:id="@+id/fragment_address_barangay_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/province_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/city_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragment_address_province_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
+            <EditText
+                android:id="@+id/fragment_address_city_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/postal_code_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/solid"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/province_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragment_address_postal_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_round_corner"
-            android:ems="8"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:padding="6dp"
-            tools:ignore="LabelFor" />
+            <EditText
+                android:id="@+id/fragment_address_province_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
 
-        <Button
-            android:id="@+id/fragment_address_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="64dp"
-            android:text="@string/update_label"
-            tools:ignore="RelativeOverlap" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/postal_code_label"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/solid"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/fragment_address_postal_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_round_corner"
+                android:ems="8"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="6dp"
+                tools:ignore="LabelFor" />
+
+            <Button
+                android:id="@+id/fragment_address_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="64dp"
+                android:text="@string/update_label"
+                tools:ignore="RelativeOverlap" />
+
+        </LinearLayout>
+
+    </ScrollView>
 </layout>
