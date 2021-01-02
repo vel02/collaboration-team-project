@@ -25,47 +25,13 @@ import cs.collaboration.yescredit.util.Keys;
 public class StepOneViewModel extends ViewModel {
 
     private final MediatorLiveData<UserForm> userForm;
-    private final MutableLiveData<User> initialInformation;
     private final SessionManager sessionManager;
-    private final DatabaseReference reference;
-    private final FirebaseUser user;
 
     @Inject
     public StepOneViewModel(final SessionManager sessionManager) {
         this.sessionManager = sessionManager;
-        this.reference = FirebaseDatabase.getInstance().getReference();
-        this.user = FirebaseAuth.getInstance().getCurrentUser();
         this.userForm = new MediatorLiveData<>();
-        this.initialInformation = new MutableLiveData<>();
         getLatestUserForm();
-        getInitialUserInformation();
-    }
-
-    private void getInitialUserInformation() {
-        if (user != null) {
-
-            Query query = reference.child(Keys.DATABASE_NODE_USER)
-                    .orderByChild(Keys.DATABASE_FIELD_USER_ID_WITH_UNDERSCORE)
-                    .equalTo(user.getUid());
-
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot singleShot : snapshot.getChildren()) {
-                        User current = singleShot.getValue(User.class);
-                        assert current != null;
-                        initialInformation.postValue(current);
-                        return;
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
     }
 
     private void getLatestUserForm() {
@@ -82,7 +48,4 @@ public class StepOneViewModel extends ViewModel {
         return userForm;
     }
 
-    public LiveData<User> observedInitialInformation() {
-        return initialInformation;
-    }
 }

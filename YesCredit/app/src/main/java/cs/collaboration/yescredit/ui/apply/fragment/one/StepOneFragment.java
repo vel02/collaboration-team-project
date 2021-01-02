@@ -104,35 +104,24 @@ public class StepOneFragment extends DaggerFragment implements DatePickerFragmen
         viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
                 StepOneFragment.this.userForm = form;
-                setInitialUserInformation(form.getLast_name(), form.getFirst_name(), form.getMiddle_name(), form.getGender(), form.getDate_of_birth());
+                binding.fragmentOneLastName.setText(form.getLast_name());
+                binding.fragmentOneFirstName.setText(form.getFirst_name());
+                binding.fragmentOneMiddleName.setText(form.getMiddle_name());
+                if (!form.getGender().isEmpty()) {
+                    switch (form.getGender().toLowerCase()) {
+                        case "male":
+                            binding.fragmentOneGenderMale.setChecked(true);
+                            break;
+                        case "female":
+                            binding.fragmentOneGenderFemale.setChecked(true);
+                            break;
+                        default:
+                    }
+                } else binding.fragmentOneGenderMale.setChecked(true);
+                binding.fragmentOneBirthDate.setText(form.getDate_of_birth() != null ? form.getDate_of_birth() : "");
             }
         });
 
-        viewModel.observedInitialInformation().removeObservers(getViewLifecycleOwner());
-        viewModel.observedInitialInformation().observe(getViewLifecycleOwner(), user -> {
-            if (user != null) {
-                setInitialUserInformation(user.getLast_name(), user.getFirst_name(), user.getMiddle_name(), user.getGender(), user.getDate_of_birth());
-            }
-        });
-
-    }
-
-    private void setInitialUserInformation(String last_name, String first_name, String middle_name, String gender, String date_of_birth) {
-        binding.fragmentOneLastName.setText(last_name);
-        binding.fragmentOneFirstName.setText(first_name);
-        binding.fragmentOneMiddleName.setText(middle_name);
-        if (!gender.isEmpty()) {
-            switch (gender.toLowerCase()) {
-                case "male":
-                    binding.fragmentOneGenderMale.setChecked(true);
-                    break;
-                case "female":
-                    binding.fragmentOneGenderFemale.setChecked(true);
-                    break;
-                default:
-            }
-        } else binding.fragmentOneGenderMale.setChecked(true);
-        binding.fragmentOneBirthDate.setText(date_of_birth != null ? date_of_birth : "");
     }
 
     private UserForm enlistUserInformation() {

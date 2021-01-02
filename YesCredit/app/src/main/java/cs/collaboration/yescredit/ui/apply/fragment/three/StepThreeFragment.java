@@ -66,6 +66,7 @@ public class StepThreeFragment extends DaggerFragment {
 
     private void subscribeObservers() {
 
+        viewModel.observedUserForm().removeObservers(getViewLifecycleOwner());
         viewModel.observedUserForm().observe(getViewLifecycleOwner(), form -> {
             if (form != null) {
                 StepThreeFragment.this.userForm = form;
@@ -76,6 +77,7 @@ public class StepThreeFragment extends DaggerFragment {
                 binding.fragmentThreePostalAdd.setText(form.getPostal_address());
             }
         });
+
     }
 
     private void navigation() {
