@@ -57,6 +57,7 @@ public class ScheduleFragment extends DaggerFragment {
         viewModel.observedLoanForm().observe(getViewLifecycleOwner(), loanForm -> {
             if (loanForm != null) {
                 ScheduleFragment.this.loanForm = loanForm;
+                loanForm.setRepayment_days("30");
                 displayDueDate(loanForm.getRepayment_loan());
             }
         });
@@ -127,25 +128,29 @@ public class ScheduleFragment extends DaggerFragment {
 
     private void navigation() {
 
+        binding.fragmentScheduleConfirm.setEnabled(false);
         binding.fragmentScheduleGroup.setOnCheckedChangeListener((group, checkedId) -> {
             int selected = group.getCheckedRadioButtonId();
 
             RadioButton button = binding.getRoot().findViewById(selected);
             String days = button.getText().toString();
-            loanForm.setRepayment_days(getDaysToPay(days));
 
             if (checkedId == binding.fragmentSchedule30Days.getId()) {
+                loanForm.setRepayment_days(getDaysToPay(days));
                 loanForm.setRepayment_total(String.valueOf(thirtyDayDue.getTotal()));
                 loanForm.setRepayment_tax(String.valueOf(thirtyDayDue.getTax()));
                 loanForm.setRepayment_interest(String.valueOf(thirtyDayDue.getInterest()));
                 loanForm.setRepayment_penalty(String.valueOf(thirtyDayDue.getPenalty()));
                 loanForm.setRepayment_interest_used(thirtyDayDue.getInterestUsed());
+                binding.fragmentScheduleConfirm.setEnabled(true);
             } else if (checkedId == binding.fragmentSchedule14Days.getId()) {
+                loanForm.setRepayment_days(getDaysToPay(days));
                 loanForm.setRepayment_total(String.valueOf(fourteenDayDue.getTotal()));
                 loanForm.setRepayment_tax(String.valueOf(fourteenDayDue.getTax()));
                 loanForm.setRepayment_interest(String.valueOf(fourteenDayDue.getInterest()));
                 loanForm.setRepayment_penalty(String.valueOf(fourteenDayDue.getPenalty()));
                 loanForm.setRepayment_interest_used(fourteenDayDue.getInterestUsed());
+                binding.fragmentScheduleConfirm.setEnabled(true);
             }
         });
 
