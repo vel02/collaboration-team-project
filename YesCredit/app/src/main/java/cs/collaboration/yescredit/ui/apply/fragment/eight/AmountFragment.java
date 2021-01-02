@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -38,7 +37,6 @@ public class AmountFragment extends DaggerFragment {
 
     private String selectedLoanAmount;
     private String selectedLoanAmountLimit;
-    private boolean isUserQualifiedToLoan;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -73,8 +71,8 @@ public class AmountFragment extends DaggerFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemSelected: " + available_amount_array[position]);
-                isUserQualifiedToLoan = isQualifiedAmount(available_amount_array[position], selectedLoanAmountLimit);
                 selectedLoanAmount = available_amount_array[position];
+                binding.fragmentAmountConfirm.setEnabled(isQualifiedAmount(available_amount_array[position], selectedLoanAmountLimit));
             }
 
             @Override
@@ -86,14 +84,19 @@ public class AmountFragment extends DaggerFragment {
 
         binding.fragmentAmountConfirm.setOnClickListener(v -> {
 
-            if (isUserQualifiedToLoan) {
-                enlistUserLoanInformation();
+            enlistUserLoanInformation();
+            int incomePerMonth = Integer.parseInt(loanForm.getIncomePerMonth());
+            int selectedAmount = Integer.parseInt(selectedLoanAmount);
+            if (validateIncome(incomePerMonth) >= selectedAmount) {
                 hostable.onInflate(v, getString(R.string.tag_fragment_approved));
-            } else {
-                Snackbar.make(v, "Not Qualified!", Snackbar.LENGTH_SHORT).show();
-            }
+            } else Toast.makeText(requireContext(), "Was not approved!", Toast.LENGTH_SHORT).show();
+
         });
 
+    }
+
+    private double validateIncome(int amount) {
+        return (amount / 2.0) + (amount * 0.20);
     }
 
     private boolean isQualifiedAmount(String selected, String limit) {
