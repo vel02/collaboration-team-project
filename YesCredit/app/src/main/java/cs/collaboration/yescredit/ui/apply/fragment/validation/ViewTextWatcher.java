@@ -72,6 +72,13 @@ public class ViewTextWatcher implements TextWatcher {
             EditText describe = views.get(0);
 
             toMove.setEnabled(!describe.getText().toString().isEmpty());
+        } else if (tag != null && !tag.isEmpty() && tag.equals("six")
+                && views != null && views.size() > 0) {
+            EditText sourceOfIncome = views.get(0);
+            EditText incomePerMonth = views.get(1);
+
+            toMove.setEnabled(!sourceOfIncome.getText().toString().isEmpty() &&
+                    !incomePerMonth.getText().toString().isEmpty());
         }
     }
 

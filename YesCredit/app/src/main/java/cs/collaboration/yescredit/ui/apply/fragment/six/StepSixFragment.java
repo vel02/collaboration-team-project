@@ -9,15 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepSixBinding;
 import cs.collaboration.yescredit.ui.apply.Hostable;
+import cs.collaboration.yescredit.ui.apply.fragment.validation.ViewTextWatcher;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
@@ -42,8 +47,17 @@ public class StepSixFragment extends DaggerFragment {
         binding = FragmentStepSixBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this, providerFactory).get(StepSixViewModel.class);
         subscribeObservers();
+        initialization();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        List<EditText> views = Arrays.asList(binding.fragmentSixSourceOfIncome, binding.fragmentSixIncomePerMonth);
+
+        ViewTextWatcher viewTextWatcher = new ViewTextWatcher(views, binding.fragmentSixNext, "six");
+        binding.fragmentSixSourceOfIncome.addTextChangedListener(viewTextWatcher);
+        binding.fragmentSixIncomePerMonth.addTextChangedListener(viewTextWatcher);
     }
 
 
