@@ -80,7 +80,7 @@
                 android:background="@drawable/edit_round_corner"
                 android:importantForAutofill="no"
                 android:inputType="number|numberDecimal"
-                android:maxLength="10"
+                android:maxLength="8"
                 android:padding="6dp"
                 tools:ignore="LabelFor" />
 

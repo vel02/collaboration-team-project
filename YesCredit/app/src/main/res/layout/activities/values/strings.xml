@@ -220,6 +220,7 @@
     <string name="you_don_t_have_available_transaction_label">You don\'t have available transaction</string>
     <string name="pay_now_label">Pay Now</string>
     <string name="confirmed_label">Confirmed</string>
+    <string name="no_available_label">No Available</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

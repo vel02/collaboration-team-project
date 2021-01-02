@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentStepFourBinding;
+import cs.collaboration.yescredit.model.Address;
 import cs.collaboration.yescredit.ui.apply.Hostable;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
@@ -30,6 +31,7 @@ public class StepFourFragment extends DaggerFragment {
     private FragmentStepFourBinding binding;
     private StepFourViewModel viewModel;
     private UserForm userForm;
+    private Address address;
     private Hostable hostable;
 
     @Override
@@ -60,6 +62,13 @@ public class StepFourFragment extends DaggerFragment {
             }
         });
 
+        viewModel.observedInitialAddress().removeObservers(getViewLifecycleOwner());
+        viewModel.observedInitialAddress().observe(getViewLifecycleOwner(), address -> {
+            if (address != null) {
+                StepFourFragment.this.address = address;
+            }
+        });
+
     }
 
     private void navigation() {
@@ -69,6 +78,15 @@ public class StepFourFragment extends DaggerFragment {
         binding.fragmentFourAddressRoot.setOnClickListener(v -> hostable.onInflate(v, getString(R.string.tag_fragment_address)));
 
         binding.fragmentFourNext.setOnClickListener(v -> {
+
+            if (address != null) {
+                address.setAddress_street(userForm.getStreet_address());
+                address.setAddress_barangay(userForm.getBarangay_address());
+                address.setAddress_city(userForm.getCity_address());
+                address.setAddress_province(userForm.getProvince_address());
+                address.setAddress_zipcode(userForm.getPostal_address());
+                viewModel.updateInitialAddress(address);
+            }
             hostable.onSaveUserInfo(userForm);
             hostable.onInflate(v, getString(R.string.tag_fragment_step_five));
         });

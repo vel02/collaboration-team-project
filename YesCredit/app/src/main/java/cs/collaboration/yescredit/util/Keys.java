@@ -37,4 +37,8 @@ public class Keys {
     public static final String DATABASE_FIELD_PROVINCE_ADDRESS = "province_address";
     public static final String DATABASE_FIELD_POSTAL_ADDRESS = "postal_address";
 
+    //FIELD ADDRESS
+    public static final String DATABASE_FIELD_ADDRESS_STATUS = "address_status";
+    public static final String DATABASE_FIELD_ADDRESS_SELECTED = "address_selected";
+
 }

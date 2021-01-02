@@ -43,11 +43,14 @@ public class PaymentPreferenceFragment extends DaggerFragment {
     }
 
     private void initialization() {
+        binding.fragmentPaymentPrefCardName.setText(R.string.no_available_label);
         reference = FirebaseDatabase.getInstance().getReference();
         getUserCard();
 
         binding.fragmentPaymentPrefCard.setOnClickListener(v -> {
-            hostable.onInflate(v, getString(R.string.tag_fragment_payment_preference));
+            if (!binding.fragmentPaymentPrefCardName.getText().toString().equals("No Available")) {
+                hostable.onInflate(v, getString(R.string.tag_fragment_payment_preference));
+            }
         });
     }
 

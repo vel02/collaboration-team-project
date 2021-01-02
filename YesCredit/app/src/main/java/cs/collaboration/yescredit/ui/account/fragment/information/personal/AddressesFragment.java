@@ -75,7 +75,9 @@ public class AddressesFragment extends DaggerFragment {
                         assert address != null;
                         addresses.add(address);
                     }
-                    AddressesFragment.this.adapter.refresh(addresses);
+                    if (!addresses.get(0).getAddress_status().equals("initial")) {
+                        AddressesFragment.this.adapter.refresh(addresses);
+                    }
                 }
 
                 @Override

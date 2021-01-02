@@ -121,7 +121,7 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
                     if (address.getAddress_status().equals("primary")) {
                         binding.fragmentPersonalAddress.setText(addressFormatter(address));
                         return;
-                    }
+                    } else binding.fragmentPersonalAddress.setText(addressFormatter(address));
 
 
                 }
@@ -136,9 +136,14 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
     }
 
     private String addressFormatter(Address address) {
-        return address.getAddress_street() + ", " + address.getAddress_barangay()
-                + "\n" + address.getAddress_city() + "\n" + address.getAddress_province()
-                + "\n" + address.getAddress_zipcode() + " " + address.getAddress_province().toUpperCase();
+
+        if (!address.getAddress_street().isEmpty()) {
+            return address.getAddress_street() + ", " + address.getAddress_barangay()
+                    + "\n" + address.getAddress_city() + "\n" + address.getAddress_province()
+                    + "\n" + address.getAddress_zipcode() + " " + address.getAddress_province().toUpperCase();
+        }
+
+        return "No available";
     }
 
     private void setUserPhoneNumber(DatabaseReference reference, FirebaseUser currentUser) {
