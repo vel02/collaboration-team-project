@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,18 +32,55 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentPersonalBinding;
 import cs.collaboration.yescredit.model.Address;
 import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.GeneratePhotoFragment;
+import cs.collaboration.yescredit.util.RxBackgroundImageResize;
 import dagger.android.support.DaggerFragment;
 
-public class PersonalFragment extends DaggerFragment implements GeneratePhotoFragment.OnPhotoReceivedListener {
+public class PersonalFragment extends DaggerFragment implements GeneratePhotoFragment.OnPhotoReceivedListener, RxBackgroundImageResize.OnExecuteUploadListener {
+
+    @Override
+    public void onExecuteUpload(byte[] bytes) {
+
+        String FIREBASE_IMAGE_STORAGE = "images/users";
+
+        final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                .child(FIREBASE_IMAGE_STORAGE + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid()
+                        + "/profile_image");
+
+        if (bytes.length / MB < MB_THRESHOLD) {
+
+            UploadTask uploadTask = storageReference.putBytes(bytes);
+
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                Task<Uri> firebaseURL = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+
+                firebaseURL.addOnSuccessListener(uri -> {
+                    if (uri != null) {
+                        Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+
+                            reference.child(getString(R.string.database_node_users))
+                                    .child(user.getUid())
+                                    .child(getString(R.string.database_field_profile_image)).setValue(uri.toString());
+
+                        }
+
+                    }
+                }).addOnFailureListener(e -> Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e -> Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show());
+        } else {
+            Toast.makeText(getActivity(), "Image is too Large", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public void getImagePath(Uri imagePath) {
@@ -77,18 +110,20 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
     private static final double MB = 1000000.0;
 
     private FragmentPersonalBinding binding;
+    private RxBackgroundImageResize resize;
     private Activity activity;
     private Hostable hostable;
 
     private boolean storagePermissions;
     private Uri selectedImageUri;
     private Bitmap selectedImageBitmap;
-    private byte[] bytes;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPersonalBinding.inflate(inflater);
+        resize = new RxBackgroundImageResize(requireActivity());
+        resize.setOnExecuteUploadListener(this);
         getUserInfo();
         navigation();
         return binding.getRoot();
@@ -254,136 +289,11 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
 
 
     private void uploadNewPhoto(Uri imageUri) {
-        BackgroundImageResize resize = new BackgroundImageResize(null);
         resize.execute(imageUri);
     }
 
     private void uploadNewPhoto(Bitmap imageBitmap) {
-        BackgroundImageResize resize = new BackgroundImageResize(imageBitmap);
-        Uri uri = null;
-        resize.execute(uri);
-    }
-
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
-    }
-
-    public void executeUploadTask() {
-        String FIREBASE_IMAGE_STORAGE = "images/users";
-
-        final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                .child(FIREBASE_IMAGE_STORAGE + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid()
-                        + "/profile_image");
-
-        if (bytes.length / MB < MB_THRESHOLD) {
-
-            UploadTask uploadTask = storageReference.putBytes(bytes);
-
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> firebaseURL = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-
-                    firebaseURL.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            if (uri != null) {
-                                Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
-//
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user != null) {
-
-                                    reference.child(getString(R.string.database_node_users))
-                                            .child(user.getUid())
-                                            .child(getString(R.string.database_field_profile_image)).setValue(uri.toString());
-
-                                }
-
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        } else {
-            Toast.makeText(getActivity(), "Image is too Large", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    class BackgroundImageResize extends AsyncTask<Uri, Integer, byte[]> {
-
-        private static final String TAG = "BackgroundImageResize";
-        private static final double MB_THRESHOLD = 5.0;
-        private static final double MB = 1000000.0;
-
-        Bitmap bitmap;
-
-        public BackgroundImageResize(Bitmap bitmap) {
-            if (bitmap != null) {
-                this.bitmap = bitmap;
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(requireActivity(), "compressing image", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected byte[] doInBackground(Uri... uris) {
-            Log.d(TAG, "doInBackground: started.");
-
-            if (bitmap == null) {
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), uris[0]);
-                    Log.d(TAG, "doInBackground: bitmap size: megabytes: " + bitmap.getByteCount() / MB + " MB");
-                } catch (IOException e) {
-                    Log.e(TAG, "doInBackground: IOException: ", e.getCause());
-                }
-            }
-
-            byte[] bytes = null;
-            for (int i = 1; i < 11; i++) {
-                if (i == 10) {
-                    Toast.makeText(requireActivity(), "That image is too large.", Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                bytes = getBytesFromBitmap(bitmap, 100 / i);
-                Log.d(TAG, "doInBackground: megabytes: (" + (11 - i) + "0%) " + bytes.length / MB + " MB");
-                if (bytes.length / MB < MB_THRESHOLD) {
-                    return bytes;
-                }
-            }
-            return bytes;
-        }
-
-        @Override
-        protected void onPostExecute(byte[] bytes) {
-            super.onPostExecute(bytes);
-            setBytes(bytes);
-            executeUploadTask();
-        }
-
-        // convert from bitmap to byte array
-        private byte[] getBytesFromBitmap(Bitmap bitmap, int quality) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream);
-            return stream.toByteArray();
-        }
-
+        resize.execute(imageBitmap);
     }
 
     @Override
