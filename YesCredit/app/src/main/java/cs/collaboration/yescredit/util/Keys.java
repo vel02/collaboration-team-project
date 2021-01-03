@@ -37,6 +37,7 @@ public class Keys {
     public static final String DATABASE_FIELD_PROVINCE_ADDRESS = "province_address";
     public static final String DATABASE_FIELD_POSTAL_ADDRESS = "postal_address";
     public static final String DATABASE_FIELD_PROFILE_IMAGE = "profile_image";
+    public static final String DATABASE_FIELD_PHONE_NUMBER = "phone_number";
 
 
     //FIELD ADDRESS

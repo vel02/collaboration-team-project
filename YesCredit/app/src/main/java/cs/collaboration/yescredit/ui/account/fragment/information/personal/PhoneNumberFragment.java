@@ -30,7 +30,6 @@ public class PhoneNumberFragment extends DaggerFragment {
 
     private FragmentPhoneNumberBinding binding;
     private Activity activity;
-    private Hostable hostable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -85,13 +84,6 @@ public class PhoneNumberFragment extends DaggerFragment {
             throw new ClassCastException(activity.getClass().getSimpleName()
                     + " must implement Hostable interface.");
         }
-        hostable = (Hostable) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        hostable = null;
     }
 
     @Override
