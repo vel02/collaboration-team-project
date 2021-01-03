@@ -7,10 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +33,8 @@ public class SignUpViewModel extends ViewModel {
     private final MutableLiveData<State> progressBarState = new MutableLiveData<>();
     private final MutableLiveData<Boolean> redirectToLoginScreen = new MutableLiveData<>();
     private final MutableLiveData<Notification> notifications = new MutableLiveData<>();
+    private final MutableLiveData<String> notification = new MutableLiveData<>();
+
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
 
@@ -60,24 +58,22 @@ public class SignUpViewModel extends ViewModel {
         progressBarState.setValue(State.VISIBLE);
 
         auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "onComplete: " + task.isSuccessful());
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "onComplete: uid: " + auth.getCurrentUser().getUid());
+                .addOnCompleteListener(task -> {
+                    Log.d(TAG, "onComplete: " + task.isSuccessful());
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "onComplete: uid: " + auth.getCurrentUser().getUid());
 
-                            sendVerificationEmail();
-                            createInitialLoan();
-                            createInitialAddress();
-                            checkReferralCode(code);
-                            createNewUserStorage();
+                        sendVerificationEmail();
+                        createInitialLoan();
+                        createInitialAddress();
+                        checkReferralCode(code);
+                        createNewUserStorage();
 
-                        } else {
-                            Log.d(TAG, "onComplete: Unable to Register");
-                        }
-                        progressBarState.setValue(State.INVISIBLE);
+                    } else {
+                        Log.d(TAG, "onComplete: Unable to Register");
+                        notification.postValue("Unable to Register");
                     }
+                    progressBarState.setValue(State.INVISIBLE);
                 });
     }
 
@@ -168,19 +164,13 @@ public class SignUpViewModel extends ViewModel {
                 .child(Keys.DATABASE_NODE_USER)
                 .child(current.getUid())
                 .setValue(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        auth.signOut();
-                        redirectToLoginScreen.setValue(true);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                auth.signOut();
-                redirectToLoginScreen.setValue(true);
-                Log.d(TAG, "onFailure: something went wrong");
-            }
+                .addOnCompleteListener(task -> {
+                    auth.signOut();
+                    redirectToLoginScreen.setValue(true);
+                }).addOnFailureListener(e -> {
+            auth.signOut();
+            redirectToLoginScreen.setValue(true);
+            Log.d(TAG, "onFailure: something went wrong");
         });
     }
 
@@ -241,14 +231,11 @@ public class SignUpViewModel extends ViewModel {
     public void sendVerificationEmail() {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "onComplete: Send Verification Email");
-                    } else {
-                        Log.d(TAG, "onComplete: Couldn't Send Verification Email");
-                    }
+            user.sendEmailVerification().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    notification.postValue("Send Verification Email");
+                } else {
+                    notification.postValue("Couldn't Send Verification Email");
                 }
             });
         }
@@ -262,9 +249,14 @@ public class SignUpViewModel extends ViewModel {
         return redirectToLoginScreen;
     }
 
-    public LiveData<Notification> observeNotification() {
+    public LiveData<Notification> observeNotifications() {
         return notifications;
     }
+
+    public LiveData<String> observeNotification() {
+        return notification;
+    }
+
 
     public enum State {VISIBLE, INVISIBLE}
 

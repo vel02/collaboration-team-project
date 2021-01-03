@@ -130,18 +130,23 @@ public class SignUpActivity extends DaggerAppCompatActivity {
             }
         });
 
-        viewModel.observeNotification().observe(this, notification -> {
+        viewModel.observeNotifications().observe(this, notification -> {
             if (notification != null) {
                 switch (notification) {
                     case REFERRAL_SUCCESS:
                         Toast.makeText(SignUpActivity.this, "Referral Code Success", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "subscribeObservers: Referral Code Success");
                         break;
                     case REFERRAL_FAILED:
-//                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "subscribeObservers: Referral Code Failed");
+                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
                         break;
                 }
+            }
+        });
+
+        viewModel.observeNotification().observe(this, message -> {
+            if (message != null && !message.isEmpty()) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         });
 

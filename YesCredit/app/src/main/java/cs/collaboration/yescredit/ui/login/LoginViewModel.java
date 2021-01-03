@@ -2,21 +2,16 @@ package cs.collaboration.yescredit.ui.login;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
 
-import static cs.collaboration.yescredit.ui.login.LoginViewModel.Screen.*;
+import static cs.collaboration.yescredit.ui.login.LoginViewModel.Screen.HOME;
 import static cs.collaboration.yescredit.ui.login.LoginViewModel.State.INVISIBLE;
 import static cs.collaboration.yescredit.ui.login.LoginViewModel.State.VISIBLE;
 
@@ -26,6 +21,7 @@ public class LoginViewModel extends ViewModel {
 
     private final MutableLiveData<State> progressBarState = new MutableLiveData<>();
     private final MutableLiveData<Screen> screenState = new MutableLiveData<>();
+    private final MutableLiveData<String> notification = new MutableLiveData<>();
 
 
     private final FirebaseAuth auth;
@@ -33,48 +29,37 @@ public class LoginViewModel extends ViewModel {
 
     @Inject
     public LoginViewModel() {
-        Log.d(TAG, "LoginViewModel: view model is working...");
         auth = FirebaseAuth.getInstance();
     }
 
     public void signIn(String email, String password) {
         progressBarState.setValue(VISIBLE);
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBarState.setValue(INVISIBLE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: Authentication Failed");
-                progressBarState.setValue(INVISIBLE);
-            }
-        });
+                .addOnCompleteListener(task -> progressBarState.setValue(INVISIBLE))
+                .addOnFailureListener(e -> {
+                    notification.postValue("Authentication Failed");
+                    progressBarState.setValue(INVISIBLE);
+                });
     }
 
     public void authStateListener() {
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+        authStateListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
 
-                    if (user.isEmailVerified()) {
+                if (user.isEmailVerified()) {
 
-                        Log.d(TAG, "onAuthStateChanged: sign_in: " + user.getUid());
-                        Log.d(TAG, "onAuthStateChanged: Authenticated with: " + user.getEmail());
+                    Log.d(TAG, "onAuthStateChanged: sign_in: " + user.getUid());
+                    Log.d(TAG, "onAuthStateChanged: Authenticated with: " + user.getEmail());
 
-                        screenState.setValue(HOME);
-                    } else {
-                        Log.d(TAG, "onAuthStateChanged: Check Your Email Inbox for a Verification Link");
-                        auth.signOut();
-                    }
-
+                    screenState.setValue(HOME);
                 } else {
-                    Log.d(TAG, "onAuthStateChanged: sign_out");
+                    notification.postValue("Check Your Email Inbox for a Verification Link");
+                    auth.signOut();
                 }
+
+            } else {
+                Log.d(TAG, "onAuthStateChanged: sign_out");
             }
         };
 
@@ -88,12 +73,16 @@ public class LoginViewModel extends ViewModel {
         return screenState;
     }
 
+    public LiveData<String> observeNotification() {
+        return notification;
+    }
+
     public void setScreenState(Screen screen) {
         this.screenState.setValue(screen);
     }
 
     public void registerAuthListener() {
-      auth.addAuthStateListener(authStateListener);
+        auth.addAuthStateListener(authStateListener);
     }
 
     public void unregisterAuthListener() {

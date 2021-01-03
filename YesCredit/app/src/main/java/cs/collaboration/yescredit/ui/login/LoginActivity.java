@@ -128,6 +128,12 @@ public class LoginActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+
+        viewModel.observeNotification().observe(this, message -> {
+            if (message != null && !message.isEmpty()) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void showHidePass(View view) {
