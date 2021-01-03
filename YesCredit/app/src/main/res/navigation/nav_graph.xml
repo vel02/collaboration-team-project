@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_step_one">
         <action
             android:id="@+id/action_stepOneFragment_to_stepTwoFragment"
-            app:destination="@id/stepTwoFragment" />
+            app:destination="@id/stepTwoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -21,7 +25,11 @@
         tools:layout="@layout/fragment_step_two">
         <action
             android:id="@+id/action_stepTwoFragment_to_stepThreeFragment"
-            app:destination="@id/stepThreeFragment" />
+            app:destination="@id/stepThreeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -31,7 +39,11 @@
         tools:layout="@layout/fragment_step_three">
         <action
             android:id="@+id/action_stepThreeFragment_to_stepFourFragment"
-            app:destination="@id/stepFourFragment" />
+            app:destination="@id/stepFourFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/stepFourFragment"
@@ -40,13 +52,25 @@
         tools:layout="@layout/fragment_step_four">
         <action
             android:id="@+id/action_stepFourFragment_to_personalInfoFragment"
-            app:destination="@id/personalInfoFragment" />
+            app:destination="@id/personalInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_stepFourFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_stepFourFragment_to_stepFiveFragment"
-            app:destination="@id/stepFiveFragment" />
+            app:destination="@id/stepFiveFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
@@ -65,7 +89,11 @@
         tools:layout="@layout/fragment_step_five">
         <action
             android:id="@+id/action_stepFiveFragment_to_stepSixFragment"
-            app:destination="@id/stepSixFragment" />
+            app:destination="@id/stepSixFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/stepSixFragment"
@@ -74,7 +102,11 @@
         tools:layout="@layout/fragment_step_six">
         <action
             android:id="@+id/action_stepSixFragment_to_submitFragment"
-            app:destination="@id/submitFragment" />
+            app:destination="@id/submitFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/submitFragment"
@@ -83,7 +115,11 @@
         tools:layout="@layout/fragment_submit">
         <action
             android:id="@+id/action_submitFragment_to_amountFragment"
-            app:destination="@id/amountFragment" />
+            app:destination="@id/amountFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/amountFragment"
@@ -92,7 +128,11 @@
         tools:layout="@layout/fragment_amount">
         <action
             android:id="@+id/action_amountFragment_to_approvedFragment"
-            app:destination="@id/approvedFragment" />
+            app:destination="@id/approvedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/approvedFragment"
@@ -101,7 +141,11 @@
         tools:layout="@layout/fragment_approved">
         <action
             android:id="@+id/action_approvedFragment_to_scheduleFragment"
-            app:destination="@id/scheduleFragment" />
+            app:destination="@id/scheduleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -110,7 +154,11 @@
         tools:layout="@layout/fragment_schedule">
         <action
             android:id="@+id/action_scheduleFragment_to_receiptFragment"
-            app:destination="@id/receiptFragment" />
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/receiptFragment"
