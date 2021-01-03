@@ -12,13 +12,25 @@
         tools:layout="@layout/fragment_information">
         <action
             android:id="@+id/action_personalInformationFragment_to_personalFragment"
-            app:destination="@id/personalFragment" />
+            app:destination="@id/personalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_personalInformationFragment_to_cardAccountFragment"
-            app:destination="@id/cardAccountFragment" />
+            app:destination="@id/cardAccountFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_personalInformationFragment_to_paymentPreferenceFragment"
-            app:destination="@id/paymentPreferenceFragment" />
+            app:destination="@id/paymentPreferenceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/personalFragment"
@@ -27,10 +39,18 @@
         tools:layout="@layout/fragment_personal">
         <action
             android:id="@+id/action_personalFragment_to_phoneNumberFragment"
-            app:destination="@id/phoneNumberFragment" />
+            app:destination="@id/phoneNumberFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_personalFragment_to_addressesFragment"
-            app:destination="@id/addressesFragment" />
+            app:destination="@id/addressesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/cardAccountFragment"
@@ -39,10 +59,18 @@
         tools:layout="@layout/fragment_card_account">
         <action
             android:id="@+id/action_cardAccountFragment_to_addCardFragment"
-            app:destination="@id/addCardFragment" />
+            app:destination="@id/addCardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_cardAccountFragment_to_viewCardFragment"
-            app:destination="@id/viewCardFragment" />
+            app:destination="@id/viewCardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
@@ -51,7 +79,11 @@
         tools:layout="@layout/fragment_add_card">
         <action
             android:id="@+id/action_addCardFragment_to_billingAddressFragment"
-            app:destination="@id/billingAddressFragment" />
+            app:destination="@id/billingAddressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/billingAddressFragment"
@@ -60,7 +92,11 @@
         tools:layout="@layout/fragment_billing_address">
         <action
             android:id="@+id/action_billingAddressFragment_to_addBillingFragment"
-            app:destination="@id/addBillingFragment" />
+            app:destination="@id/addBillingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/addBillingFragment"
@@ -74,7 +110,11 @@
         tools:layout="@layout/fragment_payment_preference">
         <action
             android:id="@+id/action_paymentPreferenceFragment_to_paymentMethodFragment"
-            app:destination="@id/paymentMethodFragment" />
+            app:destination="@id/paymentMethodFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/phoneNumberFragment"
@@ -88,7 +128,11 @@
         tools:layout="@layout/fragment_addresses">
         <action
             android:id="@+id/action_addressesFragment_to_addAddressFragment"
-            app:destination="@id/addAddressFragment" />
+            app:destination="@id/addAddressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/addAddressFragment"
@@ -105,7 +149,11 @@
             app:argType="cs.collaboration.yescredit.ui.account.model.Card" />
         <action
             android:id="@+id/action_viewCardFragment_to_editCardFragment"
-            app:destination="@id/editCardFragment" />
+            app:destination="@id/editCardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/editCardFragment"

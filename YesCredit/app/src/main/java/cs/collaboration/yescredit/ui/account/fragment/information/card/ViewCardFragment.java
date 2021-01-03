@@ -131,6 +131,13 @@ public class ViewCardFragment extends DaggerFragment {
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.getChildrenCount() == 1) {
+                            reference.child(getString(R.string.database_node_cards))
+                                    .child(card.getId()).removeValue();
+                            requireActivity().onBackPressed();
+                        }
+
                         for (DataSnapshot singleShot : snapshot.getChildren()) {
 
                             cs.collaboration.yescredit.model.Card current = singleShot.getValue(cs.collaboration.yescredit.model.Card.class);
@@ -151,6 +158,8 @@ public class ViewCardFragment extends DaggerFragment {
                                 requireActivity().onBackPressed();
                                 return;
                             }
+
+
                         }
                     }
 
