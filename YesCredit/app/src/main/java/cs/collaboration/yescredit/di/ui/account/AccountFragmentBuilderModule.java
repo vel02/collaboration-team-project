@@ -2,6 +2,8 @@ package cs.collaboration.yescredit.di.ui.account;
 
 import cs.collaboration.yescredit.di.ui.account.information.InformationScope;
 import cs.collaboration.yescredit.di.ui.account.information.InformationViewModelModule;
+import cs.collaboration.yescredit.di.ui.account.information.personal.PersonalScope;
+import cs.collaboration.yescredit.di.ui.account.information.personal.PersonalViewModelModule;
 import cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment;
@@ -29,7 +31,12 @@ public abstract class AccountFragmentBuilderModule {
     )
     abstract InformationFragment contributeInformationFragment();
 
-    @ContributesAndroidInjector
+    @PersonalScope
+    @ContributesAndroidInjector(
+            modules = {
+                    PersonalViewModelModule.class
+            }
+    )
     abstract PersonalFragment contributePersonalFragment();
 
     @ContributesAndroidInjector

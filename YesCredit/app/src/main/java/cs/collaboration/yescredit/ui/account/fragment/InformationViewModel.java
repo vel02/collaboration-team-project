@@ -37,10 +37,9 @@ public class InformationViewModel extends ViewModel {
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser();
         this.user = new MutableLiveData<>();
         this.email = new MutableLiveData<>();
-        getUserInformation();
     }
 
-    private void getUserInformation() {
+    public void getUserInformation() {
         if (currentUser != null) {
 
             Query query = reference.child(DATABASE_NODE_USER)

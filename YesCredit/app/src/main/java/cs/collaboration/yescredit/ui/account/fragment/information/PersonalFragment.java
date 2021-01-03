@@ -17,69 +17,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentPersonalBinding;
 import cs.collaboration.yescredit.model.Address;
-import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.ui.account.Hostable;
 import cs.collaboration.yescredit.ui.apply.dialog.GeneratePhotoFragment;
 import cs.collaboration.yescredit.util.RxBackgroundImageResize;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class PersonalFragment extends DaggerFragment implements GeneratePhotoFragment.OnPhotoReceivedListener, RxBackgroundImageResize.OnExecuteUploadListener {
 
     @Override
     public void onExecuteUpload(byte[] bytes) {
-
-        String FIREBASE_IMAGE_STORAGE = "images/users";
-
-        final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                .child(FIREBASE_IMAGE_STORAGE + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid()
-                        + "/profile_image");
-
-        if (bytes.length / MB < MB_THRESHOLD) {
-
-            UploadTask uploadTask = storageReference.putBytes(bytes);
-
-            uploadTask.addOnSuccessListener(taskSnapshot -> {
-                Task<Uri> firebaseURL = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-
-                firebaseURL.addOnSuccessListener(uri -> {
-                    if (uri != null) {
-                        Toast.makeText(getActivity(), "Upload Success", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onSuccess: firebase download url : " + uri.toString());
-
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if (user != null) {
-
-                            reference.child(getString(R.string.database_node_users))
-                                    .child(user.getUid())
-                                    .child(getString(R.string.database_field_profile_image)).setValue(uri.toString());
-
-                        }
-
-                    }
-                }).addOnFailureListener(e -> Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show());
-            }).addOnFailureListener(e -> Toast.makeText(getActivity(), "could not upload photo", Toast.LENGTH_SHORT).show());
-        } else {
-            Toast.makeText(getActivity(), "Image is too Large", Toast.LENGTH_SHORT).show();
-        }
+        viewModel.uploadUserImage(bytes);
     }
 
     @Override
@@ -104,13 +61,15 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
         }
     }
 
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
     private static final String TAG = "PersonalFragment";
     private static final int REQUEST_CODE = 1234;
-    private static final double MB_THRESHOLD = 5.0;
-    private static final double MB = 1000000.0;
 
     private FragmentPersonalBinding binding;
     private RxBackgroundImageResize resize;
+    private PersonalViewModel viewModel;
     private Activity activity;
     private Hostable hostable;
 
@@ -122,49 +81,49 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPersonalBinding.inflate(inflater);
+        viewModel = new ViewModelProvider(this, providerFactory).get(PersonalViewModel.class);
         resize = new RxBackgroundImageResize(requireActivity());
         resize.setOnExecuteUploadListener(this);
-        getUserInfo();
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getUserInfo() {
-        Log.d(TAG, "getUserInfo: started");
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            setUserProfile(reference, currentUser);
-            setUserPhoneNumber(reference, currentUser);
-            setUserPrimaryAddress(reference, currentUser);
-        }
-    }
+    private void subscribeObservers() {
 
-    private void setUserPrimaryAddress(DatabaseReference reference, FirebaseUser currentUser) {
-        Query query = reference.child(getString(R.string.database_node_address))
-                .orderByChild(getString(R.string.database_field_user_id_underscore))
-                .equalTo(currentUser.getUid());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                    Address address = singleShot.getValue(Address.class);
-                    assert address != null;
-
-                    if (address.getAddress_status().equals("primary")) {
-                        binding.fragmentPersonalAddress.setText(addressFormatter(address));
-                        return;
-                    } else binding.fragmentPersonalAddress.setText(addressFormatter(address));
-
-
-                }
+        viewModel.observedAddress().removeObservers(getViewLifecycleOwner());
+        viewModel.observedAddress().observe(getViewLifecycleOwner(), address -> {
+            if (address != null) {
+                binding.fragmentPersonalAddress.setText(addressFormatter(address));
             }
+        });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        viewModel.observedUser().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUser().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                binding.fragmentPersonalPhone.setText(!user.getPhone_number().isEmpty() ? user.getPhone_number() : "No available");
+                ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentPersonalImage);
+            }
+        });
 
+        viewModel.observedUserEmail().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserEmail().observe(getViewLifecycleOwner(), email -> {
+            if (email != null || !email.isEmpty()) {
+                binding.fragmentPersonalEmail.setText(email);
+            }
+        });
+
+        viewModel.observedUserImage().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserImage().observe(getViewLifecycleOwner(), uri -> {
+            if (uri != null || !uri.isEmpty()) {
+                ImageLoader.getInstance().displayImage(uri, binding.fragmentPersonalImage);
+            }
+        });
+
+        viewModel.observedUploadNotification().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUploadNotification().observe(getViewLifecycleOwner(), message -> {
+            if (message != null || !message.isEmpty()) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -179,68 +138,6 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
         }
 
         return "No available";
-    }
-
-    private void setUserPhoneNumber(DatabaseReference reference, FirebaseUser currentUser) {
-        Query query = reference.child(getString(R.string.database_node_users))
-                .orderByChild(getString(R.string.database_field_user_id_underscore))
-                .equalTo(currentUser.getUid());
-
-        Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
-                for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                    User user = singleShot.getValue(User.class);
-                    Log.d(TAG, "onDataChange: user " + user);
-                    if (user != null) {
-                        Log.d(TAG, "onDataChange: image " + user.getProfile_image());
-                        binding.fragmentPersonalPhone.setText(!user.getPhone_number().isEmpty() ? user.getPhone_number() : "No available");
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    private void setUserProfile(DatabaseReference reference, FirebaseUser currentUser) {
-        Query query = reference.child(getString(R.string.database_node_users))
-                .orderByChild(getString(R.string.database_field_user_id_underscore))
-                .equalTo(currentUser.getUid());
-
-        Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
-                for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                    User user = singleShot.getValue(User.class);
-                    Log.d(TAG, "onDataChange: user " + user);
-                    if (user != null) {
-                        Log.d(TAG, "onDataChange: image " + user.getProfile_image());
-                        ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentPersonalImage);
-                        binding.fragmentPersonalEmail.setText(currentUser.getEmail());
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void navigation() {
@@ -332,5 +229,7 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
         super.onResume();
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+        verifyStoragePermissions();
+        viewModel.getUserInformation();
     }
 }

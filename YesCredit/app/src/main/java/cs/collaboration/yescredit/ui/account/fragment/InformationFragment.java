@@ -114,5 +114,6 @@ public class InformationFragment extends DaggerFragment {
         super.onResume();
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+        viewModel.getUserInformation();
     }
 }
