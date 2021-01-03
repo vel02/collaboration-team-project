@@ -1,5 +1,7 @@
 package cs.collaboration.yescredit.di.ui.account;
 
+import cs.collaboration.yescredit.di.ui.account.information.InformationScope;
+import cs.collaboration.yescredit.di.ui.account.information.InformationViewModelModule;
 import cs.collaboration.yescredit.ui.account.fragment.information.CardAccountFragment;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragment;
 import cs.collaboration.yescredit.ui.account.fragment.information.PaymentPreferenceFragment;
@@ -19,7 +21,12 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class AccountFragmentBuilderModule {
 
-    @ContributesAndroidInjector
+    @InformationScope
+    @ContributesAndroidInjector(
+            modules = {
+                    InformationViewModelModule.class
+            }
+    )
     abstract InformationFragment contributeInformationFragment();
 
     @ContributesAndroidInjector

@@ -3,37 +3,35 @@ package cs.collaboration.yescredit.ui.account.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentInformationBinding;
-import cs.collaboration.yescredit.model.User;
 import cs.collaboration.yescredit.ui.account.Hostable;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class InformationFragment extends DaggerFragment {
 
     private static final String TAG = "PersonalInformationFrag";
 
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
     private FragmentInformationBinding binding;
+    private InformationViewModel viewModel;
     private Activity activity;
     private Hostable hostable;
 
@@ -42,48 +40,29 @@ public class InformationFragment extends DaggerFragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentInformationBinding.inflate(inflater);
-        getUserInfo();
+        viewModel = new ViewModelProvider(this, providerFactory).get(InformationViewModel.class);
+        subscribeObservers();
         navigation();
         return binding.getRoot();
     }
 
-    private void getUserInfo() {
-        Log.d(TAG, "getUserInfo: started");
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
+    private void subscribeObservers() {
 
-            Query query = reference.child(getString(R.string.database_node_users))
-                    .orderByChild(getString(R.string.database_field_user_id_underscore))
-                    .equalTo(currentUser.getUid());
+        viewModel.observedUserInformation().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserInformation().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentInformationImage);
+                binding.fragmentInformationName.setText(nameFormatter(user.getFirst_name(), user.getLast_name()));
+            }
+        });
 
-            Log.d(TAG, "getUserInfo: id " + currentUser.getUid());
+        viewModel.observedUserEmail().removeObservers(getViewLifecycleOwner());
+        viewModel.observedUserEmail().observe(getViewLifecycleOwner(), email -> {
+            if (email != null || !email.isEmpty()) {
+                binding.fragmentInformationEmail.setText(emailFormatter(Objects.requireNonNull(email)));
+            }
+        });
 
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Log.d(TAG, "onDataChange: shot " + snapshot.getChildren());
-                    for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                        User user = singleShot.getValue(User.class);
-                        Log.d(TAG, "onDataChange: user " + user);
-                        if (user != null) {
-                            Log.d(TAG, "onDataChange: image " + user.getProfile_image());
-                            ImageLoader.getInstance().displayImage(user.getProfile_image(), binding.fragmentInformationImage);
-                            binding.fragmentInformationEmail.setText(emailFormatter(Objects.requireNonNull(currentUser.getEmail())));
-                            binding.fragmentInformationName.setText(nameFormatter(user.getFirst_name(), user.getLast_name()));
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
     }
 
     private String nameFormatter(String first_name, String last_name) {
