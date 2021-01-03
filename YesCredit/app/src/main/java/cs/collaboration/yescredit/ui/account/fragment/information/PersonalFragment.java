@@ -93,9 +93,7 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
 
         viewModel.observedAddress().removeObservers(getViewLifecycleOwner());
         viewModel.observedAddress().observe(getViewLifecycleOwner(), address -> {
-            if (address != null) {
-                binding.fragmentPersonalAddress.setText(addressFormatter(address));
-            }
+            binding.fragmentPersonalAddress.setText(addressFormatter(address));
         });
 
         viewModel.observedUser().removeObservers(getViewLifecycleOwner());
@@ -131,7 +129,7 @@ public class PersonalFragment extends DaggerFragment implements GeneratePhotoFra
 
     private String addressFormatter(Address address) {
 
-        if (!address.getAddress_street().isEmpty()) {
+        if (address != null && !address.getAddress_street().isEmpty()) {
             return address.getAddress_street() + ", " + address.getAddress_barangay()
                     + "\n" + address.getAddress_city() + "\n" + address.getAddress_province()
                     + "\n" + address.getAddress_zipcode() + " " + address.getAddress_province().toUpperCase();

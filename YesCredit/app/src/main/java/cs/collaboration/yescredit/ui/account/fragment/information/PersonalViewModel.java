@@ -127,6 +127,7 @@ public class PersonalViewModel extends ViewModel {
     }
 
     private void getUserPrimaryAddress() {
+        PersonalViewModel.this.address.setValue(null);
 
         Query query = reference.child(Keys.DATABASE_NODE_ADDRESS)
                 .orderByChild(Keys.DATABASE_FIELD_USER_ID_WITH_UNDERSCORE)
