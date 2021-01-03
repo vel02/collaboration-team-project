@@ -9,28 +9,26 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import javax.inject.Inject;
 
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.FragmentPaymentPreferenceBinding;
 import cs.collaboration.yescredit.model.Card;
 import cs.collaboration.yescredit.ui.account.Hostable;
+import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 import dagger.android.support.DaggerFragment;
 
 public class PaymentPreferenceFragment extends DaggerFragment {
 
     private static final String TAG = "PaymentPreferenceFragme";
 
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
     private FragmentPaymentPreferenceBinding binding;
-    private DatabaseReference reference;
+    private PaymentPreferenceViewModel viewModel;
     private Activity activity;
     private Hostable hostable;
 
@@ -38,53 +36,30 @@ public class PaymentPreferenceFragment extends DaggerFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPaymentPreferenceBinding.inflate(inflater);
+        viewModel = new ViewModelProvider(this, providerFactory).get(PaymentPreferenceViewModel.class);
         initialization();
+        subscribeObservers();
         return binding.getRoot();
+    }
+
+    private void subscribeObservers() {
+        viewModel.observedCard().removeObservers(getViewLifecycleOwner());
+        viewModel.observedCard().observe(getViewLifecycleOwner(), card -> {
+            if (card != null) {
+                binding.fragmentPaymentPrefCardName.setText(card.getCard_name());
+                setFourDigitNumber(card);
+            }
+        });
     }
 
     private void initialization() {
         binding.fragmentPaymentPrefCardName.setText(R.string.no_available_label);
-        reference = FirebaseDatabase.getInstance().getReference();
-        getUserCard();
 
         binding.fragmentPaymentPrefCard.setOnClickListener(v -> {
             if (!binding.fragmentPaymentPrefCardName.getText().toString().equals("No Available")) {
                 hostable.onInflate(v, getString(R.string.tag_fragment_payment_preference));
             }
         });
-    }
-
-    private void getUserCard() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-
-            Query query = reference.child(getString(R.string.database_node_cards))
-                    .orderByChild(getString(R.string.database_field_user_id_underscore))
-                    .equalTo(user.getUid());
-
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot singleShot : snapshot.getChildren()) {
-
-                        Card current = singleShot.getValue(Card.class);
-                        assert current != null;
-                        if (current.getCard_status().equals("primary")) {
-                            binding.fragmentPaymentPrefCardName.setText(current.getCard_name());
-                            setFourDigitNumber(current);
-                            return;
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
     }
 
     private void setFourDigitNumber(Card card) {
@@ -119,6 +94,7 @@ public class PaymentPreferenceFragment extends DaggerFragment {
         super.onResume();
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(activity.getResources().getColor(R.color.account_base));
+        viewModel.getUserCard();
     }
 
 }
