@@ -42,6 +42,7 @@
             tools:text="PHP 10,000" />
 
         <TextView
+            android:id="@+id/fragment_approved_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

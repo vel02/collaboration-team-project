@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import javax.inject.Inject;
 
@@ -87,9 +88,13 @@ public class AmountFragment extends DaggerFragment {
             enlistUserLoanInformation();
             int incomePerMonth = Integer.parseInt(loanForm.getIncomePerMonth());
             int selectedAmount = Integer.parseInt(selectedLoanAmount);
+            NavDirections action;
             if (validateIncome(incomePerMonth) >= selectedAmount) {
-                hostable.onInflate(v, getString(R.string.tag_fragment_approved));
-            } else Toast.makeText(requireContext(), "Was not approved!", Toast.LENGTH_SHORT).show();
+                action = AmountFragmentDirections.actionAmountFragmentToApprovedFragment(true);
+            } else {
+                action = AmountFragmentDirections.actionAmountFragmentToApprovedFragment(false);
+            }
+            Navigation.findNavController(v).navigate(action);
 
         });
 

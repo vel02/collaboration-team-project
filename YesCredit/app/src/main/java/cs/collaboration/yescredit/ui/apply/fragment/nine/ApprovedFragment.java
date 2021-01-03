@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
@@ -32,6 +33,8 @@ public class ApprovedFragment extends DaggerFragment {
     private ApprovedViewModel viewModel;
     private Hostable hostable;
 
+    private boolean isApproved;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +43,15 @@ public class ApprovedFragment extends DaggerFragment {
         subscribeObservers();
         navigation();
         return binding.getRoot();
+    }
+
+    private void initialization() {
+        if (!isApproved) {
+            binding.fragmentApprovedMessage.setTextColor(ResourcesCompat.getColor(getResources(), R.color.pink, null));
+            binding.fragmentApprovedMessage.setText(R.string.was_not_approved_label);
+            binding.fragmentApprovedChoose.setEnabled(false);
+            binding.fragmentApprovedChoose.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void subscribeObservers() {
@@ -77,4 +89,12 @@ public class ApprovedFragment extends DaggerFragment {
         hostable = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getArguments() != null) {
+            isApproved = ApprovedFragmentArgs.fromBundle(getArguments()).getIsApproved();
+            initialization();
+        }
+    }
 }

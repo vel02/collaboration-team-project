@@ -133,6 +133,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/approvedFragment"
@@ -146,6 +147,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="isApproved"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"

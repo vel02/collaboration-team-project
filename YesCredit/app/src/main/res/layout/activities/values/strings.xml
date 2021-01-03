@@ -221,6 +221,7 @@
     <string name="pay_now_label">Pay Now</string>
     <string name="confirmed_label">Confirmed</string>
     <string name="no_available_label">No Available</string>
+    <string name="was_not_approved_label">Was not Approved!</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>

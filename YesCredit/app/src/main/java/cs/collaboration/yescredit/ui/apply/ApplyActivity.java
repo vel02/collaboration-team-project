@@ -16,7 +16,6 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
-import cs.collaboration.yescredit.ui.apply.fragment.eight.AmountFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragmentDirections;
@@ -93,11 +92,6 @@ public class ApplyActivity extends BaseActivity implements Hostable {
 
             case "tag_fragment_amount_application":
                 action = SubmitFragmentDirections.actionSubmitFragmentToAmountFragment();
-                Navigation.findNavController(view).navigate(action);
-                break;
-
-            case "tag_fragment_approved":
-                action = AmountFragmentDirections.actionAmountFragmentToApprovedFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
 
