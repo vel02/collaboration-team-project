@@ -6,6 +6,8 @@ import cs.collaboration.yescredit.di.ui.account.information.card.CardAccountScop
 import cs.collaboration.yescredit.di.ui.account.information.card.CardAccountViewModelModule;
 import cs.collaboration.yescredit.di.ui.account.information.personal.PersonalScope;
 import cs.collaboration.yescredit.di.ui.account.information.personal.PersonalViewModelModule;
+import cs.collaboration.yescredit.di.ui.account.information.personal.addresses.AddressesScope;
+import cs.collaboration.yescredit.di.ui.account.information.personal.addresses.AddressesViewModelModule;
 import cs.collaboration.yescredit.di.ui.account.information.preference.PaymentPreferenceScope;
 import cs.collaboration.yescredit.di.ui.account.information.preference.PaymentPreferenceViewModelModule;
 import cs.collaboration.yescredit.ui.account.fragment.InformationFragment;
@@ -71,7 +73,12 @@ public abstract class AccountFragmentBuilderModule {
     @ContributesAndroidInjector
     abstract PhoneNumberFragment contributePhoneNumberFragment();
 
-    @ContributesAndroidInjector
+    @AddressesScope
+    @ContributesAndroidInjector(
+            modules = {
+                    AddressesViewModelModule.class
+            }
+    )
     abstract AddressesFragment contributeAddressesFragment();
 
     @ContributesAndroidInjector
