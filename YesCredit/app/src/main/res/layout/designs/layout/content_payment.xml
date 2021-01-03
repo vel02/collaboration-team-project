@@ -224,6 +224,52 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/fragment_payment_no_credit_root"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/view_stroke_round_corner"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/content_payment_pay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/content_payment_total_root">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Available Credit Card"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Can't proceed payment"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <Button
+                    android:id="@+id/content_payment_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round_corner"
+                    android:text="Add Credit Card"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fragment_payment_credit_root"
                 android:layout_width="0dp"

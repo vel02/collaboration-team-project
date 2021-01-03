@@ -29,7 +29,8 @@ public class PaymentViewModel extends ViewModel {
     private final MutableLiveData<Boolean> confirmed;
     private final MutableLiveData<Boolean> complete;
     private final MutableLiveData<Boolean> show;
-    private final MutableLiveData<State> state;
+    private final MutableLiveData<State> statePayment;
+    private final MutableLiveData<State> stateCard;
     private final MutableLiveData<Loan> loan;
     private final MutableLiveData<Card> card;
     private final DatabaseReference reference;
@@ -46,7 +47,8 @@ public class PaymentViewModel extends ViewModel {
         complete.setValue(false);
         show.setValue(false);
 
-        state = new MutableLiveData<>();
+        statePayment = new MutableLiveData<>();
+        stateCard = new MutableLiveData<>();
         loan = new MutableLiveData<>();
         card = new MutableLiveData<>();
         reference = FirebaseDatabase.getInstance().getReference();
@@ -54,7 +56,7 @@ public class PaymentViewModel extends ViewModel {
     }
 
     public void showAvailableTransaction() {
-        state.setValue(NOT_AVAILABLE);
+        statePayment.setValue(NOT_AVAILABLE);
         if (user != null) {
 
             Query query = reference.child(Keys.DATABASE_NODE_LOAN)
@@ -70,7 +72,7 @@ public class PaymentViewModel extends ViewModel {
                         assert loan != null;
                         if (loan.getStatus().equals("on-going")) {
                             PaymentViewModel.this.loan.postValue(loan);
-                            PaymentViewModel.this.state.postValue(AVAILABLE);
+                            PaymentViewModel.this.statePayment.postValue(AVAILABLE);
                             return;
                         }
 
@@ -88,7 +90,7 @@ public class PaymentViewModel extends ViewModel {
     }
 
     public void getUserPrimaryCard() {
-
+        PaymentViewModel.this.stateCard.postValue(NOT_AVAILABLE);
         if (user != null) {
 
             Query query = reference.child(Keys.DATABASE_NODE_CARDS)
@@ -104,6 +106,7 @@ public class PaymentViewModel extends ViewModel {
                         assert current != null;
                         if (current.getCard_status().equals("primary")) {
                             PaymentViewModel.this.card.postValue(current);
+                            PaymentViewModel.this.stateCard.postValue(AVAILABLE);
                             return;
                         }
                     }
@@ -175,8 +178,12 @@ public class PaymentViewModel extends ViewModel {
         return complete;
     }
 
-    public LiveData<State> observedState() {
-        return state;
+    public LiveData<State> observedStatePayment() {
+        return statePayment;
+    }
+
+    public LiveData<State> observedStateCard() {
+        return stateCard;
     }
 
     public LiveData<Loan> observedLoan() {

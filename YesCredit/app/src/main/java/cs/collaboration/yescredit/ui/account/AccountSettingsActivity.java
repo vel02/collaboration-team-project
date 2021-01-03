@@ -94,13 +94,25 @@ public class AccountSettingsActivity extends BaseActivity implements Hostable {
 
     private NavController navController;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
         navigationController();
         navigation();
+    }
+
+    private void getActionPayment() {
+
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            boolean isCalled = intent.getBoolean("add_credit_card", false);
+            if (isCalled) {
+                NavDirections action = InformationFragmentDirections.actionPersonalInformationFragmentToAddCardFragment();
+                navController.navigate(action);
+            }
+        }
+
     }
 
     private void navigationController() {
@@ -126,6 +138,7 @@ public class AccountSettingsActivity extends BaseActivity implements Hostable {
     protected void onResume() {
         super.onResume();
         checkAuthenticationState();
+        getActionPayment();
     }
 
 }

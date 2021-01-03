@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.ui.payment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityPaymentBinding;
 import cs.collaboration.yescredit.model.Card;
+import cs.collaboration.yescredit.ui.account.AccountSettingsActivity;
 import cs.collaboration.yescredit.viewmodel.ViewModelProviderFactory;
 
 import static cs.collaboration.yescredit.util.Utility.currencyFormatterWithFixDecimal;
@@ -29,6 +31,7 @@ public class PaymentActivity extends BaseActivity {
     ViewModelProviderFactory providerFactory;
 
     private PaymentViewModel viewModel;
+    private boolean isAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,15 @@ public class PaymentActivity extends BaseActivity {
             }
 
             if (!viewModel.getShow()) {
-                viewModel.setShow(true);
-                viewModel.getUserPrimaryCard();
-                binding.contentPayment.fragmentPaymentCreditRoot.setVisibility(View.VISIBLE);
+
+                if (isAvailable) {
+                    viewModel.setShow(true);
+                    binding.contentPayment.fragmentPaymentCreditRoot.setVisibility(View.VISIBLE);
+                } else {
+                    binding.contentPayment.fragmentPaymentNoCreditRoot.setVisibility(View.VISIBLE);
+                    binding.contentPayment.fragmentPaymentCreditRoot.setVisibility(View.GONE);
+                    binding.contentPayment.contentPaymentPay.setVisibility(View.GONE);
+                }
             }
 
             if (viewModel.getConfirmed()) {
@@ -60,6 +69,17 @@ public class PaymentActivity extends BaseActivity {
         binding.contentPayment.fragmentPaymentCreditConfirm.setOnClickListener(v -> {
             viewModel.setConfirmed(true);
             setConfirmAttributes();
+        });
+
+        binding.contentPayment.contentPaymentAdd.setOnClickListener(v -> {
+
+            binding.contentPayment.fragmentPaymentNoCreditRoot.setVisibility(View.GONE);
+            binding.contentPayment.contentPaymentPay.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(this, AccountSettingsActivity.class);
+            intent.putExtra("add_credit_card", true);
+            startActivity(intent);
+
         });
 
     }
@@ -92,7 +112,7 @@ public class PaymentActivity extends BaseActivity {
             }
         });
 
-        viewModel.observedState().observe(this, state -> {
+        viewModel.observedStatePayment().observe(this, state -> {
             if (state != null) {
                 switch (state) {
                     case AVAILABLE:
@@ -102,6 +122,19 @@ public class PaymentActivity extends BaseActivity {
                     case NOT_AVAILABLE:
                         binding.contentPayment.contentPaymentReceiptRoot.setVisibility(View.GONE);
                         binding.contentPayment.contentPaymentStatusRoot.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
+
+        viewModel.observedStateCard().observe(this, state -> {
+            if (state != null) {
+                switch (state) {
+                    case AVAILABLE:
+                        isAvailable = true;
+                        break;
+                    case NOT_AVAILABLE:
+                        isAvailable = false;
                         break;
                 }
             }
@@ -141,6 +174,8 @@ public class PaymentActivity extends BaseActivity {
         if (viewModel.getShow()) {
             binding.contentPayment.fragmentPaymentCreditRoot.setVisibility(View.VISIBLE);
         }
+
+        viewModel.getUserPrimaryCard();
 
         if (viewModel.getConfirmed()) {
             setConfirmAttributes();
