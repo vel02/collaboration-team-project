@@ -132,14 +132,8 @@ public class SignUpActivity extends DaggerAppCompatActivity {
 
         viewModel.observeNotifications().observe(this, notification -> {
             if (notification != null) {
-                switch (notification) {
-                    case REFERRAL_SUCCESS:
-                        Toast.makeText(SignUpActivity.this, "Referral Code Success", Toast.LENGTH_SHORT).show();
-                        break;
-                    case REFERRAL_FAILED:
-                        Log.d(TAG, "subscribeObservers: Referral Code Failed");
-                        Toast.makeText(SignUpActivity.this, "Referral Code Failed", Toast.LENGTH_SHORT).show();
-                        break;
+                if (notification == SignUpViewModel.Notification.REFERRAL_SUCCESS) {
+                    Toast.makeText(SignUpActivity.this, "Referral Code Success", Toast.LENGTH_SHORT).show();
                 }
             }
         });
