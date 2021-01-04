@@ -1,5 +1,6 @@
 package cs.collaboration.yescredit.ui.apply;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
 import cs.collaboration.yescredit.R;
+import cs.collaboration.yescredit.ui.account.AccountSettingsActivity;
 import cs.collaboration.yescredit.ui.apply.fragment.five.StepFiveFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.four.StepFourFragmentDirections;
 import cs.collaboration.yescredit.ui.apply.fragment.nine.ApprovedFragmentDirections;
@@ -117,12 +119,27 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     private ApplyViewModel viewModel;
     private NavController navController;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply);
         viewModel = new ViewModelProvider(this, providerFactory).get(ApplyViewModel.class);
+        subscribeObservers();
         navigationController();
+    }
+
+    private void subscribeObservers() {
+        viewModel.observedStateCard().observe(this, state -> {
+            if (state != null) {
+                if (state == ApplyViewModel.State.NOT_AVAILABLE) {
+                    Intent intent = new Intent(this, AccountSettingsActivity.class);
+                    intent.putExtra("add_credit_card", true);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void navigationController() {
@@ -143,6 +160,7 @@ public class ApplyActivity extends BaseActivity implements Hostable {
     protected void onResume() {
         super.onResume();
         checkAuthenticationState();
+        viewModel.getUserPrimaryCard();
     }
 
     @Override

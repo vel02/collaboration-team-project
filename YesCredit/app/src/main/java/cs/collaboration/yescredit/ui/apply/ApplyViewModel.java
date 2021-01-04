@@ -2,18 +2,29 @@ package cs.collaboration.yescredit.ui.apply;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import javax.inject.Inject;
 
+import cs.collaboration.yescredit.model.Card;
 import cs.collaboration.yescredit.ui.apply.model.LoanForm;
 import cs.collaboration.yescredit.ui.apply.model.UserForm;
+import cs.collaboration.yescredit.util.Keys;
 
+import static cs.collaboration.yescredit.ui.apply.ApplyViewModel.State.AVAILABLE;
+import static cs.collaboration.yescredit.ui.apply.ApplyViewModel.State.NOT_AVAILABLE;
 import static cs.collaboration.yescredit.util.Keys.DATABASE_FIELD_BARANGAY_ADDRESS;
 import static cs.collaboration.yescredit.util.Keys.DATABASE_FIELD_CITY_ADDRESS;
 import static cs.collaboration.yescredit.util.Keys.DATABASE_FIELD_DATE_OF_BIRTH;
@@ -37,10 +48,15 @@ public class ApplyViewModel extends ViewModel {
     private final DatabaseReference reference;
     private final FirebaseUser user;
 
+    private final MutableLiveData<State> stateCard;
+
+
     @Inject
     public ApplyViewModel() {
         this.reference = FirebaseDatabase.getInstance().getReference();
         this.user = FirebaseAuth.getInstance().getCurrentUser();
+        this.stateCard = new MutableLiveData<>();
+
     }
 
     public void saveUserInputForm(UserForm form) {
@@ -61,6 +77,42 @@ public class ApplyViewModel extends ViewModel {
         }
     }
 
+    public void getUserPrimaryCard() {
+        if (user != null) {
+
+            Query query = reference.child(Keys.DATABASE_NODE_CARDS)
+                    .orderByChild(Keys.DATABASE_FIELD_USER_ID_WITH_UNDERSCORE)
+                    .equalTo(user.getUid());
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    boolean isAvailable = false;
+                    for (DataSnapshot singleShot : snapshot.getChildren()) {
+
+                        Card current = singleShot.getValue(Card.class);
+                        assert current != null;
+                        if (current.getCard_status().equals("primary")) {
+                            isAvailable = true;
+                            ApplyViewModel.this.stateCard.postValue(AVAILABLE);
+                        }
+                    }
+
+                    if (!isAvailable) {
+                        ApplyViewModel.this.stateCard.postValue(NOT_AVAILABLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+    }
+
+
     public void setUserForm(UserForm userForm) {
         sessionManager.setUserForm(userForm);
     }
@@ -79,5 +131,11 @@ public class ApplyViewModel extends ViewModel {
                 .child(userId)
                 .child(field).setValue(value);
     }
+
+    public LiveData<State> observedStateCard() {
+        return stateCard;
+    }
+
+    public enum State {AVAILABLE, NOT_AVAILABLE}
 
 }
