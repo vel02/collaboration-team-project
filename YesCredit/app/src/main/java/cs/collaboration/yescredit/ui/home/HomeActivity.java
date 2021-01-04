@@ -1,14 +1,18 @@
 package cs.collaboration.yescredit.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import javax.inject.Inject;
 
 import cs.collaboration.yescredit.BaseActivity;
+import cs.collaboration.yescredit.BuildConfig;
 import cs.collaboration.yescredit.R;
 import cs.collaboration.yescredit.databinding.ActivityHomeBinding;
 import cs.collaboration.yescredit.ui.account.AccountSettingsActivity;
@@ -129,7 +134,7 @@ public class HomeActivity extends BaseActivity {
         return true;
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -142,6 +147,20 @@ public class HomeActivity extends BaseActivity {
             case R.id.action_account_payment:
                 intent = new Intent(this, PaymentActivity.class);
                 startActivity(intent);
+                return true;
+
+            case R.id.action_account_about:
+                AlertDialog basic_reg;
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                LayoutInflater inflater = ((Activity) this).getLayoutInflater();
+                View v = inflater.inflate(R.layout.dialog_about, null);
+                TextView name = v.findViewById(R.id.about_version_name);
+                name.setText("v" + BuildConfig.VERSION_NAME);
+                builder.setView(v);
+                builder.setCancelable(true);
+                builder.create();
+                basic_reg = builder.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

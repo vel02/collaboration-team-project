@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/image_logo_yescredit"
+            android:src="@drawable/ic_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/app_name"
+            android:textAppearance="?attr/textAppearanceBody1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/about_version_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:textColor="@color/black"
+        tools:text="v1.0" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/about_app"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autoLink="web"
+        android:text="@string/about_weblink"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autoLink="web"
+        android:text="@string/about_credit"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+
+</LinearLayout>

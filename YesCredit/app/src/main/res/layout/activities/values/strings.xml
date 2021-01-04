@@ -222,25 +222,42 @@
     <string name="confirmed_label">Confirmed</string>
     <string name="no_available_label">No Available</string>
     <string name="was_not_approved_label">Was not Approved!</string>
+    <string name="image_logo_yescredit">Image Logo YesCredit</string>
+    <string name="about_app">Copyright © 2021 CS Collaboration Project</string>
+    <string name="about_weblink">Site available at www.facebook.com/globalcity.sti.edu</string>
+    <string name="about_credit">Icon derived from business and finance at flaticon.com by Anonymous</string>
 
     <string-array name="education_achieved_array">
         <item>High School Graduate</item>
         <item>Associate Degree</item>
         <item>Bachelor degree</item>
         <item>Master Degree</item>
-        <item>Professional Doctorate Degree</item>
+        <item>Doctorate Degree</item>
+        <item>Professional Degree</item>
     </string-array>
 
     <string-array name="reason_loaning_array">
-        <item>reason_loaning 1</item>
-        <item>reason_loaning 2</item>
-        <item>reason_loaning 3</item>
-        <item>reason_loaning 4</item>
+        <item>Consolidate debt to pay off bills</item>
+        <item>Cover unplanned emergency expenses</item>
+        <item>Make necessary home repairs</item>
+        <item>Starting a Small Business</item>
+        <item>Finance funeral expenses</item>
+        <item>Help cover moving costs</item>
+        <item>Make a large purchase</item>
+        <item>Unexpected Expenses</item>
+        <item>Debt consolidation</item>
+        <item>Emergency expenses</item>
+        <item>Home remodeling</item>
+        <item>Wedding expenses</item>
+        <item>Vacation costs</item>
     </string-array>
 
     <string-array name="civil_status_array">
-        <item>Single</item>
         <item>Married</item>
+        <item>Widowed</item>
+        <item>Separated</item>
+        <item>Divorced</item>
+        <item>Single</item>
     </string-array>
 
     <string-array name="available_amount_array">
